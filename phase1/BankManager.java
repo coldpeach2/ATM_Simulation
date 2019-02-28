@@ -1,19 +1,33 @@
 public class BankManager {
 
+    static Integer IdNum = new Integer();
 
     BankManager(){
-
     }
 
-    public void createUser(){
-
+    public User createUser(String name, String id){
+        //create a user with name, id, and pw.
+        //default password is 1111.
+        return new User(name, id ,"1111");
     }
 
-    public void undoTransaction(){
-
+    //TODO:
+    public Account createAccount(User name, int balance){
+        acc = new Account(idNum, balnce);
+        name.addAccount(acc); //neeed to be implemented in user.
+        idNum += 1;
     }
 
-    public void restock(){
+//    public void checkRequest(User name){
+//
+//    }
+    //TODO:
+    public void undoTransaction(Account acc){
+        acc.balance -= acc.lastTransaction
+    }
 
+    //TODO:
+    public void restock(ATM atm, int denom, int amount){
+        atm.denom += amount;
     }
 }
