@@ -1,12 +1,32 @@
 package AssetAccount;
 
-public class AssetAccount  {
+public abstract class AssetAccount {
+    private double TotalBalance = 0;
 
-    private double withdraw = 0;
-    private double deposit = 0;
-    private double amount = 0;
-
-    AssetAccount(){
+    AssetAccount() {
     }
-}
+
+    AssetAccount(double TotalBalance) {
+    }
+
 // new check
+
+
+    public double getTotalBalance() {
+     return TotalBalance;
+    }
+
+    public void withdraw(double amount){
+    }
+
+    public void deposit() {
+    }
+
+    public void transfer() {
+    }
+
+    public void payBill(){
+
+    }
+
+}

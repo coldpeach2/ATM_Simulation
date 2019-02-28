@@ -1,6 +1,6 @@
 package DebtAccount;
 
-public class DebtAccount {
+public abstract class DebtAccount {
 
     DebtAccount(){
     }

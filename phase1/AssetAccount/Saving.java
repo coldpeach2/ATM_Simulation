@@ -1,8 +1,9 @@
 package AssetAccount;
-public class Saving{
+
+public class Saving extends AssetAccount{
 
     private int Id;
-    private double balance;
+    public double balance;
 
 
     Saving(int Id, double balance){
@@ -22,5 +23,19 @@ public class Saving{
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    @Override
+    public void withdraw() {
+    }
+    @Override
+    public void deposit() {
+    }
+    @Override
+    public void transfer() {
+    }
+    @Override
+    public void payBill(){
+
     }
 }
