@@ -3,7 +3,10 @@ import java.util.ArrayList;
 public class User {
 
     private String name;
-    private final String id; // id should never be changed
+    private final Integer id; // id should never be changed
+
+
+
     private String password;
 
     //TODO: need an Account superclass to implement this ArrayList.
@@ -20,7 +23,7 @@ public class User {
      */
 
 
-    User(String name, String id, String password){
+    User(String name, Integer id, String password){
         this.name = name;
         this.id = id;
         this.password = password;
@@ -34,7 +37,7 @@ public class User {
         this.name = name;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
