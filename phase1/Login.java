@@ -5,12 +5,16 @@
 import java.util.*;
 import java.io.*;
 
-public class login{
+public class Login{
 
-    public static String name;
+    private static String name;
 
-    public login(){
+    public Login(){
         name = "";
+    }
+
+    public String getName(){
+        return name;
     }
 
     public static void main(String[] args) {
