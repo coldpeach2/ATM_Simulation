@@ -10,7 +10,7 @@ public class User {
     private String password;
 
     //TODO: need an Account superclass to implement this ArrayList.
-    /*private ArrayList<Account> accounts;*/
+    private ArrayList<Account> accounts;
 
 
     /**
@@ -47,6 +47,16 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public ArrayList<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void addAccount(Account account) {
+
+        accounts.add(account);
+
     }
 
 
