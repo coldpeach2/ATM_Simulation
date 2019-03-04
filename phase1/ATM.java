@@ -23,7 +23,8 @@ public class ATM {
         put(FIFTIES, DEFAULT_BILLS);
     }};
 
-    private User main_user;
+    private static User current_user;
+    private static  List<Account> current_bank_accounts;
 
     public void checkBills(){
 
@@ -53,6 +54,14 @@ public class ATM {
 
     }
 
+    public static List<Account> getAccounts() {
+        return current_user.getAccounts();
+    }
+
+    public static void viewBalance(Account account) {
+
+    }
+
     //TODO: Bianca I'm gonna let you do the login stuff lmaoo
 
     public static void main() {
@@ -60,6 +69,10 @@ public class ATM {
         /* main execution happens here */
 
         my_manager = new BankManager();
+
+        /* POST-LOGIN.. */
+
+        current_bank_accounts = getAccounts();
 
     }
 
