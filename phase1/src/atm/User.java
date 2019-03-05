@@ -1,31 +1,34 @@
+package atm;
+
+import atm.account.Account;
+import atm.account.asset.Checking;
+
 import java.util.ArrayList;
 
 public class User {
 
+    private final long id; // id should never be changed
     private String name;
-    private final Integer id; // id should never be changed
-
-
-
     private String password;
 
-    //TODO: need an Account superclass to implement this ArrayList.
-    private ArrayList<Account> accounts;
+    //TODO: need an atm.account superclass to implement this ArrayList.
+   // private ArrayList<Account> accounts;
 
+    private Checking primaryAccount;
 
     /**
-     * Basic constructor for User class.
+     * Basic constructor for atm.User class.
      * Every user should have a Name, id & Password.
      *
-     * @param name   User's full name
-     * @param id    a unique character sequence associated with this User
-     * @param password User's password
+     * @param name   atm.User's full name
+     * @param id    a unique character sequence associated with this atm.User
+     * @param password atm.User's password
      */
 
 
-    User(String name, Integer id, String password){
-        this.name = name;
+    User(long id, String name, String password, Account primaryAccount){
         this.id = id;
+        this.name = name;
         this.password = password;
     }
 
@@ -37,7 +40,7 @@ public class User {
         this.name = name;
     }
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 

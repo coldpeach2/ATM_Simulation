@@ -1,19 +1,22 @@
-/**
+package atm; /**
  * Created by biancapokhrel on 2019-03-03.
  */
 
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
 
-public class Login{
+public class Login {
 
     private static String name;
 
-    public Login(){
+    public Login() {
         name = "";
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
@@ -24,14 +27,15 @@ public class Login{
             FileReader f = new FileReader("users.csv");
             BufferedReader reader = new BufferedReader(f);
 
-            while (reader.readLine() != null) {lines++;}
+            while (reader.readLine() != null) {
+                lines++;
+            }
 
             reader.close();
 
-        }
-
-        catch (IOException file){
-            System.out.println("buffered reading issue");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            // System.out.println("buffered reading issue");
         }
 
 
@@ -58,31 +62,28 @@ public class Login{
                 //perform a quick check to see if it's reads properly
                 System.out.println(userInfo.length == 2);
 
-                if (enteredUN.equals(userInfo[0])){
+                if (enteredUN.equals(userInfo[0])) {
                     userExists = true;
-                    if (enteredPW.equals(userInfo[1])){
+                    if (enteredPW.equals(userInfo[1])) {
                         passwordCorrect = true;
                         successfulUser = userInfo[0];
                         break;
                     }
 
                 }
-                countLines ++;
+                countLines++;
 
             }
 
-            if (countLines == lines){
-                if (!userExists){
-                    System.out.println("User does not exist");
+            if (countLines == lines) {
+                if (!userExists) {
+                    System.out.println("atm.User does not exist");
                 }
-            }
-            else{
-                if (!passwordCorrect){
+            } else {
+                if (!passwordCorrect) {
                     System.out.println("Username/Password incorrect");
-                }
-
-                else{
-                    System.out.println("Login successful");
+                } else {
+                    System.out.println("atm.Login successful");
                     name = successfulUser;
                 }
             }
@@ -90,9 +91,7 @@ public class Login{
             scanFile.close();
             scanInput.close();
 
-        }
-
-        catch (IOException e) {
+        } catch (IOException e) {
 
             System.out.println("Log-in system is currently down");
 

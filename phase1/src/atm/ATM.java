@@ -1,5 +1,10 @@
+package atm;
+
+import atm.account.Account;
+
 import java.time.Clock;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -14,7 +19,7 @@ public class ATM {
     private static final int TWENTIES = 20;
     private static final int FIFTIES = 50;
 
-    /* Fill the ATM at start */
+    /* Fill the atm.ATM at start */
     private Map<Integer, Integer> dollarBills = new TreeMap<Integer, Integer>(Collections.reverseOrder())
     {{
         put(FIVES, DEFAULT_BILLS);
@@ -24,7 +29,7 @@ public class ATM {
     }};
 
     private static User current_user;
-    private static  List<Account> current_bank_accounts;
+    private static List<Account> current_bank_accounts;
 
     public void checkBills(){
 
