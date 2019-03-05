@@ -1,4 +1,4 @@
-package atm.account.debt;
+package atm.oldstuff.account.debt;
 
 public class LineOfCredit extends DebtAccount {
 

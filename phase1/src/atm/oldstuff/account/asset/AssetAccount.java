@@ -1,6 +1,6 @@
-package atm.account.asset;
+package atm.oldstuff.account.asset;
 
-import atm.account.Account;
+import atm.oldstuff.account.Account;
 
 public abstract class AssetAccount extends Account {
 

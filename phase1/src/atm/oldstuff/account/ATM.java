@@ -1,6 +1,4 @@
-package atm;
-
-import atm.account.Account;
+package atm.oldstuff.account;
 
 import java.time.Clock;
 import java.util.Collections;
@@ -19,7 +17,7 @@ public class ATM {
     private static final int TWENTIES = 20;
     private static final int FIFTIES = 50;
 
-    /* Fill the atm.ATM at start */
+    /* Fill the atm.oldstuff.account.ATM at start */
     private Map<Integer, Integer> dollarBills = new TreeMap<Integer, Integer>(Collections.reverseOrder())
     {{
         put(FIVES, DEFAULT_BILLS);
@@ -60,7 +58,8 @@ public class ATM {
     }
 
     public static List<Account> getAccounts() {
-        return current_user.getAccounts();
+   //     return current_user.getAccounts();
+        return null;
     }
 
     public static void viewBalance(Account account) {

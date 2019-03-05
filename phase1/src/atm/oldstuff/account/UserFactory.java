@@ -1,10 +1,6 @@
-package atm;
+package atm.oldstuff.account;
 
-import atm.account.Account;
-import atm.account.asset.Checking;
-import atm.account.asset.Saving;
-import atm.account.debt.Credit;
-import atm.account.debt.LineOfCredit;
+import atm.oldstuff.account.asset.Checking;
 
 public class UserFactory {
 

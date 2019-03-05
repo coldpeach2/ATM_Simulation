@@ -1,14 +1,18 @@
 package atm.model;
 
+import java.util.Date;
+
 public class AccountModel {
     private final long id;
     private final AccountType type;
     private double balance;
+    private final Date creationDate;
 
-    public AccountModel(long id, AccountType type, double balance) {
+    public AccountModel(long id, AccountType type, double balance, Date creationDate) {
         this.id = id;
         this.type = type;
         this.balance = balance;
+        this.creationDate = creationDate;
     }
 
     public long getId() {
@@ -25,6 +29,10 @@ public class AccountModel {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
     }
 
     public enum AccountType {

@@ -1,4 +1,4 @@
-package atm.account.asset;
+package atm.oldstuff.account.asset;
 
 public class Saving extends AssetAccount {
 

@@ -1,4 +1,4 @@
-package atm.account;
+package atm.oldstuff.account;
 
 public abstract class Account {
 

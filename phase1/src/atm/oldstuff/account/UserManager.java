@@ -1,4 +1,4 @@
-package atm;
+package atm.oldstuff.account;
 
 public class UserManager {
 

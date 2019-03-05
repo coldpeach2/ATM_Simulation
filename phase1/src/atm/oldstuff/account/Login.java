@@ -1,4 +1,4 @@
-package atm; /**
+package atm.oldstuff.account; /**
  * Created by biancapokhrel on 2019-03-03.
  */
 
@@ -77,13 +77,13 @@ public class Login {
 
             if (countLines == lines) {
                 if (!userExists) {
-                    System.out.println("atm.User does not exist");
+                    System.out.println("atm.oldstuff.account.User does not exist");
                 }
             } else {
                 if (!passwordCorrect) {
                     System.out.println("Username/Password incorrect");
                 } else {
-                    System.out.println("atm.Login successful");
+                    System.out.println("atm.oldstuff.account.Login successful");
                     name = successfulUser;
                 }
             }
@@ -92,9 +92,7 @@ public class Login {
             scanInput.close();
 
         } catch (IOException e) {
-
             System.out.println("Log-in system is currently down");
-
         }
     }
 

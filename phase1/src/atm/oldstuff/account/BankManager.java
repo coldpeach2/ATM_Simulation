@@ -1,11 +1,5 @@
-package atm;
+package atm.oldstuff.account;
 
-
-import atm.account.Account;
-import atm.account.asset.Checking;
-import atm.account.asset.Saving;
-import atm.account.debt.Credit;
-import atm.account.debt.LineOfCredit;
 
 import java.util.ArrayList;
 
@@ -19,9 +13,11 @@ public class BankManager {
 
     public User createUser(String name) {
         // Stub.
+        return null;
     }
 
-    //TODO: Requires method addAccount in atm.User.
+    /*
+    //TODO: Requires method addAccount in atm.oldstuff.account.User.
     public void createAccount(User user, int type){
         // Stub.
     }
@@ -38,7 +34,7 @@ public class BankManager {
 //
 //    }
 
-    //TODO: Requires atm.account class to be completed first
+    //TODO: Requires atm.oldstuff.account class to be completed first
     public void undoTransaction(Account acc){
         acc.balance -= acc.lastTransaction;
     }
@@ -50,5 +46,5 @@ public class BankManager {
 
     public ArrayList<User> getListOfUsers(){
         return listOfUsers;
-    }
+    }*/
 }

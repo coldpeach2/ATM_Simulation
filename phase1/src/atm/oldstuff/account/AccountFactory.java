@@ -1,10 +1,9 @@
-package atm;
+package atm.oldstuff.account;
 
-import atm.account.Account;
-import atm.account.asset.Checking;
-import atm.account.asset.Saving;
-import atm.account.debt.Credit;
-import atm.account.debt.LineOfCredit;
+import atm.oldstuff.account.asset.Checking;
+import atm.oldstuff.account.asset.Saving;
+import atm.oldstuff.account.debt.Credit;
+import atm.oldstuff.account.debt.LineOfCredit;
 
 public class AccountFactory {
 
@@ -32,7 +31,7 @@ public class AccountFactory {
             default:
                 throw new IllegalArgumentException();
         }
-        user.addAccount(acc); // Need to be implemented in user.
+        //user.addAccount(acc); // Need to be implemented in user.
         nextId++;
     }
 }
