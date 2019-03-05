@@ -1,4 +1,5 @@
 import AssetAccount.Saving;
+import AssetAccount.Checking;
 import DebtAccount.Credit;
 import DebtAccount.LineOfCredit;
 
@@ -18,20 +19,22 @@ public class BankManager{
         return new User(name, id ,"1111");
     }
 
+    //TODO: Write on csv file of list of users and pw everytime i create  user on accountfactory.
+
     //TODO: Requires method addAccount in User.
     public void createAccount(User name, float balance, int type){
         if(type == 1) {
             idNum = Integer.valueOf("11" + String.valueOf(idNum));
-            Credit acc = new Credit(idNum, balance);
+            Checking acc = new Checking(idNum, balance);
         } else if(type == 2){
             idNum = Integer.valueOf("12" + String.valueOf(idNum));
-            LineOfCredit acc = new LineOfCredit(idNum, balance);
+            Saving acc = new Saving(idNum, balance);
         } else if(type == 3){
             idNum = Integer.valueOf("21" + String.valueOf(idNum));
-            Checking acc = new Checking(idNum, balance);
+            Credit acc = new Credit(idNum, balance);
         } else {
             idNum = Integer.valueOf("22" + String.valueOf(idNum));
-            Saving acc = new Saving(idNum, balance);
+            LineOfCredit acc = new LineOfCredit(idNum, balance);
         }
         name.addAccount(acc); //need to be implemented in user.
         idNum += 1;
