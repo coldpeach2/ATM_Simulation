@@ -1,4 +1,4 @@
-package src.atm.oldstuff.account;
+package atm.oldstuff.account;
 
 import atm.oldstuff.account.asset.Checking;
 import atm.oldstuff.account.asset.Saving;

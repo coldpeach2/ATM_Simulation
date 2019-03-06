@@ -1,20 +1,17 @@
 package atm.oldstuff.account;
 
-import java.time.Clock;
 import java.util.*;
-
-import src.atm.model.*;
 
 import java.io.*;
 
 public class ATM {
 
-    private static User current_user;
-    private static List<Account> current_bank_accounts;
+    private User current_user;
+    private List<Account> current_bank_accounts;
 
 
     //need to figure out how this module is supposed to store/interact with the bank data.
-    private TreeMap dollarBills = src.atm.model.ATMModel.getDollarBills();
+    private TreeMap<Integer, Integer> dollarBills = (TreeMap<Integer, Integer>) ATMData.getDollarBills();
 
     public void checkBills(){
 
@@ -73,22 +70,22 @@ public class ATM {
     }
 
 
-    public static List<Account> getAccounts() {
+    public List<Account> getAccounts() {
    //     return current_user.getAccounts();
         return null;
     }
 
-    /*
-    public static void main() {
 
-        /* main execution happens here */
+    /*public static void main() {
+
+        *//* main execution happens here *//*
 
         my_manager = new BankManager();
 
-        /* POST-LOGIN.. */
+        *//* POST-LOGIN.. *//*
 
         current_bank_accounts = getAccounts();
-        **/
+    }*/
 
 }
 
