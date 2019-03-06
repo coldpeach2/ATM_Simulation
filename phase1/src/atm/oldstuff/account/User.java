@@ -2,6 +2,9 @@ package atm.oldstuff.account;
 
 import atm.oldstuff.account.Account;
 import atm.oldstuff.account.asset.Checking;
+import com.sun.tools.javac.comp.Check;
+
+import java.util.*;
 
 public class User {
 
@@ -9,8 +12,7 @@ public class User {
     private String name;
     private String password;
 
-    //TODO: need an atm.oldstuff.account superclass to implement this ArrayList.
-   // private ArrayList<Account> accounts;
+    private ArrayList<Account> accounts = new ArrayList<>();
 
     private Checking primaryAccount;
 
@@ -28,6 +30,9 @@ public class User {
         this.id = id;
         this.name = name;
         this.password = password;
+        this.primaryAccount = (Checking) primaryAccount;
+
+        this.accounts.add(primaryAccount);
     }
 
     public String getName() {
@@ -50,26 +55,15 @@ public class User {
         this.password = password;
     }
 
-/*    public ArrayList<Account> getAccounts() {
-        return accounts;
+    public ArrayList<Account> getAccounts() {
+        return this.accounts;
     }
 
     public void addAccount(Account account) {
 
-        accounts.add(account);
+        this.accounts.add(account);
 
-    }*/
-
-
-    /*
-    Writes a given transaction to a transactions.txt file.
-
-    A line in transactions.txt is a single transaction, separated by semi-colons:
-    (<type of transaction>; <money from>; <amount from>; <money to>; <amount to>)
-
-     */ //TODO: define how transactions will appear on file.
-    //TODO: should this method be in this class?
-    private void writeTransaction(String type) {}
+    }
 
 }
 
