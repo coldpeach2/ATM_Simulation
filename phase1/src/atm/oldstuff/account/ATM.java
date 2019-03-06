@@ -1,42 +1,31 @@
 package atm.oldstuff.account;
 
 import java.time.Clock;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
+
+import src.atm.model.*;
+
+import java.io.*;
 
 public class ATM {
 
-    public Clock clock;
-    private static BankManager my_manager;
-
-    private static final int DEFAULT_BILLS = 100;
-    private static final int FIVES = 5;
-    private static final int TENS = 10;
-    private static final int TWENTIES = 20;
-    private static final int FIFTIES = 50;
-
-    /* Fill the atm.oldstuff.account.ATM at start */
-    private Map<Integer, Integer> dollarBills = new TreeMap<Integer, Integer>(Collections.reverseOrder())
-    {{
-        put(FIVES, DEFAULT_BILLS);
-        put(TENS, DEFAULT_BILLS);
-        put(TWENTIES, DEFAULT_BILLS);
-        put(FIFTIES, DEFAULT_BILLS);
-    }};
-
     private static User current_user;
     private static List<Account> current_bank_accounts;
+
+
+    //need to figure out how this module is supposed to store/interact with the bank data.
+    private TreeMap dollarBills = src.atm.model.ATMModel.getDollarBills();
 
     public void checkBills(){
 
         for (Map.Entry<Integer, Integer> entry : dollarBills.entrySet()) {
             if (entry.getValue() < 20) {
-                //TODO: write to Alerts.txt
-
+                try {
+                    writeAlert(entry.getKey(), entry.getValue(), new Date());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-            else {}
         }
     }
 
@@ -44,30 +33,52 @@ public class ATM {
 
         int x = amount;
 
-        //TODO: need a try catch in withdrawal for if the amount requested isn't divisible by 5.
+        if (isDivisibleBy5(amount)) {
 
-        for (Map.Entry<Integer, Integer> entry : dollarBills.entrySet()) {
-            while (x - entry.getKey() >= 0) {
-                //update <x> and reduce denomination amount by one
-                x -= entry.getKey();
-                entry.setValue(entry.getValue() - 1);
+            for (Map.Entry<Integer, Integer> entry : dollarBills.entrySet()) {
+                while (x - entry.getKey() >= 0) {
+                    //update <x> and reduce denomination amount by one
+                    x -= entry.getKey();
+                    entry.setValue(entry.getValue() - 1);
 
+                }
             }
+        }
+        else {
+            System.err.println("Please enter a combination of $5, $10, $20 or $50 bills.");
         }
 
     }
+
+    private boolean isDivisibleBy5 (int amount) {
+
+        return amount % 5 == 0;
+
+    }
+
+    private void writeAlert(int denom, int amount, Date date) throws IOException {
+
+        try {
+            File file = new File("alerts.txt");
+            FileWriter fw = new FileWriter(file, true);
+            PrintWriter pw = new PrintWriter(file);
+
+            pw.println(denom + ", " + amount + ", " + date);
+
+            pw.close();
+        } catch (IOException e) {
+            System.err.println("Could not write alert to file.");
+        }
+
+    }
+
 
     public static List<Account> getAccounts() {
    //     return current_user.getAccounts();
         return null;
     }
 
-    public static void viewBalance(Account account) {
-
-    }
-
-    //TODO: Bianca I'm gonna let you do the login stuff lmaoo
-
+    /*
     public static void main() {
 
         /* main execution happens here */
@@ -77,9 +88,7 @@ public class ATM {
         /* POST-LOGIN.. */
 
         current_bank_accounts = getAccounts();
-
-    }
-
+        **/
 
 }
 
