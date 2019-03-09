@@ -2,6 +2,11 @@ package atm;
 
 import atm.model.*;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
+
 public class ATMSim {
 
     /** Runs after a user has logged in **/
@@ -25,7 +30,6 @@ public class ATMSim {
             menu.getOption();
             running = menu.running;
         }
-        updateRecords();
 
     }
 
@@ -38,21 +42,7 @@ public class ATMSim {
             menu.getOption();
             running = menu.running;
         }
-        updateRecords();
     }
 
-    private void updateRecords() {
-
-        /** Update the bank's information **/
-
-        /* After the user is finished, we may have changed info stored in BankDatabase.
-        So we need to update the csv files with the latest BankDatabase records.
-
-        Should only need to be called once, after our program runs.
-         */
-
-        //TODO: complete this method.
-
-    }
 
 }
