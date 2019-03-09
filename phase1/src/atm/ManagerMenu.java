@@ -23,7 +23,8 @@ public class ManagerMenu extends Menu{
         System.out.println("1 - Add New Client");
         System.out.println("2 - Restock Bills");
         System.out.println("3 - Undo Transaction");
-        System.out.println("4 - EXIT");
+        System.out.println("4 - Add An Account for a Client");
+        System.out.println("5 - EXIT");
 
         selection = userInput.nextInt();
 
@@ -44,6 +45,9 @@ public class ManagerMenu extends Menu{
                 getOption();
                 break;
             case 4:
+                addAccount();
+                break;
+            case 5:
                 running = false;
                 break;
             default:
@@ -69,6 +73,23 @@ public class ManagerMenu extends Menu{
         username = userInput.nextLine();
 
         //TODO: Needs to be completed. Should call a createUser/addUser method. Left incomplete because I can't tell where we wanted to implement that.
+
+        manager.createUser(firstName);
+
+
+    }
+
+    private void addAccount(){
+        userInput.nextLine();
+        System.out.println("What type of account would you like to create?");
+        String typeOfAccount = userInput.nextLine();
+        System.out.println("What user would you like to create this account for?");
+        String userAccount = userInput.nextLine();
+
+        /* TODO: How are we creating accounts? Bank manager seems to be blank for this?? I don't think that we should be
+         calling AccountFactory for this- I feel like bank manager should be calling accountFactory and having a
+         "front-end method" (for lack of a better term lol) that I can use */
+
 
 
     }
