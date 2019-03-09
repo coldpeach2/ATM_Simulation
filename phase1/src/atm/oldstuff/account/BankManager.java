@@ -8,7 +8,7 @@ public class BankManager {
     private static int idNum = 0;
     private ArrayList<User> listOfUsers = new ArrayList<>();
 
-    BankManager(){
+    public BankManager(){
     }
 
     public User createUser(String name) {
