@@ -1,5 +1,7 @@
 package atm.model;
 
+import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class AccountModel {
@@ -33,6 +35,20 @@ public class AccountModel {
 
     public Date getCreationDate() {
         return creationDate;
+    }
+
+    public String toCSVRowString() {
+        return id + "," + type.code + "," + balance + "," + creationDate.getTime();
+    }
+
+    public static AccountModel fromCSVRowString(String row) throws IOException {
+        String[] cells = row.split(","); // We expect 5 strings.
+        if (cells.length != 4) throw new IOException("Incorrect number of cells in a row!");
+        Date creationDate = new Date(Long.parseLong(cells[3])); // TODO: PARSE CELLS[3] TO GET DATE OBJECT
+        return new AccountModel(Long.parseLong(cells[0]), // user id "0" -> 0
+                AccountModel.AccountType.getType(Integer.parseInt(cells[1])), // type "1" -> 1 -> AccountType.Savings
+                Double.parseDouble(cells[2]),
+                creationDate);
     }
 
     public enum AccountType {
