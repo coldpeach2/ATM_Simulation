@@ -1,10 +1,9 @@
 package atm;
 
+import java.util.Map;
 import java.util.Scanner;
-
-import atm.db.BankDatabase;
 import atm.model.*;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClientMenu extends Menu{
@@ -31,14 +30,15 @@ public class ClientMenu extends Menu{
         int x = 1;
 
         System.out.println("Your Accounts: \n");
-
-        //List<Long> list_account_ids = centralDatabase.userAccounts.get(currentUser.getId());
-        /*for (Long id: list_account_ids) {
+        ArrayList <AccountModel> displayAccounts = new ArrayList<>();
+        List<Long> list_account_ids = centralDatabase.userAccounts.get(currentUser.getId());
+        for (Long id: list_account_ids) {
             AccountModel acc = centralDatabase.accountsById.get(id);
             System.out.println(x + " - " + acc.getType() + " Account id: " + acc.getId());
+            displayAccounts.add(acc);
             System.out.println("Balance: " + acc.getBalance() + "\n \n");
             x++;
-        }*/
+        }
 
         System.out.println("Hello " + currentUser.getFirstName() + "! Please select an option: \n ");
         System.out.println("1 - Transfer Between Accounts");
@@ -56,8 +56,69 @@ public class ClientMenu extends Menu{
             case 1:
                 //
                 getOption();
-                System.out.println("Testing.");
-                break;
+
+                System.out.println("Transfer Between Accounts:");
+                int transferFrom;
+                boolean validAccount = false;
+                while (!validAccount) {
+                    System.out.println("Please select the account you would like to transfer from:");
+
+
+                    transferFrom = userInput.nextInt();
+                    //withdraw
+                    for (int i =1; i<x+1; i++){
+                        if (i == transferFrom){
+                            if (displayAccounts.get(i).getType() == AccountModel.AccountType.Checking){
+                                validAccount = true;
+                                break;
+                            }
+                            else if (displayAccounts.get(i).getType() == AccountModel.AccountType.LineOfCredit){
+                                validAccount = true;
+                                break;
+                            }
+                            else if (displayAccounts.get(i).getType() == AccountModel.AccountType.Saving){
+                                validAccount = true;
+                                break;
+                            }
+                            else{
+                                System.out.println("invalid account to transfer out. Please select a different account");
+
+
+                            }
+                        }
+                    }
+
+
+                }
+                //deposit
+                System.out.println("select an account that you would like to transfer funds into");
+                int transferTo = userInput.nextInt();
+                for (int i =1; i<x+1; i++){
+                    if (i == transferTo){
+                        if (displayAccounts.get(i).getType() == AccountModel.AccountType.Checking){
+
+                            break;
+                        }
+                        else if (displayAccounts.get(i).getType() == AccountModel.AccountType.LineOfCredit){
+
+                            break;
+                        }
+                        else if (displayAccounts.get(i).getType() == AccountModel.AccountType.Saving){
+
+                            break;
+                        }
+                        else{
+                            break;
+
+                        }
+                    }
+                }
+
+                //TODO: lastly, write the transaction date/time to the transaction file in this user's history
+
+
+
+
             case 2:
                 //
                 getOption();
