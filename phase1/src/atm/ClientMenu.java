@@ -2,6 +2,8 @@ package atm;
 
 import java.util.Map;
 import java.util.Scanner;
+
+import atm.db.BankDatabase;
 import atm.model.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +33,14 @@ public class ClientMenu extends Menu{
 
         System.out.println("Your Accounts: \n");
         ArrayList <AccountModel> displayAccounts = new ArrayList<>();
-        List<Long> list_account_ids = centralDatabase.userAccounts.get(currentUser.getId());
+        /*List<Long> list_account_ids = centralDatabase.userAccounts.get(currentUser.getId());
         for (Long id: list_account_ids) {
             AccountModel acc = centralDatabase.accountsById.get(id);
             System.out.println(x + " - " + acc.getType() + " Account id: " + acc.getId());
             displayAccounts.add(acc);
             System.out.println("Balance: " + acc.getBalance() + "\n \n");
             x++;
-        }
+        }*/
 
         System.out.println("Hello " + currentUser.getFirstName() + "! Please select an option: \n ");
         System.out.println("1 - Transfer Between Accounts");
