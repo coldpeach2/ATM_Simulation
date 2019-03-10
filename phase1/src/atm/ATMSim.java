@@ -1,13 +1,9 @@
 package atm;
 
+import atm.db.BankDatabase;
 import atm.model.*;
 import atm.oldstuff.account.ATMData;
 import atm.oldstuff.account.ATM;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.File;
-import java.io.IOException;
 
 public class ATMSim {
 

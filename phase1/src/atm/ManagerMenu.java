@@ -3,6 +3,8 @@ package atm;
 import java.io.*;
 import java.util.Scanner;
 
+import atm.db.BankDatabase;
+
 import atm.model.AccountModel;
 import atm.model.UserModel;
 import atm.oldstuff.account.*;
@@ -13,7 +15,7 @@ public class ManagerMenu extends Menu{
 
     private Scanner userInput = new Scanner(System.in);
     BankDatabase centralDatabase;
-    BankManager manager = new BankManager();
+    // BankManager manager = new BankManager();
 
     public ManagerMenu(BankDatabase database) {
         this.centralDatabase = database;
