@@ -14,7 +14,7 @@ public class ATMProgram {
         while (true) {
             Date startUpDate = new Date();
             Scanner scanInput = new Scanner(System.in);
-            while (hoursDifference(new Date(), startUpDate) == 24) {
+            while (hoursDifference(new Date(), startUpDate) < 24) {
                 System.out.println("Please enter your user name and press enter:");
                 String enteredUsername = scanInput.nextLine();
                 System.out.println("Please enter your password and press enter:");
