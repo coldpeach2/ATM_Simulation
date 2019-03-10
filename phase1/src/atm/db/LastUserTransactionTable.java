@@ -12,7 +12,7 @@ public class LastUserTransactionTable {
     public HashMap<Long, TransactionModel> lastTransactionForUserId = new HashMap<>();
     private long nextTransactionId = 0;
 
-    private void save(String fileName) {
+    public void save(String fileName) {
         try {
             PrintWriter writer = Util.openFileW(fileName);
             writer.println("id,userId,srcAccId,destAccId,amount");

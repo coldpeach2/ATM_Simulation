@@ -5,9 +5,7 @@ import atm.model.AccountRequestModel;
 import atm.model.TransactionModel;
 import atm.model.UserModel;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 public class BankDatabase {
     UserTable userTable;
@@ -22,13 +20,24 @@ public class BankDatabase {
         userAccountsTable = new UserAccountsTable();
         accountRequestTable = new AccountRequestTable();
         userTransactionTable = new LastUserTransactionTable();
+        load();
+        if (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 1) applySavingsInterests();
+    }
 
+    public void load() {
         userTable.load("users.csv");
         accountTable.load("accounts.csv");
         userAccountsTable.load("useraccounts.csv");
         accountRequestTable.load("accountrequest.csv");
         userTransactionTable.load("lasttransactions.csv");
-        if (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 1) applySavingsInterests();
+    }
+
+    public void save() {
+        userTable.save("users.csv");
+        accountTable.save("accounts.csv");
+        userAccountsTable.save("useraccounts.csv");
+        accountRequestTable.save("accountrequest.csv");
+        userTransactionTable.save("lasttransactions.csv");
     }
 
     public UserModel tryLogin(String username, String password) {
@@ -116,5 +125,22 @@ public class BankDatabase {
         UserModel newUserModel = userTable.createUser(firstName, lastName, userName, initialPassword, primaryAccountModel.getId());
         userAccountsTable.createEntryForUser(newUserModel.getId(), primaryAccountModel.getId());
         return true;
+    }
+
+    public List<AccountModel> getUserAccounts(long userId) {
+        HashSet<Long> userAccountIds = userAccountsTable.userAccounts.get(userId);
+        List<AccountModel> accountModels = new ArrayList<>();
+        for (long accId : userAccountIds) {
+            accountModels.add(accountTable.accountsById.get(accId));
+        }
+        return accountModels;
+    }
+
+    public TransactionModel getLastUserTransaction(long userId) {
+        return userTransactionTable.lastTransactionForUserId.get(userId);
+    }
+
+    public List<AccountRequestModel> getPendingAccountRequests() {
+        return new ArrayList<>(accountRequestTable.accountRequestModelById.values());
     }
 }

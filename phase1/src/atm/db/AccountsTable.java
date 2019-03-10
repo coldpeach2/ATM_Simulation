@@ -11,7 +11,7 @@ public class AccountsTable {
     HashMap<Long, AccountModel> accountsById = new HashMap<>();
     private long nextAccountId = 0;
 
-    private void save(String fileName) {
+    public void save(String fileName) {
         try {
             PrintWriter writer = Util.openFileW(fileName);
             writer.println("id,type,balance,date");

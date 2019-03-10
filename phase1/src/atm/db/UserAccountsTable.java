@@ -10,7 +10,7 @@ import java.util.*;
 public class UserAccountsTable {
     HashMap<Long, HashSet<Long>> userAccounts = new HashMap<>();
 
-    private void save(String fileName) {
+    public void save(String fileName) {
         try {
             PrintWriter writer = Util.openFileW(fileName);
             writer.println("userId,accId");

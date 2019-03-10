@@ -14,7 +14,7 @@ public class UserTable {
     HashMap<String, UserModel> usersByUsername = new HashMap<>();
     private long nextUserId = 0;
 
-    private void save(String fileName) {
+    public void save(String fileName) {
         try {
             PrintWriter writer = Util.openFileW(fileName);
             writer.println("id,firstName,lastName,username,password,primaryAccId,authLevel");
