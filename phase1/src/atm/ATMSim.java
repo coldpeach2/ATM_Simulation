@@ -2,6 +2,8 @@ package atm;
 
 import atm.db.BankDatabase;
 import atm.model.*;
+import atm.oldstuff.account.ATMData;
+import atm.oldstuff.account.ATM;
 
 public class ATMSim {
 
@@ -17,6 +19,7 @@ public class ATMSim {
     /* The second version of runATM is needed since BankManager doesn't have a User Model*/
 
     private Boolean running = true;
+    public ATM atm = new ATM();
 
     public void runATM(BankDatabase database, UserModel current_user) {
         if (current_user.getAuthLevel() == UserModel.AuthLevel.BankManager) {
