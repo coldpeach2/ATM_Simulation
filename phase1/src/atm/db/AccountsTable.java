@@ -4,11 +4,12 @@ import atm.model.AccountModel;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.HashMap;
 
 public class AccountsTable {
-    HashMap<Long, AccountModel> accountsById;
-    private long nextAccountId;
+    HashMap<Long, AccountModel> accountsById = new HashMap<>();
+    private long nextAccountId = 0;
 
     private void save(String fileName) {
         try {
@@ -23,8 +24,8 @@ public class AccountsTable {
     }
 
     public void load(String fileName) {
+        this.accountsById.clear();
         this.nextAccountId = 0;
-        this.accountsById = new HashMap<>();
         Util.loadCSV(fileName, row -> addAccount(AccountModel.fromCSVRowString(row)));
     }
 
@@ -34,4 +35,9 @@ public class AccountsTable {
         this.accountsById.put(accountModel.getId(), accountModel); // balance "-10.40" -> -10.40
     }
 
+    public AccountModel createAccount(AccountModel.AccountType type) {
+        AccountModel newAccountModel = new AccountModel(nextAccountId, type, 0, new Date());
+        addAccount(newAccountModel);
+        return newAccountModel;
+    }
 }

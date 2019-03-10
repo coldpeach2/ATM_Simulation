@@ -10,14 +10,15 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class AccountRequestTable {
-    private LinkedList<AccountRequestModel> accountRequestQueue;
-    private long nextAccountId;
+    HashMap<Long, AccountRequestModel> accountRequestModelById = new HashMap();
+    //LinkedList<AccountRequestModel> accountRequestQueue = new LinkedList<>();
+    private long nextAccountId = 0;
 
     private void save(String fileName) {
         try {
             PrintWriter writer = Util.openFileW(fileName);
             writer.println("id,userId,accType");
-            for (AccountRequestModel accountRequestModel : accountRequestQueue)
+            for (AccountRequestModel accountRequestModel : accountRequestModelById.values())
                 writer.println(accountRequestModel.toCSVRowString());
             writer.close();
         } catch (IOException ex) {
@@ -27,14 +28,14 @@ public class AccountRequestTable {
     }
 
     public void load(String fileName) {
-        this.accountRequestQueue = new LinkedList<>();
+        this.accountRequestModelById.clear();
         this.nextAccountId = 0;
         Util.loadCSV(fileName, row -> addAccountRequest(AccountRequestModel.fromCSVRowString(row)));
     }
 
     public void addAccountRequest(AccountRequestModel accountRequestModel) {
         if (accountRequestModel.getId() > nextAccountId) nextAccountId = accountRequestModel.getId() + 1;
-        this.accountRequestQueue.addLast(accountRequestModel);
+        this.accountRequestModelById.put(accountRequestModel.getId(), accountRequestModel);
     }
 
     public void createAccountRequest(long userId, AccountModel.AccountType accountType) {

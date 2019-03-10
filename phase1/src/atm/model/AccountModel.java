@@ -52,19 +52,31 @@ public class AccountModel {
     }
 
     public enum AccountType {
-        Checking(0),
-        Saving(1),
-        Credit(2),
-        LineOfCredit(3);
+        Checking(0, true, -100),
+        Saving(1,  true,0),
+        Credit(2, false, Double.MIN_VALUE),
+        LineOfCredit(3, true, Double.MIN_VALUE);
 
-        private int code;
+        private final int code;
+        private final boolean canWithdraw;
+        private final double minBalance;
 
-        AccountType(int code) {
+        AccountType(int code, boolean canWithdraw, double minBalance) {
             this.code = code;
+            this.canWithdraw = canWithdraw;
+            this.minBalance = minBalance;
         }
 
         public int getCode() {
             return code;
+        }
+
+        public double getMinBalance() {
+            return minBalance;
+        }
+
+        public boolean canWithdraw() {
+            return canWithdraw;
         }
 
         public static AccountType getType(int code) {

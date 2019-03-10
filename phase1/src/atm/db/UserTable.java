@@ -10,9 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class UserTable {
-
-    List<UserModel> users;
-    HashMap<String, UserModel> usersByUsername;
+    List<UserModel> users = new ArrayList<>();
+    HashMap<String, UserModel> usersByUsername = new HashMap<>();
+    private long nextUserId = 0;
 
     private void save(String fileName) {
         try {
@@ -27,12 +27,22 @@ public class UserTable {
     }
 
     public void load(String fileName) {
+        this.users.clear();
+        this.usersByUsername.clear();
+        nextUserId = 0;
         Util.loadCSV(fileName, row -> addUser(UserModel.fromCSVRowString(row)));
     }
 
     public void addUser(UserModel userModel) {
+        if (userModel.getId() > nextUserId) nextUserId = userModel.getId() + 1;
         this.users.add(userModel);
         this.usersByUsername.put(userModel.getUsername(), userModel);
+    }
+
+    public UserModel createUser(String firstName, String lastName, String userName, String initialPassword, long primaryAccId) {
+        UserModel userModel = new UserModel(nextUserId, firstName, lastName, userName, initialPassword, primaryAccId, UserModel.AuthLevel.User);
+        addUser(userModel);
+        return userModel;
     }
 
 }
