@@ -1,19 +1,21 @@
 package atm;
 
-import java.util.Map;
-import java.util.Scanner;
-
 import atm.db.BankDatabase;
-import atm.model.*;
+import atm.model.AccountModel;
+import atm.model.UserModel;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-public class ClientMenu extends Menu{
+public class ClientMenu extends Menu {
 
-    /** Displays options for Bank Clients **/
+    /**
+     * Displays options for Bank Clients
+     **/
 
     private Scanner userInput = new Scanner(System.in);
-    //TODO: is this a good design to pass database into this object?
+    //TODO: is this a good design to pass database into this object? !!!!!!! YES.
     BankDatabase centralDatabase;
     UserModel currentUser;
 
@@ -27,22 +29,20 @@ public class ClientMenu extends Menu{
     public void getOption() {
 
 
-
         int selection;
 
         // Display a list of this User's accounts
-        int x = 1;
 
         System.out.println("Your Accounts: \n");
-        ArrayList <AccountModel> displayAccounts = new ArrayList<>();
-        /*List<Long> list_account_ids = centralDatabase.userAccounts.get(currentUser.getId());
-        for (Long id: list_account_ids) {
-            AccountModel acc = centralDatabase.accountsById.get(id);
-            System.out.println(x + " - " + acc.getType() + " Account id: " + acc.getId());
+        ArrayList<AccountModel> displayAccounts = new ArrayList<>();
+        List<AccountModel> userAccounts = centralDatabase.getUserAccounts(currentUser.getId());
+        int idx = 1;
+        for (AccountModel acc : userAccounts) {
+            System.out.println(idx + " - " + acc.getType() + " Account id: " + acc.getId());
             displayAccounts.add(acc);
             System.out.println("Balance: " + acc.getBalance() + "\n \n");
-            x++;
-        }*/
+            idx++;
+        }
 
         System.out.println("Hello " + currentUser.getFirstName() + "! Please select an option: \n ");
         System.out.println("1 - Transfer Between Accounts");
@@ -67,51 +67,40 @@ public class ClientMenu extends Menu{
                 while (!validAccount) {
                     System.out.println("Please select the account you would like to transfer from:");
 
-
                     transferFrom = userInput.nextInt();
                     System.out.println("please select the account you would like to transfer funds to:");
                     //withdraw
-                    for (int i =1; i<x+1; i++){
-                        if (i == transferFrom){
-                            if (displayAccounts.get(i).getType() == AccountModel.AccountType.Checking){
+                    for (int i = 1; i < idx + 1; i++) {
+                        if (i == transferFrom) {
+                            if (displayAccounts.get(i).getType() == AccountModel.AccountType.Checking) {
                                 validAccount = true;
                                 break;
-                            }
-                            else if (displayAccounts.get(i).getType() == AccountModel.AccountType.LineOfCredit){
+                            } else if (displayAccounts.get(i).getType() == AccountModel.AccountType.LineOfCredit) {
                                 validAccount = true;
                                 break;
-                            }
-                            else if (displayAccounts.get(i).getType() == AccountModel.AccountType.Saving){
+                            } else if (displayAccounts.get(i).getType() == AccountModel.AccountType.Saving) {
                                 validAccount = true;
                                 break;
-                            }
-                            else{
+                            } else {
                                 System.out.println("invalid account to transfer out. Please select a different account");
-
-
                             }
                         }
                     }
-
-
                 }
                 //deposit
                 int transferTo = userInput.nextInt();
-                for (int i =1; i<x+1; i++){
-                    if (i == transferTo){
-                        if (displayAccounts.get(i).getType() == AccountModel.AccountType.Checking){
+                for (int i = 1; i < idx + 1; i++) {
+                    if (i == transferTo) {
+                        if (displayAccounts.get(i).getType() == AccountModel.AccountType.Checking) {
 
                             break;
-                        }
-                        else if (displayAccounts.get(i).getType() == AccountModel.AccountType.LineOfCredit){
+                        } else if (displayAccounts.get(i).getType() == AccountModel.AccountType.LineOfCredit) {
 
                             break;
-                        }
-                        else if (displayAccounts.get(i).getType() == AccountModel.AccountType.Saving){
+                        } else if (displayAccounts.get(i).getType() == AccountModel.AccountType.Saving) {
 
                             break;
-                        }
-                        else{
+                        } else {
                             break;
 
                         }
@@ -119,8 +108,6 @@ public class ClientMenu extends Menu{
                 }
 
                 //TODO: lastly, write the transaction date/time to the transaction file in this user's history
-
-
 
 
             case 2:
@@ -136,22 +123,19 @@ public class ClientMenu extends Menu{
 
                     transferOut = userInput.nextInt();
                     //withdraw
-                    for (int i =1; i<x+1; i++){
-                        if (i == transferOut){
-                            if (displayAccounts.get(i).getType() == AccountModel.AccountType.Checking){
+                    for (int i = 1; i < idx + 1; i++) {
+                        if (i == transferOut) {
+                            if (displayAccounts.get(i).getType() == AccountModel.AccountType.Checking) {
 
                                 validAccount = true;
                                 break;
-                            }
-                            else if (displayAccounts.get(i).getType() == AccountModel.AccountType.LineOfCredit){
+                            } else if (displayAccounts.get(i).getType() == AccountModel.AccountType.LineOfCredit) {
                                 validAccount = true;
                                 break;
-                            }
-                            else if (displayAccounts.get(i).getType() == AccountModel.AccountType.Saving){
+                            } else if (displayAccounts.get(i).getType() == AccountModel.AccountType.Saving) {
                                 validAccount = true;
                                 break;
-                            }
-                            else{
+                            } else {
                                 System.out.println("Checking if valid selection");
                                 System.out.print(".");
                                 System.out.print(".");
@@ -172,9 +156,6 @@ public class ClientMenu extends Menu{
                 System.out.print(".");
                 System.out.print(".");
                 System.out.print(".");
-
-
-
 
 
                 break;
