@@ -62,16 +62,11 @@ public class ClientMenu extends Menu{
                 boolean validAccount = false;
                 while (!validAccount) {
                     System.out.println("Please select the account you would like to transfer from:");
-                    int counter = 1;
-                    for (AccountModel accounts: displayAccounts){
-                        System.out.println(counter + "-" + accounts.getType());
-                        counter ++;
 
-                    }
 
                     transferFrom = userInput.nextInt();
                     //withdraw
-                    for (int i =1; i<counter +1; i++){
+                    for (int i =1; i<x+1; i++){
                         if (i == transferFrom){
                             if (displayAccounts.get(i).getType() == AccountModel.AccountType.Checking){
                                 validAccount = true;
@@ -89,15 +84,38 @@ public class ClientMenu extends Menu{
                                 System.out.println("invalid account to transfer out. Please select a different account");
 
 
-
                             }
                         }
                     }
 
-                    //deposit
-
 
                 }
+                //deposit
+                System.out.println("select an account that you would like to transfer funds into");
+                int transferTo = userInput.nextInt();
+                for (int i =1; i<x+1; i++){
+                    if (i == transferTo){
+                        if (displayAccounts.get(i).getType() == AccountModel.AccountType.Checking){
+
+                            break;
+                        }
+                        else if (displayAccounts.get(i).getType() == AccountModel.AccountType.LineOfCredit){
+
+                            break;
+                        }
+                        else if (displayAccounts.get(i).getType() == AccountModel.AccountType.Saving){
+
+                            break;
+                        }
+                        else{
+                            break;
+
+                        }
+                    }
+                }
+
+                //TODO: lastly, write the transaction date/time to the transaction file in this user's history
+
 
 
 

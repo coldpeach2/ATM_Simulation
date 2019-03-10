@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4132268a-2550-422e-9347-66ecb234c69b" name="Default Changelist" comment="small commit- this is b/c for some reason i keep on getting errors and i'm trying to figure it out">
+    <list default="true" id="4132268a-2550-422e-9347-66ecb234c69b" name="Default Changelist" comment="working on client menu implementation">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/atm/ClientMenu.java" afterPath="$PROJECT_DIR$/src/atm/ClientMenu.java" />
     </list>
@@ -109,8 +109,8 @@
       <file leaf-file-name="ClientMenu.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/atm/ClientMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="83" column="106" lean-forward="true" selection-start-line="83" selection-start-column="106" selection-end-line="83" selection-end-column="106" />
+            <state relative-caret-position="633">
+              <caret line="119" column="0" lean-forward="true" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -932,7 +932,7 @@
       <workItem from="1552170540092" duration="5468000" />
       <workItem from="1552188202442" duration="30000" />
       <workItem from="1552188572939" duration="622000" />
-      <workItem from="1552234024533" duration="7278000" />
+      <workItem from="1552234024533" duration="7630000" />
     </task>
     <task id="LOCAL-00001" summary="+ Proposed a .csv format for storing data. @bianca&#10;+ Created some testing data.">
       <created>1551753214719</created>
@@ -976,11 +976,18 @@
       <option name="project" value="LOCAL" />
       <updated>1552235531554</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="working on client menu implementation">
+      <created>1552242134977</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1552242134977</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23180000" />
+    <option name="totallyTimeSpent" value="23532000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="41" width="1408" height="777" extended-state="0" />
@@ -1046,7 +1053,8 @@
     <MESSAGE value="+ Created Model classes for Account and User: UserModel, AccountModel. These will replace the old ones if succesful.&#10;+ Created BankDatabase class, still in progress.&#10;+ Loading .csv files." />
     <MESSAGE value="Deleted unnecessary files. Added TO-DOs for 'back end' methods. Made small additions to the menu options in ClientMenu and BankManagerMenu" />
     <MESSAGE value="small commit- this is b/c for some reason i keep on getting errors and i'm trying to figure it out" />
-    <option name="LAST_COMMIT_MESSAGE" value="small commit- this is b/c for some reason i keep on getting errors and i'm trying to figure it out" />
+    <MESSAGE value="working on client menu implementation" />
+    <option name="LAST_COMMIT_MESSAGE" value="working on client menu implementation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1449,8 +1457,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/atm/ClientMenu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="83" column="106" lean-forward="true" selection-start-line="83" selection-start-column="106" selection-end-line="83" selection-end-column="106" />
+        <state relative-caret-position="633">
+          <caret line="119" column="0" lean-forward="true" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
           <folding />
         </state>
       </provider>
