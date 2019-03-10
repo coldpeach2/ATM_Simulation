@@ -1,5 +1,5 @@
 package atm.oldstuff.account;
-import atm.model;
+import atm.model.*;
 
 
 public class BankManager {

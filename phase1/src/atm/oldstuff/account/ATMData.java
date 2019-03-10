@@ -9,8 +9,6 @@ public class ATMData {
 
     /** Class storing the ATM's bills and basic ATM System Data **/
 
-    // TODO: Do I still need to instantiate a bank manager and list of accounts? Probably not right.
-
     public Clock clock;
 
     private static final int DEFAULT_BILLS = 100;
@@ -34,6 +32,16 @@ public class ATMData {
 
     public static Map<Integer, Integer> getDollarBills () {
         return dollarBills;
+    }
+
+    public static void resetBills() {
+
+        for (Map.Entry<Integer, Integer> entry: dollarBills.entrySet()) {
+
+            entry.setValue(DEFAULT_BILLS);
+
+        }
+
     }
 
 }

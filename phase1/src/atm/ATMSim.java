@@ -1,6 +1,8 @@
 package atm;
 
 import atm.model.*;
+import atm.oldstuff.account.ATMData;
+import atm.oldstuff.account.ATM;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -21,6 +23,7 @@ public class ATMSim {
     /* The second version of runATM is needed since BankManager doesn't have a User Model*/
 
     private Boolean running = true;
+    public ATM atm = new ATM();
 
     public void runATM(BankDatabase database, UserModel current_user) {
 

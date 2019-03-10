@@ -5,12 +5,17 @@ import atm.oldstuff.account.asset.Saving;
 import atm.oldstuff.account.debt.Credit;
 import atm.oldstuff.account.debt.LineOfCredit;
 import atm.oldstuff.account.Account;
+import atm.model.*;
+import java.util.*;
 
 public class AccountFactory {
 
     private static long nextId = 0;
+    private Date date = new java.util.Date();
 
-    public void createAccount(User user, int type){
+
+    /*
+    public void createAccount(int type){
         Account acc;
         switch (type) {
             case 1:
@@ -32,7 +37,23 @@ public class AccountFactory {
             default:
                 throw new IllegalArgumentException();
         }
-        user.addAccount(acc); // Need to be implemented in user.
+        //user.addAccount(acc); // Need to be implemented in user.
         nextId++;
     }
+    */
+
+    public AccountModel createAccount(int type){
+        AccountModel acc;
+        AccountModel.AccountType accType = AccountModel.AccountType.getType(type);
+
+                nextId = Integer.valueOf("11" + nextId);
+                acc = new AccountModel(nextId, accType, 0.00, date);
+
+        nextId++;
+
+        return acc;
+        }
+        //user.addAccount(acc); // Need to be implemented in user.
+
+
 }

@@ -64,7 +64,7 @@ public class ATM {
             FileWriter fw = new FileWriter(file, true);
             PrintWriter pw = new PrintWriter(file);
 
-            pw.println(denom + ", " + amount + ", " + date);
+            pw.println(denom + "," + amount + "," + date);
 
             pw.close();
         } catch (IOException e) {
