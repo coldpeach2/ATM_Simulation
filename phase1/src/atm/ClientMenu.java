@@ -55,6 +55,7 @@ public class ClientMenu extends Menu{
             case 1:
                 //
                 getOption();
+                System.out.println("Testing.");
                 break;
             case 2:
                 //

@@ -47,6 +47,10 @@ public class ATM {
 
     }
 
+    public void addBills(int denom, int amount){
+        dollarBills.replace(denom, dollarBills.get(denom) + amount);
+    }
+
     private boolean isDivisibleBy5 (int amount) {
 
         return amount % 5 == 0;
