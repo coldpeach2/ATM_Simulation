@@ -30,11 +30,12 @@ public class ClientMenu extends Menu{
         int x = 1;
 
         System.out.println("Your Accounts: \n");
-
+        ArrayList <AccountModel> displayAccounts = new ArrayList<>();
         List<Long> list_account_ids = centralDatabase.userAccounts.get(currentUser.getId());
         for (Long id: list_account_ids) {
             AccountModel acc = centralDatabase.accountsById.get(id);
             System.out.println(x + " - " + acc.getType() + " Account id: " + acc.getId());
+            displayAccounts.add(acc);
             System.out.println("Balance: " + acc.getBalance() + "\n \n");
             x++;
         }
@@ -55,8 +56,51 @@ public class ClientMenu extends Menu{
             case 1:
                 //
                 getOption();
-                System.out.println("Testing.");
-                break;
+
+                System.out.println("Transfer Between Accounts:");
+                int transferFrom;
+                boolean validAccount = false;
+                while (!validAccount) {
+                    System.out.println("Please select the account you would like to transfer from:");
+                    int counter = 1;
+                    for (AccountModel accounts: displayAccounts){
+                        System.out.println(counter + "-" + accounts.getType());
+                        counter ++;
+
+                    }
+
+                    transferFrom = userInput.nextInt();
+                    //withdraw
+                    for (int i =1; i<counter +1; i++){
+                        if (i == transferFrom){
+                            if (displayAccounts.get(i).getType() == AccountModel.AccountType.Checking){
+                                validAccount = true;
+                                break;
+                            }
+                            else if (displayAccounts.get(i).getType() == AccountModel.AccountType.LineOfCredit){
+                                validAccount = true;
+                                break;
+                            }
+                            else if (displayAccounts.get(i).getType() == AccountModel.AccountType.Saving){
+                                validAccount = true;
+                                break;
+                            }
+                            else{
+                                System.out.println("invalid account to transfer out. Please select a different account");
+
+
+
+                            }
+                        }
+                    }
+
+                    //deposit
+
+
+                }
+
+
+
             case 2:
                 //
                 getOption();
