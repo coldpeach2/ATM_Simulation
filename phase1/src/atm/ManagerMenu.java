@@ -28,7 +28,8 @@ public class ManagerMenu extends Menu {
         System.out.println("1 - Add New Client");
         System.out.println("2 - Undo Transaction");
         System.out.println("3 - Add An Account for a Client");
-        System.out.println("4 - EXIT");
+        System.out.println("4 - Save Data");
+        System.out.println("5 - EXIT");
 
         selection = userInput.nextInt();
 
@@ -48,6 +49,9 @@ public class ManagerMenu extends Menu {
                 manageAccountRequests();
                 break;
             case 4:
+                centralDatabase.save();
+                break;
+            case 5:
                 running = false;
                 break;
             default:
