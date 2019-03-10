@@ -1,52 +1,31 @@
 package atm.oldstuff.account;
+import atm.model;
 
-
-import java.util.ArrayList;
 
 public class BankManager {
 
-    //TODO: Not sure where the account creation is happening here... need it to be in BankManager so I can implement it in the UI - Bianca.
-
+    //TODO: not sure whats happening here. All my code has been modified .
     private static int idNum = 0;
-    private ArrayList<User> listOfUsers = new ArrayList<>();
 
     public BankManager(){
     }
 
-    public User createUser(String name) {
-        // Stub.
-        return null;
+    public atm.oldstuff.account.User createUser(String name) {
+        //requires user class to be fixed to have a constructor without account param
+        return atm.oldstuff.account.UserFactory.createUser(name, null);
     }
 
-    /*
-    //TODO: Requires method addAccount in atm.oldstuff.account.User.
-    public void createAccount(User user, int type){
-        // Stub.
+
+    public void createAccount(atm.oldstuff.account.User user, int type){
+        atm.oldstuff.account.AccountFactory.createAccount(user, type);
     }
 
-    public void checkRequest(User name){
-      ArrayList<String> requests = name.getRequest();
-      for(String request: requests) {
-          performRequest(request);
-      }
-    }
 
-    //TODO:
-//    public void performRequest(String request){
-//
-//    }
-
-    //TODO: Requires atm.oldstuff.account class to be completed first
-    public void undoTransaction(Account acc){
+    public void undoTransaction(atm.oldstuff.account.Account acc, atm.model.TransactionModel m){
         acc.balance -= acc.lastTransaction;
     }
 
-    //TODO:
     public void restock(ATM atm, int denom, int amount){
         atm.addBills(denom, amount);
     }
-
-    public ArrayList<User> getListOfUsers(){
-        return listOfUsers;
-    }*/
 }
