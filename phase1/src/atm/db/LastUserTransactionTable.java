@@ -9,10 +9,10 @@ import java.util.HashMap;
 
 
 public class LastUserTransactionTable {
-    private HashMap<Long, TransactionModel> lastTransactionForUserId;
-    private long nextTransactionId;
+    public HashMap<Long, TransactionModel> lastTransactionForUserId = new HashMap<>();
+    private long nextTransactionId = 0;
 
-    private void save(String fileName) {
+    public void save(String fileName) {
         try {
             PrintWriter writer = Util.openFileW(fileName);
             writer.println("id,userId,srcAccId,destAccId,amount");
@@ -25,7 +25,7 @@ public class LastUserTransactionTable {
     }
 
     public void load(String fileName) {
-        this.lastTransactionForUserId = new HashMap<>();
+        this.lastTransactionForUserId.clear();
         this.nextTransactionId = 0;
         Util.loadCSV(fileName, row -> addTransactionModel(TransactionModel.fromCSVRowString(row)));
     }

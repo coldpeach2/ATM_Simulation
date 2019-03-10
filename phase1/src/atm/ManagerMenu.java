@@ -1,10 +1,14 @@
 package atm;
 
+import java.io.*;
+import java.util.List;
 import java.util.Scanner;
 
 import atm.db.BankDatabase;
 
-public class ManagerMenu extends Menu{
+import atm.model.AccountRequestModel;
+
+public class ManagerMenu extends Menu {
 
     /** Displays options for the Bank Manager **/
 
@@ -22,9 +26,9 @@ public class ManagerMenu extends Menu{
 
         System.out.println("\n Hello. Please select an option: \n");
         System.out.println("1 - Add New Client");
-        System.out.println("2 - Restock Bills");
-        System.out.println("3 - Undo Transaction");
-        System.out.println("4 - Add An Account for a Client");
+        System.out.println("2 - Undo Transaction");
+        System.out.println("3 - Add An Account for a Client");
+        System.out.println("4 - Save Data");
         System.out.println("5 - EXIT");
 
         selection = userInput.nextInt();
@@ -38,15 +42,14 @@ public class ManagerMenu extends Menu{
                 getOption(); // display options again after you're done with one option.
                 break;
             case 2:
-                restockBills();
-                getOption();
-                break;
-            case 3:
                 undo();
                 getOption();
                 break;
+            case 3:
+                manageAccountRequests();
+                break;
             case 4:
-                addAccount();
+                centralDatabase.save();
                 break;
             case 5:
                 running = false;
@@ -59,44 +62,56 @@ public class ManagerMenu extends Menu{
     }
 
     private void addClient() {
-
-        String username, firstName, lastName;
-
+        String username, firstName, lastName, password;
         userInput.nextLine();
-
         System.out.println("Enter a First Name: ");
         firstName = userInput.nextLine();
-
         System.out.println("Enter a Last Name: ");
         lastName = userInput.nextLine();
-
         System.out.println("Create a username: ");
         username = userInput.nextLine();
-
-        //TODO: Needs to be completed. Should call a createUser/addUser method. Left incomplete because I can't tell where we wanted to implement that.
-
-        //manager.createUser(firstName);
-
+        System.out.println("Create a password: ");
+        password = userInput.nextLine();
+        if (centralDatabase.createUser(firstName, lastName, username, password))
+            System.out.println("User: " + username + " Added Successfully.");
 
     }
 
-    private void addAccount(){
+    private void manageAccountRequests() {
         userInput.nextLine();
-        System.out.println("What type of account would you like to create?");
-        String typeOfAccount = userInput.nextLine();
-        System.out.println("What user would you like to create this account for?");
-        String userAccount = userInput.nextLine();
-
-        /* TODO: How are we creating accounts? Bank manager seems to be blank for this?? I don't think that we should be
-         calling AccountFactory for this- I feel like bank manager should be calling accountFactory and having a
-         "front-end method" (for lack of a better term lol) that I can use */
-
-
-
+        List<AccountRequestModel> accountRequestModelList = centralDatabase.getPendingAccountRequests();
+        if (accountRequestModelList.isEmpty()) {
+            System.out.println("There are no pending account requests. Press enter to continue.");
+            userInput.nextLine();
+            return;
+        }
+        System.out.println("The following account requests are pending:");
+        int idx = 0;
+        for (AccountRequestModel accountRequestModel : accountRequestModelList) {
+            System.out.println(idx + " - User: " + accountRequestModel.getRequesterUserId() + " Type: " + accountRequestModel.getRequestedAccountType().getName());
+            idx++;
+        }
+        System.out.println((idx + 1) + " - Grant ALL");
+        System.out.println((idx + 2) + " - Back");
+        int requestIdx = -1;
+        while (requestIdx != (idx + 2)) {
+            System.out.println("Select an option:");
+            requestIdx = userInput.nextInt();
+            if (requestIdx == idx + 1) { // Grant all.
+                for (AccountRequestModel accountRequestModel : accountRequestModelList) {
+                    if (centralDatabase.grantAccount(accountRequestModel.getId()))
+                        System.out.println("Granted user " + accountRequestModel.getRequesterUserId() + " access to a new " + accountRequestModel.getRequestedAccountType() + " account.");
+                }
+            } else if (requestIdx >= 0 && requestIdx <= idx) {
+                AccountRequestModel accountRequestModel = accountRequestModelList.get(requestIdx);
+                if (centralDatabase.grantAccount(accountRequestModel.getId()))
+                    System.out.println("Granted user " + accountRequestModel.getRequesterUserId() + " access to a new " + accountRequestModel.getRequestedAccountType() + " account.");
+            }
+        }
     }
 
-    private void restockBills() {
-        //TODO: Needs to be completed.
+    public InputStreamReader openFile(String fileName) {
+        return new InputStreamReader(this.getClass().getResourceAsStream("/" + fileName));
     }
 
     private void undo() {

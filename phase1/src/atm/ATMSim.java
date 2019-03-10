@@ -19,26 +19,18 @@ public class ATMSim {
     private Boolean running = true;
 
     public void runATM(BankDatabase database, UserModel current_user) {
-
-        ClientMenu menu = new ClientMenu(database, current_user);
-
-        while (running) {
-            menu.getOption();
-            running = menu.running;
-        }
-
-    }
-
-    public void runATM(BankDatabase database) {
-
-        ManagerMenu menu = new ManagerMenu(database);
-
-        while (running) {
-
-            menu.getOption();
-            running = menu.running;
+        if (current_user.getAuthLevel() == UserModel.AuthLevel.BankManager) {
+            ManagerMenu menu = new ManagerMenu(database);
+            while (running) {
+                menu.getOption();
+                running = menu.running;
+            }
+        } else {
+            ClientMenu menu = new ClientMenu(database, current_user);
+            while (running) {
+                menu.getOption();
+                running = menu.running;
+            }
         }
     }
-
-
 }
