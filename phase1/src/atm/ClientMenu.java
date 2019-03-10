@@ -26,6 +26,8 @@ public class ClientMenu extends Menu{
 
     public void getOption() {
 
+
+
         int selection;
 
         // Display a list of this User's accounts
@@ -67,6 +69,7 @@ public class ClientMenu extends Menu{
 
 
                     transferFrom = userInput.nextInt();
+                    System.out.println("please select the account you would like to transfer funds to:");
                     //withdraw
                     for (int i =1; i<x+1; i++){
                         if (i == transferFrom){
@@ -93,7 +96,6 @@ public class ClientMenu extends Menu{
 
                 }
                 //deposit
-                System.out.println("select an account that you would like to transfer funds into");
                 int transferTo = userInput.nextInt();
                 for (int i =1; i<x+1; i++){
                     if (i == transferTo){
@@ -124,6 +126,57 @@ public class ClientMenu extends Menu{
             case 2:
                 //
                 getOption();
+
+                System.out.println("Transfer Between Accounts:");
+                int transferOut;
+                validAccount = false;
+                while (!validAccount) {
+                    System.out.println("Please select the account you would like to transfer out of:");
+
+
+                    transferOut = userInput.nextInt();
+                    //withdraw
+                    for (int i =1; i<x+1; i++){
+                        if (i == transferOut){
+                            if (displayAccounts.get(i).getType() == AccountModel.AccountType.Checking){
+
+                                validAccount = true;
+                                break;
+                            }
+                            else if (displayAccounts.get(i).getType() == AccountModel.AccountType.LineOfCredit){
+                                validAccount = true;
+                                break;
+                            }
+                            else if (displayAccounts.get(i).getType() == AccountModel.AccountType.Saving){
+                                validAccount = true;
+                                break;
+                            }
+                            else{
+                                System.out.println("Checking if valid selection");
+                                System.out.print(".");
+                                System.out.print(".");
+                                System.out.print(".");
+
+
+                            }
+                        }
+                    }
+
+
+                }
+
+                System.out.println("Please print the username of the person you would like to transfer your funds to");
+                String userToTransfer = userInput.nextLine();
+                //jus to spice visuals up a lil (lol)
+                System.out.print("Checking for valid user");
+                System.out.print(".");
+                System.out.print(".");
+                System.out.print(".");
+
+
+
+
+
                 break;
             case 3:
                 //
