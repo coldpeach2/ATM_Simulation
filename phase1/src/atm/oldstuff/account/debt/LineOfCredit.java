@@ -1,6 +1,6 @@
 package atm.oldstuff.account.debt;
 
-public class LineOfCredit extends DebtAccount {
+public class LineOfCredit extends atm.oldstuff.account.debt.DebtAccount {
 
     public LineOfCredit(long id) {
         super(id);

@@ -1,6 +1,6 @@
 package atm.oldstuff.account.asset;
 
-public class Saving extends AssetAccount {
+public class Saving extends atm.oldstuff.account.asset.AssetAccount {
 
     private final double monthlyInterest;
 

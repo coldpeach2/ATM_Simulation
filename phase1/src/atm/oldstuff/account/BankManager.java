@@ -5,10 +5,12 @@ import java.util.ArrayList;
 
 public class BankManager {
 
+    //TODO: Not sure where the account creation is happening here... need it to be in BankManager so I can implement it in the UI - Bianca.
+
     private static int idNum = 0;
     private ArrayList<User> listOfUsers = new ArrayList<>();
 
-    BankManager(){
+    public BankManager(){
     }
 
     public User createUser(String name) {

@@ -1,14 +1,15 @@
-package src.atm.model;
+package atm.oldstuff.account;
 
 import java.time.Clock;
 import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class ATMModel {
+public class ATMData {
+
+    /** Class storing the ATM's bills and basic ATM System Data **/
 
     // TODO: Do I still need to instantiate a bank manager and list of accounts? Probably not right.
-    // So
 
     public Clock clock;
 
@@ -18,8 +19,8 @@ public class ATMModel {
     private static final int TWENTIES = 20;
     private static final int FIFTIES = 50;
 
-    /* Fill the atm.oldstuff.account.ATM at start */
-    private Map<Integer, Integer> dollarBills = new TreeMap<Integer, Integer>(Collections.reverseOrder())
+    /* Fill the atm.oldstuff.account.ATMData at start */
+    private static Map<Integer, Integer> dollarBills = new TreeMap<Integer, Integer>(Collections.reverseOrder())
     {{
         put(FIVES, DEFAULT_BILLS);
         put(TENS, DEFAULT_BILLS);
@@ -31,8 +32,8 @@ public class ATMModel {
         return dollarBills.get(denom);
     }
 
-    public Map getDollarBills () {
-        return this.dollarBills;
+    public static Map<Integer, Integer> getDollarBills () {
+        return dollarBills;
     }
 
 }
