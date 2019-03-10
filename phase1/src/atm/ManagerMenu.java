@@ -74,8 +74,14 @@ public class ManagerMenu extends Menu {
     }
 
     private void manageAccountRequests() {
-        System.out.println("The following account requests are pending:");
+        userInput.nextLine();
         List<AccountRequestModel> accountRequestModelList = centralDatabase.getPendingAccountRequests();
+        if (accountRequestModelList.isEmpty()) {
+            System.out.println("There are no pending account requests. Press enter to continue.");
+            userInput.nextLine();
+            return;
+        }
+        System.out.println("The following account requests are pending:");
         int idx = 0;
         for (AccountRequestModel accountRequestModel : accountRequestModelList) {
             System.out.println(idx + " - User: " + accountRequestModel.getRequesterUserId() + " Type: " + accountRequestModel.getRequestedAccountType().getName());

@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4132268a-2550-422e-9347-66ecb234c69b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/atm/ManagerMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/atm/ManagerMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/atm/model/AccountModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/atm/model/AccountModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/atm/db/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/atm/db/Util.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,8 +21,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/atm/db/BankDatabase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="556">
-              <caret line="144" column="5" selection-start-line="144" selection-start-column="5" selection-end-line="144" selection-end-column="5" />
+            <state relative-caret-position="480">
+              <caret line="30" column="30" lean-forward="true" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -32,8 +33,35 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/atm/db/AccountRequestTable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+            <state relative-caret-position="380">
+              <caret line="32" column="29" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/out/production/phase1/accountrequest.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="32">
+              <caret line="2" column="5" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/out/production/phase1/bk/accountrequest.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="32">
+              <caret line="2" column="5" lean-forward="true" selection-end-line="2" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/atm/db/Util.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="17" column="12" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -41,380 +69,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/atm/ATMProgram.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="23" column="39" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
+            <state relative-caret-position="176">
+              <caret line="16" column="67" lean-forward="true" selection-start-line="16" selection-start-column="67" selection-end-line="16" selection-end-column="67" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/atm/ClientMenu.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="40" selection-start-line="40" selection-end-line="42" selection-end-column="73" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="uml://JAVA/atm">
-          <provider selected="true" editor-type-id="UmlEditorProvider">
-            <state>
-              <ID>JAVA</ID>
-              <OriginalElement>atm</OriginalElement>
-              <nodes>
-                <node x="127.72222222222217" y="1684.0">atm.Menu</node>
-                <node x="1336.2222222222222" y="452.5">atm.db.Util.CSVRowConsumer</node>
-                <node x="824.7222222222222" y="1235.0">atm.db.AccountRequestTable</node>
-                <node x="1327.4722222222222" y="1508.0">atm.db.BankDatabase</node>
-                <node x="1620.7222222222222" y="1235.0">atm.db.LastUserTransactionTable</node>
-                <node x="1743.3472222222222" y="752.0">atm.model.TransactionModel</node>
-                <node x="1275.7222222222222" y="1246.0">atm.db.UserAccountsTable</node>
-                <node x="390.80864101679344" y="2054.0">atm.ManagerMenu</node>
-                <node x="1425.089294340925" y="0.0">atm.model.AccountModel.AccountType</node>
-                <node x="2035.7222222222222" y="1235.0">atm.db.AccountsTable</node>
-                <node x="188.47222222222217" y="664.0">atm.model.UserModel</node>
-                <node x="118.23721244536478" y="2330.0">atm.ATMSim</node>
-                <node x="2123.829365079365" y="342.0">atm.model.AccountModel</node>
-                <node x="136.80864101679344" y="2098.0">atm.ClientMenu</node>
-                <node x="761.2222222222222" y="796.0">atm.model.AccountRequestModel</node>
-                <node x="1297.7222222222222" y="851.5">atm.db.Util</node>
-                <node x="219.68929434092502" y="408.0">atm.model.UserModel.AuthLevel</node>
-                <node x="439.7222222222222" y="1224.0">atm.db.UserTable</node>
-                <node x="836.1329365079364" y="2476.0">atm.ATMProgram</node>
-              </nodes>
-              <notes />
-              <edges>
-                <edge source="atm.db.BankDatabase" target="atm.db.AccountsTable">
-                  <point x="128.0" y="-213.0" />
-                  <point x="1647.4722222222222" y="1468.0" />
-                  <point x="2272.722222222222" y="1468.0" />
-                  <point x="79.0" y="81.0" />
-                </edge>
-                <edge source="atm.db.AccountRequestTable" target="atm.model.AccountModel.AccountType">
-                  <point x="86.20000000000005" y="-81.0" />
-                  <point x="1126.4222222222222" y="1184.0" />
-                  <point x="1183.5086410167933" y="1184.0" />
-                  <point x="1183.5086410167933" y="322.0" />
-                  <point x="1514.339294340925" y="322.0" />
-                  <point x="-12.75" y="136.0" />
-                </edge>
-                <edge source="atm.db.BankDatabase" target="atm.db.UserTable">
-                  <point x="-153.60000000000014" y="-213.0" />
-                  <point x="1365.8722222222218" y="1478.0" />
-                  <point x="530.7222222222222" y="1478.0" />
-                  <point x="-91.0" y="92.0" />
-                </edge>
-                <edge source="atm.ATMSim" target="atm.model.UserModel.AuthLevel">
-                  <point x="-121.28571428571422" y="-48.0" />
-                  <point x="138.45149815965055" y="2310.0" />
-                  <point x="13.222222222222172" y="2310.0" />
-                  <point x="13.222222222222172" y="1164.0" />
-                  <point x="78.0149902231426" y="1164.0" />
-                  <point x="78.0149902231426" y="644.0" />
-                  <point x="243.18929434092502" y="644.0" />
-                  <point x="-70.5" y="70.0" />
-                </edge>
-                <edge source="atm.ManagerMenu" target="atm.db.BankDatabase">
-                  <point x="64.5" y="-103.0" />
-                  <point x="584.3086410167934" y="2014.0" />
-                  <point x="1519.4722222222222" y="2014.0" />
-                  <point x="0.0" y="213.0" />
-                </edge>
-                <edge source="atm.db.Util" target="atm.db.Util.CSVRowConsumer">
-                  <point x="0.0" y="-47.5" />
-                  <point x="0.0" y="25.5" />
-                </edge>
-                <edge source="atm.ATMSim" target="atm.ManagerMenu">
-                  <point x="40.428571428571445" y="-48.0" />
-                  <point x="300.1657838739362" y="2290.0" />
-                  <point x="455.30864101679344" y="2290.0" />
-                  <point x="-64.5" y="103.0" />
-                </edge>
-                <edge source="atm.db.BankDatabase" target="atm.db.UserAccountsTable">
-                  <point x="0.0" y="-213.0" />
-                  <point x="81.25" y="70.0" />
-                </edge>
-                <edge source="atm.ClientMenu" target="atm.db.BankDatabase">
-                  <point x="43.875" y="-59.0" />
-                  <point x="297.68364101679344" y="1984.0" />
-                  <point x="1354.9007936507937" y="1984.0" />
-                  <point x="-164.57142857142844" y="213.0" />
-                </edge>
-                <edge source="atm.db.AccountRequestTable" target="atm.db.Util">
-                  <point x="172.4000000000001" y="-81.0" />
-                  <point x="1212.6222222222223" y="1204.0" />
-                  <point x="1382.022222222222" y="1204.0" />
-                  <point x="-56.200000000000045" y="47.5" />
-                </edge>
-                <edge source="atm.db.LastUserTransactionTable" target="atm.db.Util">
-                  <point x="-147.75" y="-81.0" />
-                  <point x="1669.9722222222222" y="1204.0" />
-                  <point x="1494.422222222222" y="1204.0" />
-                  <point x="56.200000000000045" y="47.5" />
-                </edge>
-                <edge source="atm.db.AccountsTable" target="atm.model.AccountModel.AccountType">
-                  <point x="-63.19999999999982" y="-81.0" />
-                  <point x="2130.5222222222224" y="1204.0" />
-                  <point x="2076.4811507936506" y="1204.0" />
-                  <point x="2076.4811507936506" y="322.0" />
-                  <point x="1539.839294340925" y="322.0" />
-                  <point x="12.75" y="136.0" />
-                </edge>
-                <edge source="atm.db.AccountRequestTable" target="atm.model.AccountRequestModel">
-                  <point x="-172.39999999999986" y="-81.0" />
-                  <point x="867.8222222222223" y="1184.0" />
-                  <point x="885.7222222222222" y="1184.0" />
-                  <point x="-41.5" y="103.0" />
-                </edge>
-                <edge source="atm.db.BankDatabase" target="atm.model.UserModel">
-                  <point x="-179.20000000000005" y="-213.0" />
-                  <point x="1340.272222222222" y="1488.0" />
-                  <point x="429.2222222222222" y="1488.0" />
-                  <point x="429.2222222222222" y="1194.0" />
-                  <point x="352.8611111111111" y="1194.0" />
-                  <point x="29.888888888888914" y="235.0" />
-                </edge>
-                <edge source="atm.ATMProgram" target="atm.model.UserModel">
-                  <point x="-87.375" y="-36.5" />
-                  <point x="865.2579365079364" y="2456.0" />
-                  <point x="24.22222222222217" y="2456.0" />
-                  <point x="24.22222222222217" y="1174.0" />
-                  <point x="203.41666666666663" y="1174.0" />
-                  <point x="-119.55555555555554" y="235.0" />
-                </edge>
-                <edge source="atm.db.BankDatabase" target="atm.db.AccountRequestTable">
-                  <point x="-51.200000000000045" y="-213.0" />
-                  <point x="1468.272222222222" y="1438.0" />
-                  <point x="1147.9722222222222" y="1438.0" />
-                  <point x="107.75" y="81.0" />
-                </edge>
-                <edge source="atm.ATMSim" target="atm.db.BankDatabase">
-                  <point x="121.28571428571422" y="-48.0" />
-                  <point x="381.022926731079" y="2310.0" />
-                  <point x="1618.1865079365077" y="2310.0" />
-                  <point x="1618.1865079365077" y="2014.0" />
-                  <point x="1574.3293650793648" y="2014.0" />
-                  <point x="54.85714285714289" y="213.0" />
-                </edge>
-                <edge source="atm.ATMProgram" target="atm.db.BankDatabase">
-                  <point x="29.125" y="-36.5" />
-                  <point x="981.7579365079364" y="2446.0" />
-                  <point x="1629.1865079365077" y="2446.0" />
-                  <point x="109.71428571428578" y="213.0" />
-                </edge>
-                <edge source="atm.ATMSim" target="atm.model.UserModel">
-                  <point x="-80.85714285714278" y="-48.0" />
-                  <point x="178.880069588222" y="2300.0" />
-                  <point x="46.22222222222217" y="2300.0" />
-                  <point x="46.22222222222217" y="1184.0" />
-                  <point x="233.30555555555543" y="1184.0" />
-                  <point x="-89.66666666666674" y="235.0" />
-                </edge>
-                <edge source="atm.db.UserTable" target="atm.db.Util">
-                  <point x="145.60000000000002" y="-92.0" />
-                  <point x="767.3222222222222" y="1194.0" />
-                  <point x="1325.822222222222" y="1194.0" />
-                  <point x="-112.40000000000009" y="47.5" />
-                </edge>
-                <edge source="atm.ATMProgram" target="atm.ATMSim">
-                  <point x="-29.125" y="-36.5" />
-                  <point x="923.5079365079364" y="2446.0" />
-                  <point x="259.7372124453648" y="2446.0" />
-                  <point x="0.0" y="48.0" />
-                </edge>
-                <edge source="atm.model.AccountRequestModel" target="atm.model.AccountModel.AccountType">
-                  <point x="-110.66666666666674" y="-103.0" />
-                  <point x="816.5555555555554" y="644.0" />
-                  <point x="740.4528755463538" y="644.0" />
-                  <point x="740.4528755463538" y="302.0" />
-                  <point x="1463.339294340925" y="302.0" />
-                  <point x="-63.75" y="136.0" />
-                </edge>
-                <edge source="atm.db.AccountsTable" target="atm.model.AccountModel">
-                  <point x="0.0" y="-81.0" />
-                  <point x="2193.722222222222" y="644.0" />
-                  <point x="2185.7579365079364" y="644.0" />
-                  <point x="-82.57142857142844" y="136.0" />
-                </edge>
-                <edge source="atm.model.AccountModel" target="atm.model.AccountModel.AccountType">
-                  <point x="72.25" y="-136.0" />
-                  <point x="2340.579365079365" y="302.0" />
-                  <point x="1590.839294340925" y="302.0" />
-                  <point x="63.75" y="136.0" />
-                </edge>
-                <edge source="atm.db.AccountsTable" target="atm.db.Util">
-                  <point x="-126.39999999999998" y="-81.0" />
-                  <point x="2067.322222222222" y="1194.0" />
-                  <point x="1550.6222222222223" y="1194.0" />
-                  <point x="112.40000000000009" y="47.5" />
-                </edge>
-                <edge source="atm.db.BankDatabase" target="atm.model.AccountModel">
-                  <point x="153.5999999999999" y="-213.0" />
-                  <point x="1673.072222222222" y="1478.0" />
-                  <point x="2362.222222222222" y="1478.0" />
-                  <point x="2362.222222222222" y="644.0" />
-                  <point x="2309.615079365079" y="644.0" />
-                  <point x="41.28571428571422" y="136.0" />
-                </edge>
-                <edge source="atm.db.BankDatabase" target="atm.db.LastUserTransactionTable">
-                  <point x="25.59999999999991" y="-213.0" />
-                  <point x="1545.072222222222" y="1428.0" />
-                  <point x="1719.2222222222222" y="1428.0" />
-                  <point x="-98.5" y="81.0" />
-                </edge>
-                <edge source="atm.ClientMenu" target="atm.Menu">
-                  <point x="14.625" y="-59.0" />
-                  <point x="268.43364101679344" y="1994.0" />
-                  <point x="196.72222222222217" y="1994.0" />
-                  <point x="-23.0" y="37.0" />
-                </edge>
-                <edge source="atm.ManagerMenu" target="atm.model.UserModel">
-                  <point x="-21.5" y="-103.0" />
-                  <point x="498.30864101679344" y="1954.0" />
-                  <point x="418.2222222222222" y="1954.0" />
-                  <point x="418.2222222222222" y="1204.0" />
-                  <point x="322.9722222222222" y="1204.0" />
-                  <point x="0.0" y="235.0" />
-                </edge>
-                <edge source="atm.db.UserAccountsTable" target="atm.db.Util">
-                  <point x="0.0" y="-70.0" />
-                  <point x="0.0" y="47.5" />
-                </edge>
-                <edge source="atm.db.UserTable" target="atm.model.UserModel.AuthLevel">
-                  <point x="72.79999999999995" y="-92.0" />
-                  <point x="694.5222222222221" y="1154.0" />
-                  <point x="535.5028755463537" y="1154.0" />
-                  <point x="535.5028755463537" y="634.0" />
-                  <point x="384.189294340925" y="634.0" />
-                  <point x="70.5" y="70.0" />
-                </edge>
-                <edge source="atm.model.AccountRequestModel" target="atm.model.AccountModel">
-                  <point x="110.66666666666674" y="-103.0" />
-                  <point x="1037.888888888889" y="644.0" />
-                  <point x="2144.4722222222217" y="644.0" />
-                  <point x="-123.85714285714289" y="136.0" />
-                </edge>
-                <edge source="atm.ManagerMenu" target="atm.Menu">
-                  <point x="-107.5" y="-103.0" />
-                  <point x="412.30864101679344" y="1974.0" />
-                  <point x="242.72222222222217" y="1974.0" />
-                  <point x="23.0" y="37.0" />
-                </edge>
-                <edge source="atm.ClientMenu" target="atm.model.UserModel">
-                  <point x="-43.875" y="-59.0" />
-                  <point x="209.93364101679344" y="2014.0" />
-                  <point x="88.53472222222217" y="2014.0" />
-                  <point x="88.53472222222217" y="1204.0" />
-                  <point x="293.08333333333326" y="1204.0" />
-                  <point x="-29.888888888888914" y="235.0" />
-                </edge>
-                <edge source="atm.ATMSim" target="atm.ClientMenu">
-                  <point x="2.8421709430404007E-14" y="-48.0" />
-                  <point x="259.7372124453648" y="2280.0" />
-                  <point x="312.30864101679344" y="2280.0" />
-                  <point x="58.5" y="59.0" />
-                </edge>
-                <edge source="atm.model.UserModel" target="atm.model.UserModel.AuthLevel">
-                  <point x="-67.25" y="-235.0" />
-                  <point x="255.72222222222217" y="644.0" />
-                  <point x="290.189294340925" y="644.0" />
-                  <point x="-23.5" y="70.0" />
-                </edge>
-                <edge source="atm.db.BankDatabase" target="atm.model.AccountModel.AccountType">
-                  <point x="179.20000000000005" y="-213.0" />
-                  <point x="1698.672222222222" y="1488.0" />
-                  <point x="2435.4286375661377" y="1488.0" />
-                  <point x="2435.4286375661377" y="292.0" />
-                  <point x="1616.339294340925" y="292.0" />
-                  <point x="89.25" y="136.0" />
-                </edge>
-                <edge source="atm.db.BankDatabase" target="atm.model.AccountRequestModel">
-                  <point x="-102.40000000000009" y="-213.0" />
-                  <point x="1417.072222222222" y="1458.0" />
-                  <point x="814.2222222222222" y="1458.0" />
-                  <point x="814.2222222222222" y="1184.0" />
-                  <point x="802.7222222222222" y="1184.0" />
-                  <point x="-124.5" y="103.0" />
-                </edge>
-                <edge source="atm.ClientMenu" target="atm.model.AccountModel.AccountType">
-                  <point x="-102.375" y="-59.0" />
-                  <point x="151.43364101679344" y="2034.0" />
-                  <point x="35.22222222222217" y="2034.0" />
-                  <point x="35.22222222222217" y="1154.0" />
-                  <point x="0.0" y="1154.0" />
-                  <point x="0.0" y="292.0" />
-                  <point x="1437.839294340925" y="292.0" />
-                  <point x="-89.25" y="136.0" />
-                </edge>
-                <edge source="atm.db.BankDatabase" target="atm.model.TransactionModel">
-                  <point x="76.79999999999995" y="-213.0" />
-                  <point x="1596.272222222222" y="1448.0" />
-                  <point x="2025.2222222222222" y="1448.0" />
-                  <point x="2025.2222222222222" y="1204.0" />
-                  <point x="2011.9722222222222" y="1204.0" />
-                  <point x="115.125" y="147.0" />
-                </edge>
-                <edge source="atm.ManagerMenu" target="atm.model.AccountModel">
-                  <point x="107.5" y="-103.0" />
-                  <point x="627.3086410167934" y="2034.0" />
-                  <point x="2406.3929232804235" y="2034.0" />
-                  <point x="2406.3929232804235" y="644.0" />
-                  <point x="2392.186507936508" y="644.0" />
-                  <point x="123.85714285714289" y="136.0" />
-                </edge>
-                <edge source="atm.db.UserTable" target="atm.model.UserModel">
-                  <point x="0.0" y="-92.0" />
-                  <point x="621.7222222222222" y="1164.0" />
-                  <point x="442.5277777777777" y="1164.0" />
-                  <point x="119.55555555555554" y="235.0" />
-                </edge>
-                <edge source="atm.db.LastUserTransactionTable" target="atm.model.TransactionModel">
-                  <point x="147.75" y="-81.0" />
-                  <point x="1965.4722222222222" y="1204.0" />
-                  <point x="1935.2222222222222" y="1204.0" />
-                  <point x="38.375" y="147.0" />
-                </edge>
-                <edge source="atm.ClientMenu" target="atm.model.AccountModel">
-                  <point x="102.375" y="-59.0" />
-                  <point x="356.18364101679344" y="2024.0" />
-                  <point x="2373.222222222222" y="2024.0" />
-                  <point x="2373.222222222222" y="634.0" />
-                  <point x="2350.9007936507933" y="634.0" />
-                  <point x="82.57142857142844" y="136.0" />
-                </edge>
-              </edges>
-              <settings layout="Hierarchic Group" zoom="0.2740442655935614" x="-248.92584434654896" y="865.7709251101321" />
-              <SelectedNodes />
-              <Categories>
-                <Category>Fields</Category>
-                <Category>Methods</Category>
-              </Categories>
-              <SCOPE>All</SCOPE>
-              <VISIBILITY>private</VISIBILITY>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/design1.svg">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/users.csv">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="16">
-              <caret line="1" column="23" lean-forward="true" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/atm/ManagerMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="10" column="38" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
+            <state relative-caret-position="20">
+              <caret line="78" selection-start-line="78" selection-end-line="78" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#455#456#0" expanded="true" />
@@ -425,10 +90,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/accountrequest.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="32">
+              <caret line="2" column="5" lean-forward="true" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/atm/ATMSim.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
-              <caret line="33" column="12" lean-forward="true" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="12" />
+            <state relative-caret-position="480">
+              <caret line="30" column="33" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -480,11 +157,14 @@
         <option value="$PROJECT_DIR$/src/atm/BankDatabase.java" />
         <option value="$PROJECT_DIR$/src/atm/oldstuff/account/BankManager.java" />
         <option value="$PROJECT_DIR$/src/atm/model/TransactionModel.java" />
-        <option value="$PROJECT_DIR$/src/atm/ATMSim.java" />
-        <option value="$PROJECT_DIR$/src/atm/ATMProgram.java" />
         <option value="$PROJECT_DIR$/src/atm/ClientMenu.java" />
         <option value="$PROJECT_DIR$/src/atm/model/AccountModel.java" />
+        <option value="$PROJECT_DIR$/src/atm/ATMSim.java" />
+        <option value="$PROJECT_DIR$/src/atm/ATMProgram.java" />
         <option value="$PROJECT_DIR$/src/atm/ManagerMenu.java" />
+        <option value="$PROJECT_DIR$/src/atm/db/BankDatabase.java" />
+        <option value="$PROJECT_DIR$/out/production/phase1/accountrequest.csv" />
+        <option value="$PROJECT_DIR$/src/atm/db/Util.java" />
       </list>
     </option>
   </component>
@@ -514,6 +194,40 @@
             <path>
               <item name="phase1" type="b2602c69:ProjectViewProjectNode" />
               <item name="phase1" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phase1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phase1" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phase1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phase1" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="production" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phase1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phase1" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="production" type="462c0819:PsiDirectoryNode" />
+              <item name="phase1" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phase1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phase1" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="production" type="462c0819:PsiDirectoryNode" />
+              <item name="phase1" type="462c0819:PsiDirectoryNode" />
+              <item name="atm" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phase1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phase1" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="production" type="462c0819:PsiDirectoryNode" />
+              <item name="phase1" type="462c0819:PsiDirectoryNode" />
+              <item name="bk" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="phase1" type="b2602c69:ProjectViewProjectNode" />
@@ -872,7 +586,7 @@
       <workItem from="1552188202442" duration="30000" />
       <workItem from="1552188572939" duration="622000" />
       <workItem from="1552234024533" duration="10906000" />
-      <workItem from="1552249208091" duration="2492000" />
+      <workItem from="1552249208091" duration="3024000" />
     </task>
     <task id="LOCAL-00001" summary="+ Proposed a .csv format for storing data. @bianca&#10;+ Created some testing data.">
       <created>1551753214719</created>
@@ -937,11 +651,32 @@
       <option name="project" value="LOCAL" />
       <updated>1552250725890</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="+ Handled granting account requests.">
+      <created>1552251758393</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1552251758393</updated>
+    </task>
+    <task id="LOCAL-00011" summary="+ Fixed the build.&#10;+ Handle creating users.">
+      <created>1552251807786</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1552251807786</updated>
+    </task>
+    <task id="LOCAL-00012" summary="+ Fixed ATMProgram">
+      <created>1552251856047</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1552251856047</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29339000" />
+    <option name="totallyTimeSpent" value="29871000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1536" height="864" extended-state="0" />
@@ -960,14 +695,14 @@
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32776934" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.6229508" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.6215847" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.852459" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.5781487" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="9" />
+      <window_info anchor="bottom" id="Messages" order="9" weight="0.329235" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.31284153" />
       <window_info anchor="right" id="Maven" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -1024,7 +759,40 @@
     <MESSAGE value="small commit- this is b/c for some reason i keep on getting errors and i'm trying to figure it out" />
     <MESSAGE value="working on client menu implementation" />
     <MESSAGE value="+ Worked on UI a bit." />
-    <option name="LAST_COMMIT_MESSAGE" value="+ Worked on UI a bit." />
+    <MESSAGE value="+ Handled granting account requests." />
+    <MESSAGE value="+ Fixed the build.&#10;+ Handle creating users." />
+    <MESSAGE value="+ Fixed ATMProgram" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ Fixed ATMProgram" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/atm/ManagerMenu.java</url>
+          <line>77</line>
+          <properties />
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/atm/db/AccountRequestTable.java</url>
+          <line>36</line>
+          <properties />
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/atm/db/AccountRequestTable.java</url>
+          <line>31</line>
+          <properties />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/atm/db/BankDatabase.java</url>
+          <line>30</line>
+          <properties />
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -1151,27 +919,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="16">
           <caret line="1" column="23" lean-forward="true" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/atm/db/AccountRequestTable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/atm/ATMProgram.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="23" column="39" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/atm/ATMSim.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="33" column="12" lean-forward="true" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -1516,16 +1263,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/atm/db/BankDatabase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="556">
-          <caret line="144" column="5" selection-start-line="144" selection-start-column="5" selection-end-line="144" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/atm/ClientMenu.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
@@ -1548,15 +1285,77 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/atm/ATMSim.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="30" column="33" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/atm/ATMProgram.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="16" column="67" lean-forward="true" selection-start-line="16" selection-start-column="67" selection-end-line="16" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/accountrequest.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="2" column="5" lean-forward="true" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/atm/ManagerMenu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="10" column="38" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
+        <state relative-caret-position="20">
+          <caret line="78" selection-start-line="78" selection-end-line="78" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#455#456#0" expanded="true" />
             <element signature="e#502#503#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/out/production/phase1/bk/accountrequest.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="2" column="5" lean-forward="true" selection-end-line="2" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/out/production/phase1/accountrequest.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="2" column="5" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/atm/db/BankDatabase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="30" column="30" lean-forward="true" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/atm/db/AccountRequestTable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="32" column="29" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/atm/db/Util.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="17" column="12" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
         </state>
       </provider>
     </entry>

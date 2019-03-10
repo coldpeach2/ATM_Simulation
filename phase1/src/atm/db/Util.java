@@ -18,7 +18,6 @@ public class Util {
             reader.readLine(); // Skip the column name row.
             String row;
             while ((row = reader.readLine()) != null) {
-                // System.out.println(row);
                 consumer.consumeRow(row);
             }
             reader.close();
