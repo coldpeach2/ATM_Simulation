@@ -1,7 +1,8 @@
 package atm;
 
 import java.util.Scanner;
-import atm.oldstuff.account.*;
+
+import atm.db.BankDatabase;
 
 public class ManagerMenu extends Menu{
 
@@ -9,7 +10,7 @@ public class ManagerMenu extends Menu{
 
     private Scanner userInput = new Scanner(System.in);
     BankDatabase centralDatabase;
-    BankManager manager = new BankManager();
+    // BankManager manager = new BankManager();
 
     public ManagerMenu(BankDatabase database) {
         this.centralDatabase = database;
@@ -74,7 +75,7 @@ public class ManagerMenu extends Menu{
 
         //TODO: Needs to be completed. Should call a createUser/addUser method. Left incomplete because I can't tell where we wanted to implement that.
 
-        manager.createUser(firstName);
+        //manager.createUser(firstName);
 
 
     }
