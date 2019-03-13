@@ -1,8 +1,8 @@
-package atm.db;
+package atm.server.db;
 
+import atm.model.AccountModel;
 import atm.model.UserModel;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -43,6 +43,10 @@ public class UserTable {
         UserModel userModel = new UserModel(nextUserId, firstName, lastName, userName, initialPassword, primaryAccId, UserModel.AuthLevel.User);
         addUser(userModel);
         return userModel;
+    }
+
+    public UserModel getUserModelForUserName(String username) {
+        return usersByUsername.get(username);
     }
 
 }

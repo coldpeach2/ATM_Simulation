@@ -1,8 +1,7 @@
-package atm.db;
+package atm.server.db;
 
 import atm.model.AccountModel;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
@@ -19,7 +18,6 @@ public class UserAccountsTable {
                 for (long accId : userAccountsEntry.getValue()) {
                     writer.println(userId + "," + accId);
                 }
-
             }
             writer.close();
         } catch (IOException ex) {
@@ -51,5 +49,13 @@ public class UserAccountsTable {
             userEntryAccountList.add(accountId);
             userAccounts.put(userId, userEntryAccountList);
         }
+    }
+
+    public boolean checkIfUserOwnsAccount(long userId, long accountId) {
+        return userAccounts.get(userId).contains(accountId);
+    }
+
+    public HashSet<Long> getUserAccountIds(long userId) {
+        return userAccounts.get(userId);
     }
 }

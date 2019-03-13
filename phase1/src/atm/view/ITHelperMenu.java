@@ -1,14 +1,15 @@
-package atm;
+package atm.view;
 
-import atm.db.BankDatabase;
+import atm.ATMSim;
 import atm.model.AccountModel;
-import atm.model.UserModel;
+import atm.server.BankServerConnection;
+import atm.server.ITServerConnection;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ClientMenu extends Menu {
+public class ITHelperMenu extends Menu {
 
     /**
      * Displays options for Bank Clients
@@ -16,17 +17,14 @@ public class ClientMenu extends Menu {
 
     private Scanner userInput = new Scanner(System.in);
     //TODO: is this a good design to pass database into this object? !!!!!!! YES.
-    BankDatabase centralDatabase;
-    UserModel currentUser;
+    ITServerConnection serverConnection;
 
-
-    public ClientMenu(BankDatabase database, UserModel currentUser) {
-        this.centralDatabase = database;
-        this.currentUser = currentUser;
+    public ITHelperMenu(ITServerConnection bankServerConnection) {
+        this.serverConnection = bankServerConnection;
     }
 
 
-    public void getOption() {
+    public int showOptions() {
 
 
         int selection;
@@ -35,7 +33,7 @@ public class ClientMenu extends Menu {
 
         System.out.println("Your Accounts: \n");
         ArrayList<AccountModel> displayAccounts = new ArrayList<>();
-        List<AccountModel> userAccounts = centralDatabase.getUserAccounts(currentUser.getId());
+        List<AccountModel> userAccounts = serverConnection.getUserAccounts();
         int idx = 1;
         for (AccountModel acc : userAccounts) {
             System.out.println(idx + " - " + acc.getType() + " Account id: " + acc.getId());
@@ -44,23 +42,24 @@ public class ClientMenu extends Menu {
             idx++;
         }
 
-        System.out.println("Hello " + currentUser.getFirstName() + "! Please select an option: \n ");
+        System.out.println("Hello " + serverConnection.user.getFirstName() + "! Please select an option: \n ");
         System.out.println("1 - Transfer Between Accounts");
         System.out.println("2 - Transfer to User");
         System.out.println("3 - Pay a Bill");
         System.out.println("4 - Deposit Funds");
         System.out.println("5 - Withdraw Funds");
         System.out.println("6 - Request a New Account");
-        System.out.println("7 - EXIT");
+        System.out.println("7 - Back-up ATM Data");
+        System.out.println("8 - Reboot ATM");
+        System.out.println("9 - Shutdown ATM");
+        System.out.println("10 - EXIT");
 
         selection = userInput.nextInt();
 
         switch (selection) {
-            //TODO: finish writing case statements for the other User options.
+            // TODO: finish writing case statements for the other User options.
             case 1:
                 //
-                getOption();
-
                 System.out.println("Transfer Between Accounts:");
                 int transferFrom;
                 boolean validAccount = false;
@@ -106,14 +105,8 @@ public class ClientMenu extends Menu {
                         }
                     }
                 }
-
-                //TODO: lastly, write the transaction date/time to the transaction file in this user's history
-
-
             case 2:
                 //
-                getOption();
-
                 System.out.println("Transfer Between Accounts:");
                 int transferOut;
                 validAccount = false;
@@ -156,34 +149,33 @@ public class ClientMenu extends Menu {
                 System.out.print(".");
                 System.out.print(".");
                 System.out.print(".");
-
-
                 break;
             case 3:
                 //
-                getOption();
                 break;
             case 4:
                 //
-                getOption();
                 break;
             case 5:
                 //
-                getOption();
                 break;
             case 6:
                 //
-                getOption();
                 break;
             case 7:
-                running = false;
+                serverConnection.backupData();
                 break;
-
+            case 8:
+                return ATMSim.STATUS_REBOOT;
+            case 9:
+                return ATMSim.STATUS_SHUTDOWN;
+            case 10:
+                return ATMSim.STATUS_EXIT;
             default:
                 System.out.println("ERROR. Please select an option from the list above.");
-                getOption();
+                break;
         }
-
+        return ATMSim.STATUS_RUNNING;
     }
 
 }

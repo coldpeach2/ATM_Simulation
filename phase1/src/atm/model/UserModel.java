@@ -86,7 +86,8 @@ public class UserModel {
 
     public enum AuthLevel {
         User(0),
-        BankManager(1);
+        BankManager(1),
+        ITHelper(2);
 
         private int code;
 

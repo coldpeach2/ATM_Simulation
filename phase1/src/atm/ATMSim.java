@@ -1,7 +1,14 @@
 package atm;
 
-import atm.db.BankDatabase;
+import atm.server.BankServer;
 import atm.model.*;
+import atm.server.BankServerConnection;
+import atm.server.ITServerConnection;
+import atm.server.ManagerBankServerConnection;
+import atm.view.ClientMenu;
+import atm.view.ITHelperMenu;
+import atm.view.ManagerMenu;
+import atm.view.Menu;
 
 public class ATMSim {
 
@@ -14,23 +21,24 @@ public class ATMSim {
      * 2. runATM(database) ~ ATM is being accessed by Bank Manager.
      */
 
-    /* The second version of runATM is needed since BankManager doesn't have a User Model*/
+    public static final int STATUS_RUNNING = 0;
+    public static final int STATUS_EXIT = 1;
+    public static final int STATUS_REBOOT = 2;
+    public static final int STATUS_SHUTDOWN = 3;
 
-    private Boolean running = true;
-
-    public void runATM(BankDatabase database, UserModel current_user) {
-        if (current_user.getAuthLevel() == UserModel.AuthLevel.BankManager) {
-            ManagerMenu menu = new ManagerMenu(database);
-            while (running) {
-                menu.getOption();
-                running = menu.running;
-            }
-        } else {
-            ClientMenu menu = new ClientMenu(database, current_user);
-            while (running) {
-                menu.getOption();
-                running = menu.running;
-            }
+    public int runATM(BankServerConnection connection) {
+        Menu menu;
+        if (connection instanceof ManagerBankServerConnection) {
+            menu = new ManagerMenu((ManagerBankServerConnection) connection);
+        } else if (connection instanceof ITServerConnection) {
+            menu = new ITHelperMenu((ITServerConnection) connection);
+        } else  {
+            menu = new ClientMenu(connection);
         }
+        int status = STATUS_RUNNING;
+        while (status == STATUS_RUNNING) {
+            status = menu.showOptions();
+        }
+        return status;
     }
 }

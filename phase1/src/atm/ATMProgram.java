@@ -1,17 +1,21 @@
 package atm;
 
-import atm.db.BankDatabase;
+import atm.server.BankServer;
 import atm.model.UserModel;
+import atm.server.BankServerConnection;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Scanner;
 
 public class ATMProgram {
+
     public static void main(String[] args) {
         // Loads the CSV files as java objects.
-        BankDatabase centralDatabase = new BankDatabase();
+        BankServer centralDatabase = new BankServer();
+
+        // ATM simulation starts here...
         while (true) {
+            System.out.println("Starting Up...");
             Date startUpDate = new Date();
             Scanner scanInput = new Scanner(System.in);
             while (hoursDifference(new Date(), startUpDate) < 24) {
@@ -20,8 +24,18 @@ public class ATMProgram {
                 System.out.println("Please enter your password and press enter:");
                 String enteredPassword = scanInput.nextLine();
                 try {
-                    UserModel loginUserModel = centralDatabase.tryLogin(enteredUsername, enteredPassword);
-                    new ATMSim().runATM(centralDatabase, loginUserModel);
+                    BankServerConnection connection = centralDatabase.tryLogin(enteredUsername, enteredPassword);
+                    int returnCode = new ATMSim().runATM(connection);
+                    if (returnCode == ATMSim.STATUS_REBOOT) {
+                        if (connection.user.getAuthLevel() != UserModel.AuthLevel.User) break;
+                    } else if (returnCode == ATMSim.STATUS_SHUTDOWN) {
+                        if (connection.user.getAuthLevel() != UserModel.AuthLevel.User) {
+                            scanInput.close();
+                            centralDatabase.save();
+                            System.out.println("Shutting Down...");
+                            return;
+                        }
+                    }
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
                 }
@@ -29,6 +43,7 @@ public class ATMProgram {
             scanInput.close();
             // Back-up data every 24 hours.
             centralDatabase.save();
+            System.out.println("Rebooting...");
         }
     }
 

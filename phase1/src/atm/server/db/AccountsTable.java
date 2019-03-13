@@ -1,27 +1,22 @@
-package atm.db;
+package atm.server.db;
 
 import atm.model.AccountModel;
+import atm.model.AccountRequestModel;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-<<<<<<< HEAD
-import java.util.HashMap;
 
-public class AccountsTable {
-    HashMap<Long, AccountModel> accountsById;
-    private long nextAccountId;
-
-    private void save(String fileName) {
-=======
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 public class AccountsTable {
     HashMap<Long, AccountModel> accountsById = new HashMap<>();
     private long nextAccountId = 0;
 
     public void save(String fileName) {
->>>>>>> origin/master
+
         try {
             PrintWriter writer = Util.openFileW(fileName);
             writer.println("id,type,balance,date");
@@ -34,13 +29,8 @@ public class AccountsTable {
     }
 
     public void load(String fileName) {
-<<<<<<< HEAD
-        this.nextAccountId = 0;
-        this.accountsById = new HashMap<>();
-=======
         this.accountsById.clear();
         this.nextAccountId = 0;
->>>>>>> origin/master
         Util.loadCSV(fileName, row -> addAccount(AccountModel.fromCSVRowString(row)));
     }
 
@@ -50,12 +40,18 @@ public class AccountsTable {
         this.accountsById.put(accountModel.getId(), accountModel); // balance "-10.40" -> -10.40
     }
 
-<<<<<<< HEAD
-=======
+
     public AccountModel createAccount(AccountModel.AccountType type) {
         AccountModel newAccountModel = new AccountModel(nextAccountId, type, 0, new Date());
         addAccount(newAccountModel);
         return newAccountModel;
     }
->>>>>>> origin/master
+
+    public AccountModel getAccountModelForId(long accountId) {
+        return accountsById.get(accountId);
+    }
+
+    public Collection<AccountModel> getAllAccountModels() {
+        return accountsById.values();
+    }
 }

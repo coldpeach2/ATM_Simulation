@@ -1,26 +1,28 @@
-package atm;
+package atm.view;
 
 import java.io.*;
 import java.util.List;
 import java.util.Scanner;
 
-import atm.db.BankDatabase;
+import atm.ATMSim;
+import atm.server.BankServer;
 
 import atm.model.AccountRequestModel;
+import atm.server.ManagerBankServerConnection;
 
 public class ManagerMenu extends Menu {
 
     /** Displays options for the Bank Manager **/
 
     private Scanner userInput = new Scanner(System.in);
-    BankDatabase centralDatabase;
+    ManagerBankServerConnection serverConnection;
     // BankManager manager = new BankManager();
 
-    public ManagerMenu(BankDatabase database) {
-        this.centralDatabase = database;
+    public ManagerMenu(ManagerBankServerConnection managerBankServerConnection) {
+        this.serverConnection = managerBankServerConnection;
     }
 
-    public void getOption() {
+    public int showOptions() {
 
         int selection;
 
@@ -29,7 +31,9 @@ public class ManagerMenu extends Menu {
         System.out.println("2 - Undo Transaction");
         System.out.println("3 - Add An Account for a Client");
         System.out.println("4 - Save Data");
-        System.out.println("5 - EXIT");
+        System.out.println("5 - Reboot ATM");
+        System.out.println("6 - Shutdown ATM");
+        System.out.println("7 - EXIT");
 
         selection = userInput.nextInt();
 
@@ -39,26 +43,26 @@ public class ManagerMenu extends Menu {
 
             case 1:
                 addClient();
-                getOption(); // display options again after you're done with one option.
                 break;
             case 2:
                 undo();
-                getOption();
                 break;
             case 3:
                 manageAccountRequests();
                 break;
             case 4:
-                centralDatabase.save();
+                serverConnection.save();
                 break;
             case 5:
-                running = false;
-                break;
+                return ATMSim.STATUS_REBOOT;
+            case 6:
+                return ATMSim.STATUS_SHUTDOWN;
+            case 7:
+                return ATMSim.STATUS_EXIT;
             default:
                 System.out.println("ERROR. Please select an option from the list above.");
-                getOption();
         }
-
+        return ATMSim.STATUS_RUNNING;
     }
 
     private void addClient() {
@@ -72,14 +76,14 @@ public class ManagerMenu extends Menu {
         username = userInput.nextLine();
         System.out.println("Create a password: ");
         password = userInput.nextLine();
-        if (centralDatabase.createUser(firstName, lastName, username, password))
+        if (serverConnection.createUser(firstName, lastName, username, password))
             System.out.println("User: " + username + " Added Successfully.");
 
     }
 
     private void manageAccountRequests() {
         userInput.nextLine();
-        List<AccountRequestModel> accountRequestModelList = centralDatabase.getPendingAccountRequests();
+        List<AccountRequestModel> accountRequestModelList = serverConnection.getPendingAccountRequests();
         if (accountRequestModelList.isEmpty()) {
             System.out.println("There are no pending account requests. Press enter to continue.");
             userInput.nextLine();
@@ -99,12 +103,12 @@ public class ManagerMenu extends Menu {
             requestIdx = userInput.nextInt();
             if (requestIdx == idx + 1) { // Grant all.
                 for (AccountRequestModel accountRequestModel : accountRequestModelList) {
-                    if (centralDatabase.grantAccount(accountRequestModel.getId()))
+                    if (serverConnection.grantAccount(accountRequestModel.getId()))
                         System.out.println("Granted user " + accountRequestModel.getRequesterUserId() + " access to a new " + accountRequestModel.getRequestedAccountType() + " account.");
                 }
             } else if (requestIdx >= 0 && requestIdx <= idx) {
                 AccountRequestModel accountRequestModel = accountRequestModelList.get(requestIdx);
-                if (centralDatabase.grantAccount(accountRequestModel.getId()))
+                if (serverConnection.grantAccount(accountRequestModel.getId()))
                     System.out.println("Granted user " + accountRequestModel.getRequesterUserId() + " access to a new " + accountRequestModel.getRequestedAccountType() + " account.");
             }
         }

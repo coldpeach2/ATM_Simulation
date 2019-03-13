@@ -1,13 +1,12 @@
-package atm.db;
+package atm.server.db;
 
 import atm.model.AccountModel;
 import atm.model.AccountRequestModel;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class AccountRequestTable {
     HashMap<Long, AccountRequestModel> accountRequestModelById = new HashMap();
@@ -41,5 +40,17 @@ public class AccountRequestTable {
     public void createAccountRequest(long userId, AccountModel.AccountType accountType) {
         addAccountRequest(new AccountRequestModel(nextAccountId, userId, accountType));
         nextAccountId++;
+    }
+
+    public AccountRequestModel getAccountRequestModelForId(long accountRequestId) {
+        return accountRequestModelById.get(accountRequestId);
+    }
+
+    public AccountRequestModel removeAccountRequestModelForId(long accountRequestId) {
+        return accountRequestModelById.remove(accountRequestId);
+    }
+
+    public Collection<AccountRequestModel> getAllAccountRequests() {
+        return accountRequestModelById.values();
     }
 }

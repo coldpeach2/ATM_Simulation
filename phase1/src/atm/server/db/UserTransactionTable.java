@@ -1,22 +1,26 @@
-package atm.db;
+package atm.server.db;
 
-import atm.model.AccountRequestModel;
 import atm.model.TransactionModel;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 
-public class LastUserTransactionTable {
-    public HashMap<Long, TransactionModel> lastTransactionForUserId = new HashMap<>();
+public class UserTransactionTable {
+    public HashMap<Long, HashSet<TransactionModel>> transactionsForUserId = new HashMap<>();
     private long nextTransactionId = 0;
 
     public void save(String fileName) {
         try {
             PrintWriter writer = Util.openFileW(fileName);
             writer.println("id,userId,srcAccId,destAccId,amount");
-            for (TransactionModel transactionModel : lastTransactionForUserId.values()) writer.println(transactionModel.toCSVRowString());
+            for (Map.Entry<Long, HashSet<TransactionModel>> userAccountsEntry : transactionsForUserId.entrySet()) {
+                for (TransactionModel transactionModel : userAccountsEntry.getValue())
+                    writer.println(transactionModel.toCSVRowString());
+            }
             writer.close();
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -25,14 +29,25 @@ public class LastUserTransactionTable {
     }
 
     public void load(String fileName) {
-        this.lastTransactionForUserId.clear();
+        this.transactionsForUserId.clear();
         this.nextTransactionId = 0;
         Util.loadCSV(fileName, row -> addTransactionModel(TransactionModel.fromCSVRowString(row)));
     }
 
     public void addTransactionModel(TransactionModel transactionModel) {
         if (transactionModel.getId() > nextTransactionId) nextTransactionId = transactionModel.getId() + 1;
-        lastTransactionForUserId.put(transactionModel.getUserId(), transactionModel);
+        createEntryForUser(transactionModel.getUserId(), transactionModel);
+    }
+
+    public void createEntryForUser(long userId, TransactionModel transactionModel) {
+        HashSet<TransactionModel> userTransactionList;
+        if ((userTransactionList = transactionsForUserId.get(userId)) != null) {
+            userTransactionList.add(transactionModel);
+        } else {
+            userTransactionList = new HashSet<>();
+            userTransactionList.add(transactionModel);
+            transactionsForUserId.put(userId, userTransactionList);
+        }
     }
 
     public void createTransactionModel(long userId, long srcAccId, long destAccId, double amount) {
