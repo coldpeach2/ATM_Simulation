@@ -100,9 +100,17 @@ public class ClientMenu extends Menu {
                         }
                     }
                 }
+
+                // ask how much they want to transfer
+
+                System.out.println("What amount would you like to transfer?");
+                System.out.print("$");
+                int amount = userInput.nextInt();
+
+
             case 2:
                 //
-                System.out.println("Transfer Between Accounts:");
+                System.out.println("Transfer To User:");
                 int transferOut;
                 validAccount = false;
                 while (!validAccount) {
@@ -146,16 +154,18 @@ public class ClientMenu extends Menu {
                 System.out.print(".");
                 break;
             case 3:
+                //Pay Bill
                 //
                 break;
             case 4:
+                //Withdraw funds
                 //
                 break;
             case 5:
-                //
+                // Deposit funds
                 break;
             case 6:
-                //
+                // Request a new account
                 break;
             case 7:
                 return ATMSim.STATUS_EXIT;
@@ -165,5 +175,15 @@ public class ClientMenu extends Menu {
         }
         return ATMSim.STATUS_RUNNING;
     }
+
+    public void deposit(){
+
+    }
+
+    public void withdraw(){
+
+    }
+
+
 
 }
