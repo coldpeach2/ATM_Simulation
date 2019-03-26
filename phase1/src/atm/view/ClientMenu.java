@@ -26,9 +26,11 @@ public class ClientMenu extends Menu {
     private ArrayList<AccountModel> displayAccounts;
     int numAcc;
     AccountModel withdrawFrom;
+    AccountModel accTransferTo;
 
 
     public int showOptions() {
+        int numAcc = 0;
         int selection;
 
         // Display a list of this User's accounts
@@ -64,28 +66,20 @@ public class ClientMenu extends Menu {
 
                 withdraw();
 
+                if (withdrawFrom == null){
+                    System.out.println("No account selected. Return to main menu");
+                    showOptions();
+                }
+
 
                 //deposit
+                deposit();
 
-                System.out.println("please select the account you would like to transfer funds to:");
-                int transferTo = userInput.nextInt();
-                for (int i = 1; i < idx + 1; i++) {
-                    if (i == transferTo) {
-                        if (displayAccounts.get(i).getType() == AccountModel.AccountType.Checking) {
-
-                            break;
-                        } else if (displayAccounts.get(i).getType() == AccountModel.AccountType.LineOfCredit) {
-
-                            break;
-                        } else if (displayAccounts.get(i).getType() == AccountModel.AccountType.Saving) {
-
-                            break;
-                        } else {
-                            break;
-
-                        }
-                    }
+                if (accTransferTo == null){
+                    System.out.println("No account selected. Return to main menu");
+                    showOptions();
                 }
+
 
                 // ask how much they want to transfer
 
@@ -93,43 +87,25 @@ public class ClientMenu extends Menu {
                 System.out.print("$");
                 int amount = userInput.nextInt();
 
+                if(withdrawFrom.getBalance() - amount < -1000){
+                    System.out.println("Insufficient funds. Return to main menu");
+                    showOptions();
+                }
+
+                //ask Areej how to model a transaction
+
 
             case 2:
                 //
                 System.out.println("Transfer To User:");
-                int transferOut;
-                boolean validAccount = false;
-                while (!validAccount) {
-                    System.out.println("Please select the account you would like to transfer out of:");
 
+                withdraw();
 
-                    transferOut = userInput.nextInt();
-                    //withdraw
-                    for (int i = 1; i < idx + 1; i++) {
-                        if (i == transferOut) {
-                            if (displayAccounts.get(i).getType() == AccountModel.AccountType.Checking) {
-
-                                validAccount = true;
-                                break;
-                            } else if (displayAccounts.get(i).getType() == AccountModel.AccountType.LineOfCredit) {
-                                validAccount = true;
-                                break;
-                            } else if (displayAccounts.get(i).getType() == AccountModel.AccountType.Saving) {
-                                validAccount = true;
-                                break;
-                            } else {
-                                System.out.println("Checking if valid selection");
-                                System.out.print(".");
-                                System.out.print(".");
-                                System.out.print(".");
-
-
-                            }
-                        }
-                    }
-
-
+                if (withdrawFrom == null){
+                    System.out.println("No account selected. Return to main menu");
+                    showOptions();
                 }
+
 
                 System.out.println("Please print the username of the person you would like to transfer your funds to");
                 String userToTransfer = userInput.nextLine();
@@ -138,17 +114,18 @@ public class ClientMenu extends Menu {
                 System.out.print(".");
                 System.out.print(".");
                 System.out.print(".");
+
+                //ask areej how to model transfer using bank server
                 break;
             case 3:
                 //Pay Bill
                 //
                 break;
             case 4:
-                //Withdraw funds
-                //
+                withdraw();
                 break;
             case 5:
-                // Deposit funds
+                deposit();
                 break;
             case 6:
                 // Request a new account
@@ -157,13 +134,39 @@ public class ClientMenu extends Menu {
                 return ATMSim.STATUS_EXIT;
             default:
                 System.out.println("ERROR. Please select an option from the list above.");
-                break;
+                showOptions();
         }
         return ATMSim.STATUS_RUNNING;
     }
 
     public void deposit(){
 
+
+        System.out.println("please select the account you would like to transfer funds to:");
+        int transferTo = userInput.nextInt();
+        accTransferTo = null;
+        for (int i = 1; i < numAcc + 1; i++) {
+            if (i == transferTo) {
+                if (displayAccounts.get(i).getType() == AccountModel.AccountType.Checking) {
+                    accTransferTo = displayAccounts.get(i);
+                    break;
+                }
+                else if (displayAccounts.get(i).getType() == AccountModel.AccountType.LineOfCredit) {
+                    accTransferTo = displayAccounts.get(i);
+                    break;
+                }
+                else if (displayAccounts.get(i).getType() == AccountModel.AccountType.Saving) {
+                    accTransferTo = displayAccounts.get(i);
+                    break;
+                }
+                else
+                    break;
+            }
+            else{
+                System.out.println("Please make a valid selection");
+                deposit();
+            }
+        }
 
     }
 
@@ -179,6 +182,7 @@ public class ClientMenu extends Menu {
             transferFrom = userInput.nextInt();
 
             //withdraw
+            System.out.println("Checking if valid account to transfer out of");
             for (int i = 1; i < numAcc + 1; i++) {
                 if (i == transferFrom) {
                     if (displayAccounts.get(i).getType() == AccountModel.AccountType.Checking) {
@@ -206,10 +210,11 @@ public class ClientMenu extends Menu {
         double balance = withdrawFrom.getBalance();
 
         if (balance < -1000){
-            System.out.println("You do not have enough funds to withdraw. Please select a different account");
+            System.out.println("You do not have enough funds to withdraw. Please select a different account to withdraw");
             withdraw();
 
         }
+
 
     }
 
