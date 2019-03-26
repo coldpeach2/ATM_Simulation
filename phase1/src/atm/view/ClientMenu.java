@@ -23,6 +23,10 @@ public class ClientMenu extends Menu {
         this.serverConnection = bankServerConnection;
     }
 
+    private ArrayList<AccountModel> displayAccounts;
+    int numAcc;
+    AccountModel withdrawFrom;
+
 
     public int showOptions() {
         int selection;
@@ -30,7 +34,7 @@ public class ClientMenu extends Menu {
         // Display a list of this User's accounts
 
         System.out.println("Your Accounts: \n");
-        ArrayList<AccountModel> displayAccounts = new ArrayList<>();
+        displayAccounts = new ArrayList<>();
         List<AccountModel> userAccounts = serverConnection.getUserAccounts();
         int idx = 1;
         for (AccountModel acc : userAccounts) {
@@ -39,6 +43,7 @@ public class ClientMenu extends Menu {
             System.out.println("Balance: " + acc.getBalance() + "\n \n");
             idx++;
         }
+        numAcc = idx;
 
         System.out.println("Hello " + serverConnection.user.getFirstName() + "! Please select an option: \n ");
         System.out.println("1 - Transfer Between Accounts");
@@ -56,32 +61,13 @@ public class ClientMenu extends Menu {
             case 1:
                 //
                 System.out.println("Transfer Between Accounts:");
-                int transferFrom;
-                boolean validAccount = false;
-                while (!validAccount) {
-                    System.out.println("Please select the account you would like to transfer from:");
 
-                    transferFrom = userInput.nextInt();
-                    System.out.println("please select the account you would like to transfer funds to:");
-                    //withdraw
-                    for (int i = 1; i < idx + 1; i++) {
-                        if (i == transferFrom) {
-                            if (displayAccounts.get(i).getType() == AccountModel.AccountType.Checking) {
-                                validAccount = true;
-                                break;
-                            } else if (displayAccounts.get(i).getType() == AccountModel.AccountType.LineOfCredit) {
-                                validAccount = true;
-                                break;
-                            } else if (displayAccounts.get(i).getType() == AccountModel.AccountType.Saving) {
-                                validAccount = true;
-                                break;
-                            } else {
-                                System.out.println("invalid account to transfer out. Please select a different account");
-                            }
-                        }
-                    }
-                }
+                withdraw();
+
+
                 //deposit
+
+                System.out.println("please select the account you would like to transfer funds to:");
                 int transferTo = userInput.nextInt();
                 for (int i = 1; i < idx + 1; i++) {
                     if (i == transferTo) {
@@ -112,7 +98,7 @@ public class ClientMenu extends Menu {
                 //
                 System.out.println("Transfer To User:");
                 int transferOut;
-                validAccount = false;
+                boolean validAccount = false;
                 while (!validAccount) {
                     System.out.println("Please select the account you would like to transfer out of:");
 
@@ -178,9 +164,52 @@ public class ClientMenu extends Menu {
 
     public void deposit(){
 
+
     }
 
     public void withdraw(){
+
+        int transferFrom;
+        boolean validAccount = false;
+
+        withdrawFrom = null;
+        while (!validAccount) {
+            System.out.println("Please select the account you would like to transfer from:");
+
+            transferFrom = userInput.nextInt();
+
+            //withdraw
+            for (int i = 1; i < numAcc + 1; i++) {
+                if (i == transferFrom) {
+                    if (displayAccounts.get(i).getType() == AccountModel.AccountType.Checking) {
+                        validAccount = true;
+                        withdrawFrom = displayAccounts.get(i);
+                        break;
+                    }
+                    else if (displayAccounts.get(i).getType() == AccountModel.AccountType.LineOfCredit) {
+                        validAccount = true;
+                        withdrawFrom = displayAccounts.get(i);
+                        break;
+                    }
+                    else if (displayAccounts.get(i).getType() == AccountModel.AccountType.Saving) {
+                        validAccount = true;
+                        withdrawFrom = displayAccounts.get(i);
+                        break;
+                    }
+                    else {
+                        System.out.println("invalid account to transfer out. Please select a different account");
+                    }
+                }
+            }
+        }
+
+        double balance = withdrawFrom.getBalance();
+
+        if (balance < -1000){
+            System.out.println("You do not have enough funds to withdraw. Please select a different account");
+            withdraw();
+
+        }
 
     }
 
