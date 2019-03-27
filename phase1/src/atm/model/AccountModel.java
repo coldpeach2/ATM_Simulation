@@ -10,6 +10,7 @@ public class AccountModel {
     private double balance;
     private final Date creationDate;
 
+
     public AccountModel(long id, AccountType type, double balance, Date creationDate) {
         this.id = id;
         this.type = type;
@@ -52,20 +53,23 @@ public class AccountModel {
     }
 
     public enum AccountType {
-        Checking(0, true, -100, "Checking"),
-        Saving(1,  true,0, "Saving"),
-        Credit(2, false, Double.MIN_VALUE, "Credit"),
-        LineOfCredit(3, true, Double.MIN_VALUE, "Line of Credit");
+        Checking(0, true, -100, 15.95, "Checking"),
+        Saving(1, true, 0, 4.95, "Saving"),
+        Credit(2, false, -1000, 10, "Credit"),
+        LineOfCredit(3, true, -10000, 10, "Line of Credit");
 
         private final int code;
         private final boolean canWithdraw;
         private final double minBalance;
         private final String name;
+        private final double monthlyFee;
 
-        AccountType(int code, boolean canWithdraw, double minBalance, String name) {
+
+        AccountType(int code, boolean canWithdraw, double minBalance, double monthlyFee, String name) {
             this.code = code;
             this.canWithdraw = canWithdraw;
             this.minBalance = minBalance;
+            this.monthlyFee = monthlyFee;
             this.name = name;
         }
 
@@ -79,6 +83,10 @@ public class AccountModel {
 
         public boolean canWithdraw() {
             return canWithdraw;
+        }
+
+        public double getMonthlyFee() {
+            return monthlyFee;
         }
 
         public String getName() {
@@ -101,3 +109,4 @@ public class AccountModel {
         }
     }
 }
+

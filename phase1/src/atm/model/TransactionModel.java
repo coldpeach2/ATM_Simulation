@@ -7,7 +7,6 @@ public class TransactionModel {
     // public static final long ATM_ACCOUNT_ID = -1;
     // If src = ATM_ACCOUNT_ID the transaction represents deposit in into destAccountId
     // If dest = ATM_ACCOUNT_ID the transaction represents withrdrawal from srcAccountId to ATM
-    // TODO: Make these final.
     private final long id;
     private final long userId; // Transaction Id
     private final long srcAccountId;

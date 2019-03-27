@@ -89,6 +89,7 @@ public class UserModel {
         BankManager(1),
         ITHelper(2);
 
+
         private int code;
 
         AuthLevel(int code) {
@@ -105,6 +106,8 @@ public class UserModel {
                     return User;
                 case 1:
                     return BankManager;
+                case 2:
+                    return ITHelper;
                 default:
                     throw new IllegalArgumentException("code does not match an AccountType!");
             }

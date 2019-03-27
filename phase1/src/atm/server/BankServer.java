@@ -14,6 +14,7 @@ public class BankServer {
     UserAccountsTable userAccountsTable;
     AccountRequestTable accountRequestTable;
     UserTransactionTable userTransactionTable;
+    RewardsTable rewardsTable;
 
     public BankServer() {
         userTable = new UserTable();
@@ -21,6 +22,7 @@ public class BankServer {
         userAccountsTable = new UserAccountsTable();
         accountRequestTable = new AccountRequestTable();
         userTransactionTable = new UserTransactionTable();
+        rewardsTable = new RewardsTable();
         load();
         if (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 1) applySavingsInterests();
     }
@@ -31,6 +33,7 @@ public class BankServer {
         userAccountsTable.load("useraccounts.csv");
         accountRequestTable.load("accountrequest.csv");
         userTransactionTable.load("transactions.csv");
+        rewardsTable.load("rewards.csv");
     }
 
     public void save() {
@@ -39,6 +42,7 @@ public class BankServer {
         userAccountsTable.save("useraccounts.csv");
         accountRequestTable.save("accountrequest.csv");
         userTransactionTable.save("transactions.csv");
+        rewardsTable.save("rewards.csv");
     }
 
     public BankServerConnection tryLogin(String username, String password) {
@@ -68,9 +72,11 @@ public class BankServer {
         if (amount <= 0) throw new IllegalArgumentException("Must withdraw more than $0");
         AccountModel accountModel = accountTable.getAccountModelForId(accountId);
         if (accountModel == null) throw new IllegalArgumentException("Account does not exist!");
-        if (!accountModel.getType().canWithdraw()) throw new IllegalArgumentException("Credit accounts can't be withdrawn from!");
+        if (!accountModel.getType().canWithdraw())
+            throw new IllegalArgumentException("Credit accounts can't be withdrawn from!");
         double newBalance = accountModel.getBalance() - amount;
-        if (newBalance < accountModel.getType().getMinBalance()) throw new IllegalArgumentException("Cannot withdraw more than the allowed amount!");
+        if (newBalance < accountModel.getType().getMinBalance())
+            throw new IllegalArgumentException("Cannot withdraw more than the allowed amount!");
         accountModel.setBalance(newBalance);
         return true;
     }
@@ -88,12 +94,15 @@ public class BankServer {
     }
 
     public boolean requestTransfer(long srcUserId, long srcAccountId, long destAccountId, double amount) {
-        if (!userAccountsTable.checkIfUserOwnsAccount(srcUserId, srcAccountId)) throw new SecurityException("srcAccountId does not belong to srcUserId!");
+        if (!userAccountsTable.checkIfUserOwnsAccount(srcUserId, srcAccountId))
+            throw new SecurityException("srcAccountId does not belong to srcUserId!");
         AccountModel destAccountModel = accountTable.getAccountModelForId(destAccountId);
-        if (destAccountModel == null) throw new IllegalArgumentException("destAccountId does not exist in our database!");
+        if (destAccountModel == null)
+            throw new IllegalArgumentException("destAccountId does not exist in our database!");
         AccountModel srcAccountModel = accountTable.getAccountModelForId(srcAccountId);
         double newSrcBalance = srcAccountModel.getBalance() - amount;
-        if (newSrcBalance < srcAccountModel.getType().getMinBalance()) throw new IllegalArgumentException("srcAccount does not have enough balance to transfer money!");
+        if (newSrcBalance < srcAccountModel.getType().getMinBalance())
+            throw new IllegalArgumentException("srcAccount does not have enough balance to transfer money!");
         userTransactionTable.createTransactionModel(srcUserId, srcAccountId, destAccountId, amount);
         srcAccountModel.setBalance(newSrcBalance);
         destAccountModel.setBalance(destAccountModel.getBalance() + amount);
@@ -116,12 +125,16 @@ public class BankServer {
     }
 
     public void undoLastTransaction(long userId) {
-        TransactionModel transactionModel = userTransactionTable.transactionsForUserId.remove(TransactionModel.getId(userId));
-        if (transactionModel == null) throw new IllegalArgumentException("userId does not have a last transaction in our database!");
+        ArrayList<TransactionModel> array = new ArrayList<>(userTransactionTable.transactionsForUserId.get(userId));
+        TransactionModel transactionModel = array.get(0);
+        userTransactionTable.transactionsForUserId.remove(userId, transactionModel);
+        if (transactionModel == null)
+            throw new IllegalArgumentException("userId does not have a last transaction in our database!");
         AccountModel destAccountModel = accountTable.getAccountModelForId(transactionModel.getDestAccountId());
         AccountModel srcAccountModel = accountTable.getAccountModelForId(transactionModel.getSrcAccountId());
         double newDestBalance = destAccountModel.getBalance() - transactionModel.getAmount();
-        if (newDestBalance < destAccountModel.getType().getMinBalance()) throw new IllegalArgumentException("destAccount does not have enough balance to undo transaction!");
+        if (newDestBalance < destAccountModel.getType().getMinBalance())
+            throw new IllegalArgumentException("destAccount does not have enough balance to undo transaction!");
         destAccountModel.setBalance(newDestBalance);
         srcAccountModel.setBalance(srcAccountModel.getBalance() + transactionModel.getAmount());
     }
@@ -142,10 +155,19 @@ public class BankServer {
     }
 
     public TransactionModel getLastUserTransaction(long userId) {
-        return  userTransactionTable.transactionsForUserId.get(TransactionModel.getId(userId));
+        ArrayList<TransactionModel> array = new ArrayList<>(userTransactionTable.transactionsForUserId.get(userId));
+        return array.remove(0);
     }
 
     public List<AccountRequestModel> getPendingAccountRequests() {
         return new ArrayList<>(accountRequestTable.getAllAccountRequests());
     }
+
+    public void chargeMonthlyFees(){
+        for (AccountModel accountModel : accountTable.getAllAccountModels()) {
+            //accountModel.setBalance(accountModel.getBalance() - (AccountModel.AccountType.getType(0).getMonthlyFee()));
+        }
+    }
+
+
 }
