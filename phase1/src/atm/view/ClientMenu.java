@@ -235,14 +235,6 @@ public class ClientMenu extends Menu {
 
 
 
-    public void deposit(){
-
-
-        System.out.println("please select the account you would like to transfer funds to:");
-
-
-    }
-
     public AccountModel makeAccountSelection(int index){
 
         int transferTo = userInput.nextInt();
@@ -300,4 +292,17 @@ public class ClientMenu extends Menu {
         //not sure where the bill is
     }
 
+
+    /*
+    idea for changing currencies
+
+    1. present a list of currency options
+    2. store all the currencies of the countries that are available
+    3. ask user whether they want to withdraw or deposit a currency amount
+    4. ask them for the type of currency
+    4. if they want to withdraw, first ask how much they want to withdraw, then convert that amount and see if they can
+    5. if they want to deposit, first ask how much they are depositing, then convert that amount and deposit into their account
+
+    all done!
+     */
 }
