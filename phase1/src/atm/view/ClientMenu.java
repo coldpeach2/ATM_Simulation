@@ -128,7 +128,7 @@ public class ClientMenu extends Menu {
                 deposit();
                 break;
             case 6:
-                // Request a new account
+                requestNewAcc();
                 break;
             case 7:
                 return ATMSim.STATUS_EXIT;
@@ -218,6 +218,26 @@ public class ClientMenu extends Menu {
 
     }
 
+    public void requestNewAcc(){
 
+        System.out.println("Enter a number for the type of account would you like to create.\n0 - Checking " +
+                "1 - Saving 2 - Credit 3 - Line of Credit ");
+        int accTypeNum = userInput.nextInt();
+
+        while (accTypeNum > 3){
+            System.out.println("Invalid account type. Re-enter.\n0 - Checking 1 - Saving 2 - Credit " +
+                    "3 - Line of Credit ");
+            accTypeNum = userInput.nextInt();
+        }
+
+        AccountModel.AccountType accType = AccountModel.AccountType.getType(accTypeNum);
+
+        atm.model.AccountRequestModel.createAccountRequest(numAcc, accType);
+        System.out.println("Account successfully requested.");
+    }
+
+    public void payBill(){
+        //not sure where the bill is
+    }
 
 }
