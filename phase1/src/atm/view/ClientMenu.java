@@ -17,35 +17,35 @@ public class ClientMenu extends Menu {
 
     private Scanner userInput = new Scanner(System.in);
     //TODO: is this a good design to pass database into this object? !!!!!!! YES.
-    BankServerConnection serverConnection;
+    private BankServerConnection serverConnection;
 
     public ClientMenu(BankServerConnection bankServerConnection) {
         this.serverConnection = bankServerConnection;
     }
 
     public ArrayList<AccountModel> displayAccounts;
-    int numAcc;
+
 
 
 
 
     public int showOptions() {
-        int numAcc = 0;
+
         int selection;
 
         // Display a list of this User's accounts
-
+        System.out.println("Hello Bianca!");
         System.out.println("Your Accounts: \n");
         displayAccounts = new ArrayList<>();
         List<AccountModel> userAccounts = serverConnection.getUserAccounts();
         int idx = 1;
         for (AccountModel acc : userAccounts) {
             System.out.println(idx + " - " + acc.getType() + " Account id: " + acc.getId());
-            displayAccounts.add(acc);
             System.out.println("Balance: " + acc.getBalance() + "\n \n");
+            displayAccounts.add(acc);
             idx++;
-        }
 
+        }
 
         System.out.println("Hello " + serverConnection.user.getFirstName() + "! Please select an option: \n ");
         System.out.println("1 - Transfer Between Accounts");
