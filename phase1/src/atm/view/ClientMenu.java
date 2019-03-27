@@ -23,7 +23,7 @@ public class ClientMenu extends Menu {
         this.serverConnection = bankServerConnection;
     }
 
-    private ArrayList<AccountModel> displayAccounts;
+    public ArrayList<AccountModel> displayAccounts;
     int numAcc;
     AccountModel withdrawFrom;
     AccountModel accTransferTo;
@@ -232,7 +232,7 @@ public class ClientMenu extends Menu {
 
         AccountModel.AccountType accType = AccountModel.AccountType.getType(accTypeNum);
 
-        atm.model.AccountRequestModel.createAccountRequest(numAcc, accType);
+        //atm.model.AccountRequestModel.createAccountRequest(numAcc, accType);
         System.out.println("Account successfully requested.");
     }
 

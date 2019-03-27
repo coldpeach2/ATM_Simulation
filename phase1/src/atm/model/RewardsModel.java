@@ -39,12 +39,12 @@ public class RewardsModel  {
 
     public static RewardsModel fromCSVRowString(String row) throws IOException {
         String[] cells = row.split(",");
-        if (cells.length != 5) throw new IOException("Incorrect number of cells in a row!");
-        Date creationDate = new Date(Long.parseLong(cells[3]));
+        if (cells.length != 4) throw new IOException("Incorrect number of cells in a row!");
+        Date creationDate = new Date(Long.parseLong(cells[2]));
         return new RewardsModel(Long.parseLong(cells[0]), // user id "0" -> 0
-                Double.parseDouble(cells[2]),
+                Double.parseDouble(cells[1]),
                 creationDate,
-                Integer.parseInt(cells[4]));
+                Integer.parseInt(cells[3]));
     }
 
 }
