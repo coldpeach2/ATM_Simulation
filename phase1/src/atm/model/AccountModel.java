@@ -105,6 +105,7 @@ public class AccountModel {
                     return LineOfCredit;
                 default:
                     throw new IllegalArgumentException("code does not match an AccountType!");
+
             }
         }
     }
