@@ -173,10 +173,11 @@ public class BankServer {
 
     //public void calculatePoints(int points, ){}
 
-    public requestAccount(long userId, AccountModel.AccountType type){
+    public boolean requestAccount(long userId, AccountModel.AccountType type){
         //TODO: find a way of keeping track of accoutn request id.
         AccountRequestModel accModel = new AccountRequestModel(/*I NEED A WAY OF KEEPING TRACK OF
-         ID*/, userId, type)
+         ID*/0, userId, type);
         accountRequestTable.addAccountRequest(accModel);
+        return true;
     }
 }

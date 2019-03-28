@@ -22,7 +22,7 @@ public class BankServerConnection {
     }
 
     public boolean requestAccount(long userId, AccountModel.AccountType type){
-        return bankServer.requestAccount(userId, type)
+        return bankServer.requestAccount(userId, type);
     }
 
     public boolean tryDeposit(long accountId, double amount) {
