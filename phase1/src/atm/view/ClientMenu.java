@@ -231,13 +231,58 @@ public class ClientMenu extends Menu {
         }
 
         AccountModel.AccountType accType = AccountModel.AccountType.getType(accTypeNum);
-
-        atm.model.AccountRequestModel.createAccountRequest(numAcc, accType);
+        //requires bank server
+        //atm.server.db.AccountRequestTable.createAccountRequest(serverConnection.user.getId(), accType);
         System.out.println("Account successfully requested.");
     }
 
     public void payBill(){
-        //not sure where the bill is
+
+        ArrayList<AccountModel> displayCrAcc = new ArrayList<>();
+        ArrayList<AccountModel> displayDbAcc = new ArrayList<>();
+
+        for(int i = 0; i < displayAccounts.size(); i++){
+            if(displayAccounts.get(i).getType() == AccountModel.AccountType.Credit){
+                displayCrAcc.add(displayAccounts.get(i));
+            } else if(displayAccounts.get(i).getType() == AccountModel.AccountType.Checking ||
+                    displayAccounts.get(i).getType() == AccountModel.AccountType.Saving){
+                displayDbAcc.add(displayAccounts.get(i));
+            }
+        }
+
+        if(displayCrAcc.size() == 0){
+            System.out.println("You do not have any credit accounts. Exiting...");
+            return;
+        }
+
+        if (displayDbAcc.size() == 0) {
+            System.out.println("You do not have any debit accounts to pay from. Exiting...");
+            return;
+        }
+
+        System.out.println("Select a credit account to pay your bill.");
+        printArrayOfAccs(displayCrAcc);
+
+        int crAcc = userInput.nextInt();
+
+        System.out.println("Your credit balance is " + displayAccounts.get(crAcc).getBalance() + "\n" +
+                "How much would you like to pay off?");
+        int amount = userInput.nextInt();
+
+        System.out.println("Select which debit account you'd like to pay from.");
+        printArrayOfAccs(displayDbAcc);
+        int dbAcc = userInput.nextInt();
+
+        //requires bank server.
+        // transfer from displayAccounts.get(dbAcc) to displayAccounts.get(crAcc)
+        //serverCon(serverConnection.user.getId(),
+        //        displayDbAcc.get(dbAcc), displayCrAcc.get(crAcc), amount);
     }
 
+    public void printArrayOfAccs(ArrayList<AccountModel> accs){
+        for(int i = 0; i < accs.size(); i++){
+            System.out.println(i + " - Account id: " + accs.get(i).getId() + " Balance: " +
+                    accs.get(i).getBalance());
+        }
+    }
 }
