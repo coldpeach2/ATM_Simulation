@@ -145,8 +145,7 @@ public class ClientMenu extends Menu {
                 showOptions();
                 break;
             case 3:
-                //Pay Bill
-                //
+                payBill();
                 break;
             case 4:
                 // deposit
@@ -283,8 +282,8 @@ public class ClientMenu extends Menu {
         }
 
         AccountModel.AccountType accType = AccountModel.AccountType.getType(accTypeNum);
-        //requires bank server
-        //atm.server.db.AccountRequestTable.createAccountRequest(serverConnection.user.getId(), accType);
+        //requires request account in bankserverconnection.
+        serverConnection.requestAccount(serverConnection.user.getId(), accType);
         System.out.println("Account successfully requested.");
     }
 
@@ -319,16 +318,17 @@ public class ClientMenu extends Menu {
 
         System.out.println("Your credit balance is " + displayAccounts.get(crAcc).getBalance() + "\n" +
                 "How much would you like to pay off?");
-        int amount = userInput.nextInt();
+        double amount = userInput.nextDouble();
 
         System.out.println("Select which debit account you'd like to pay from.");
         printArrayOfAccs(displayDbAcc);
         int dbAcc = userInput.nextInt();
+        boolean requested = serverConnection.requestTransfer(displayDbAcc.get(dbAcc).getId(),
+                displayCrAcc.get(crAcc).getId(), amount);
 
-        //requires bank server.
-        // transfer from displayAccounts.get(dbAcc) to displayAccounts.get(crAcc)
-        //serverCon(serverConnection.user.getId(),
-        //        displayDbAcc.get(dbAcc), displayCrAcc.get(crAcc), amount);
+        if(requested) {
+            System.out.println("Payment requested.");
+        }
     }
 
     public void printArrayOfAccs(ArrayList<AccountModel> accs){

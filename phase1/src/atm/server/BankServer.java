@@ -25,6 +25,7 @@ public class BankServer {
         rewardsTable = new RewardsTable();
         load();
         if (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 1) applySavingsInterests();
+        if (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 1) chargeMonthlyFees();
     }
 
     public void load() {
@@ -116,6 +117,13 @@ public class BankServer {
         }
     }
 
+    public void chargeMonthlyFees(){
+        for (AccountModel accountModel : accountTable.getAllAccountModels()) {
+            accountModel.setBalance(accountModel.getBalance() - (accountModel.getType().getMonthlyFee()));
+        }
+    }
+
+
     public boolean grantAccount(long accRequestId) {
         AccountRequestModel requestModel = accountRequestTable.removeAccountRequestModelForId(accRequestId);
         if (requestModel == null) throw new IllegalArgumentException("accRequestId does not exist in our database!");
@@ -163,11 +171,12 @@ public class BankServer {
         return new ArrayList<>(accountRequestTable.getAllAccountRequests());
     }
 
-    public void chargeMonthlyFees(){
-        for (AccountModel accountModel : accountTable.getAllAccountModels()) {
-            //accountModel.setBalance(accountModel.getBalance() - (AccountModel.AccountType.getType(0).getMonthlyFee()));
-        }
+    //public void calculatePoints(int points, ){}
+
+    public requestAccount(long userId, AccountModel.AccountType type){
+        //TODO: find a way of keeping track of accoutn request id.
+        AccountRequestModel accModel = new AccountRequestModel(/*I NEED A WAY OF KEEPING TRACK OF
+         ID*/, userId, type)
+        accountRequestTable.addAccountRequest(accModel);
     }
-
-
 }

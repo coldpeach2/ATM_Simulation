@@ -21,6 +21,10 @@ public class BankServerConnection {
         return bankServer.requestWithdrawal(accountId, amount);
     }
 
+    public boolean requestAccount(long userId, AccountModel.AccountType type){
+        return bankServer.requestAccount(userId, type)
+    }
+
     public boolean tryDeposit(long accountId, double amount) {
         return bankServer.tryDeposit(accountId, amount);
     }
