@@ -5,6 +5,7 @@ import atm.model.AccountModel;
 import atm.server.BankServerConnection;
 import atm.server.ITServerConnection;
 
+import javax.sound.midi.SysexMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,14 +24,15 @@ public class ClientMenu extends Menu {
         this.serverConnection = bankServerConnection;
     }
 
-    private ArrayList<AccountModel> displayAccounts;
-    int numAcc;
-    AccountModel withdrawFrom;
-    AccountModel accTransferTo;
+    public ArrayList<AccountModel> displayAccounts;
+
+
+
 
 
     public int showOptions() {
-        int numAcc = 0;
+
+
         int selection;
 
         // Display a list of this User's accounts
@@ -45,7 +47,7 @@ public class ClientMenu extends Menu {
             System.out.println("Balance: " + acc.getBalance() + "\n \n");
             idx++;
         }
-        numAcc = idx;
+
 
         System.out.println("Hello " + serverConnection.user.getFirstName() + "! Please select an option: \n ");
         System.out.println("1 - Transfer Between Accounts");
@@ -57,75 +59,167 @@ public class ClientMenu extends Menu {
         System.out.println("7 - EXIT");
 
         selection = userInput.nextInt();
+        boolean successful = false;
 
         switch (selection) {
             // TODO: finish writing case statements for the other User options.
             case 1:
                 //
+
+                successful = false;
                 System.out.println("Transfer Between Accounts:");
 
-                withdraw();
+                System.out.println("What account would you like to transfer from?");
+                AccountModel withdrawFrom = makeAccountSelection(idx);
 
-                if (withdrawFrom == null){
-                    System.out.println("No account selected. Return to main menu");
-                    showOptions();
+                System.out.println("What account would you like to transfer to?");
+                AccountModel transferTo = makeAccountSelection(idx);
+
+                System.out.println("How much money would you like to transfer?");
+                double amount = userInput.nextDouble();
+
+                try {
+                    successful = serverConnection.requestTransfer(withdrawFrom.getId(), transferTo.getId(), amount);
                 }
 
+                catch(SecurityException sE){
 
-                //deposit
-                deposit();
+                    System.out.println("This account does not belong to you, you will be redirected to the main menu.");
 
-                if (accTransferTo == null){
-                    System.out.println("No account selected. Return to main menu");
                     showOptions();
+
                 }
+                catch (IllegalArgumentException e){
 
-
-                // ask how much they want to transfer
-
-                System.out.println("What amount would you like to transfer?");
-                System.out.print("$");
-                int amount = userInput.nextInt();
-
-                if(withdrawFrom.getBalance() - amount < -1000){
-                    System.out.println("Insufficient funds. Return to main menu");
+                    System.out.println("Error encountered. Please try again. You will be redirected ot the main menu.");
                     showOptions();
-                }
 
-                //ask Areej how to model a transaction
+                    }
 
+                if (successful)
+                    System.out.println("Transfer successful. You will be redirected to main menu");
+                else
+                    System.out.println("Transfer unsuccessful. You will be redirected to main menu. Please try again later");
+
+                showOptions();
 
             case 2:
                 //
                 System.out.println("Transfer To User:");
 
-                withdraw();
+                successful = false;
 
-                if (withdrawFrom == null){
-                    System.out.println("No account selected. Return to main menu");
-                    showOptions();
+                System.out.println("What account would you like to transfer from?");
+                AccountModel transferFrom = makeAccountSelection(idx);
+
+                System.out.println("Please enter the account ID of the destination user's account you are transferring" +
+                        "funds to:");
+                long destAcc = userInput.nextLong();
+
+                System.out.println("Please enter the amount you would like to transfer");
+
+                double amountToTransfer = userInput.nextDouble();
+                try {
+                    successful = serverConnection.requestTransfer(transferFrom.getId(), destAcc, amountToTransfer);
                 }
 
+                catch(SecurityException sE){
 
-                System.out.println("Please print the username of the person you would like to transfer your funds to");
-                String userToTransfer = userInput.nextLine();
-                //jus to spice visuals up a lil (lol)
-                System.out.print("Checking for valid user");
-                System.out.print(".");
-                System.out.print(".");
-                System.out.print(".");
+                    System.out.println("This account does not belong to you, you will be redirected to the main menu.");
+                    showOptions();
 
-                //ask areej how to model transfer using bank server
+                }
+                catch (IllegalArgumentException e){
+
+                    System.out.println("Error encountered. Please try again. You will be redirected ot the main menu.");
+                    showOptions();
+
+                }
+
+                if (successful)
+                    System.out.println("Transfer to user successful. You will be redirected to main menu");
+
+                else
+                    System.out.println("Transfer unsuccessful. You will be redirected to main menu. Please try again later");
+
+                showOptions();
                 break;
             case 3:
                 //Pay Bill
                 //
                 break;
             case 4:
-                withdraw();
+                // deposit
+                successful = false;
+                System.out.println("Please select the account you would like to deposit funds into");
+                AccountModel deposit = makeAccountSelection(idx);
+
+                System.out.println("What amount would you like to deposit?");
+                double amountDeposit = userInput.nextDouble();
+                try{
+                    successful = serverConnection.tryDeposit(deposit.getId(), amountDeposit);
+                }
+                catch(IllegalArgumentException e){
+
+                    if (amountDeposit <= 0){
+                        System.out.println("Amount must be greater than $0, You will be redirected to main menu");
+                        showOptions();
+                    }
+                    else{
+                        System.out.println("Account does not exist! You will be redirected to main menu");
+                        showOptions();
+                    }
+                }
+
+                if (successful)
+                    System.out.println("Deposit successful! You will now be redirected to main menu");
+                else
+                    System.out.println("Deposit unsuccessful. You will be redirected to main menu. Please try again later");
+
+                showOptions();
                 break;
             case 5:
-                deposit();
+                successful = false;
+
+                System.out.println("Please select the account you would like to withdraw funds from");
+
+                AccountModel withdraw = makeAccountSelection(idx);
+
+                System.out.println("What amount would you like to withdraw?");
+
+                double amountWithdraw = userInput.nextDouble();
+
+                try{
+                    successful = serverConnection.requestWithdrawal(withdraw.getId(), amountWithdraw);
+                }
+
+                catch(IllegalArgumentException e){
+
+                    if (!withdraw.getType().canWithdraw()){
+                        System.out.println("Credit accounts can't be withdrawn from! You will be redirected to the main menu");
+                    }
+                    else if (withdraw.getBalance() - amountWithdraw < withdraw.getType().getMinBalance()){
+                        System.out.println("Cannot withdraw more than the allowed amount! You will be redirected to the main menu");
+                    }
+                    else if (amountWithdraw <= 0){
+                        System.out.println("You must withdraw more than $0. You will be redirected to the main menu");
+
+                    }
+                    else
+                        System.out.println("Account does not exist. Please try again. You will be redirected to the main menu");
+
+                    showOptions();
+                }
+
+                if (successful)
+                    System.out.println("Withdraw successful! Please allow time for changes to be reflected in your accounts." +
+                            "You will now be redirected to the main menu");
+
+                else
+                    System.out.println("Withdrawal unsuccessful. You will be redirected to the main menu. Please try again" +
+                            "at a later time");
+
+                showOptions();
                 break;
             case 6:
                 requestNewAcc();
@@ -139,84 +233,42 @@ public class ClientMenu extends Menu {
         return ATMSim.STATUS_RUNNING;
     }
 
-    public void deposit(){
 
 
-        System.out.println("please select the account you would like to transfer funds to:");
+    public AccountModel makeAccountSelection(int index){
+
         int transferTo = userInput.nextInt();
-        accTransferTo = null;
-        for (int i = 1; i < numAcc + 1; i++) {
+        AccountModel accTransferTo = null;
+        for (int i = 1; i < index; i++) {
             if (i == transferTo) {
-                if (displayAccounts.get(i).getType() == AccountModel.AccountType.Checking) {
+                if (displayAccounts.get(i-1).getType() == AccountModel.AccountType.Checking) {
                     accTransferTo = displayAccounts.get(i);
                     break;
                 }
-                else if (displayAccounts.get(i).getType() == AccountModel.AccountType.LineOfCredit) {
+                else if (displayAccounts.get(i-1).getType() == AccountModel.AccountType.LineOfCredit) {
                     accTransferTo = displayAccounts.get(i);
                     break;
                 }
-                else if (displayAccounts.get(i).getType() == AccountModel.AccountType.Saving) {
+                else if (displayAccounts.get(i-1).getType() == AccountModel.AccountType.Saving) {
                     accTransferTo = displayAccounts.get(i);
                     break;
                 }
-                else
+                else if(displayAccounts.get(i-1).getType() == AccountModel.AccountType.Credit)
+                    accTransferTo = displayAccounts.get(i-1);
                     break;
             }
-            else{
-                System.out.println("Please make a valid selection");
-                deposit();
-            }
+
         }
+
+        if (accTransferTo == null){
+            System.out.println("Please make a valid selection");
+            makeAccountSelection(index);
+        }
+        return accTransferTo;
 
     }
 
-    public void withdraw(){
 
-        int transferFrom;
-        boolean validAccount = false;
-
-        withdrawFrom = null;
-        while (!validAccount) {
-            System.out.println("Please select the account you would like to transfer from:");
-
-            transferFrom = userInput.nextInt();
-
-            //withdraw
-            System.out.println("Checking if valid account to transfer out of");
-            for (int i = 1; i < numAcc + 1; i++) {
-                if (i == transferFrom) {
-                    if (displayAccounts.get(i).getType() == AccountModel.AccountType.Checking) {
-                        validAccount = true;
-                        withdrawFrom = displayAccounts.get(i);
-                        break;
-                    }
-                    else if (displayAccounts.get(i).getType() == AccountModel.AccountType.LineOfCredit) {
-                        validAccount = true;
-                        withdrawFrom = displayAccounts.get(i);
-                        break;
-                    }
-                    else if (displayAccounts.get(i).getType() == AccountModel.AccountType.Saving) {
-                        validAccount = true;
-                        withdrawFrom = displayAccounts.get(i);
-                        break;
-                    }
-                    else {
-                        System.out.println("invalid account to transfer out. Please select a different account");
-                    }
-                }
-            }
-        }
-
-        double balance = withdrawFrom.getBalance();
-
-        if (balance < -1000){
-            System.out.println("You do not have enough funds to withdraw. Please select a different account to withdraw");
-            withdraw();
-
-        }
-
-
-    }
 
     public void requestNewAcc(){
 
@@ -285,4 +337,17 @@ public class ClientMenu extends Menu {
                     accs.get(i).getBalance());
         }
     }
+
+    /*
+    idea for changing currencies
+
+    1. present a list of currency options
+    2. store all the currencies of the countries that are available
+    3. ask user whether they want to withdraw or deposit a currency amount
+    4. ask them for the type of currency
+    4. if they want to withdraw, first ask how much they want to withdraw, then convert that amount and see if they can
+    5. if they want to deposit, first ask how much they are depositing, then convert that amount and deposit into their account
+
+    all done!
+     */
 }
