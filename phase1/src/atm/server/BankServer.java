@@ -7,6 +7,7 @@ import atm.model.TransactionModel;
 import atm.model.UserModel;
 
 import java.util.*;
+import java.util.Currency;
 
 public class BankServer {
     UserTable userTable;
@@ -15,6 +16,7 @@ public class BankServer {
     AccountRequestTable accountRequestTable;
     UserTransactionTable userTransactionTable;
     RewardsTable rewardsTable;
+    ExchangeRateTable exchangeRateTable;
 
     public BankServer() {
         userTable = new UserTable();
@@ -35,6 +37,7 @@ public class BankServer {
         accountRequestTable.load("accountrequest.csv");
         userTransactionTable.load("transactions.csv");
         rewardsTable.load("rewards.csv");
+        exchangeRateTable.load();
     }
 
     public void save() {
@@ -172,4 +175,15 @@ public class BankServer {
     }
 
     //public void calculatePoints(int points, ){}
+
+    public TreeMap<String, Double> getExchangeRates() {
+        return exchangeRateTable.getAllRates();
+    }
+
+    public double convertCurrency(double depositAmount, String inputCurrency) {
+
+        Double targetRate = exchangeRateTable.getSingleRate(inputCurrency);
+        return depositAmount * targetRate;
+
+    }
 }

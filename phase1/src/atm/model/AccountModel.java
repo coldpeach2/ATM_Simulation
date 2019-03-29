@@ -3,12 +3,15 @@ package atm.model;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Currency;
+import java.util.Locale;
 
 public class AccountModel {
     private final long id;
     private final AccountType type;
     private double balance;
     private final Date creationDate;
+    private final Currency currency;
 
 
     public AccountModel(long id, AccountType type, double balance, Date creationDate) {
@@ -16,6 +19,7 @@ public class AccountModel {
         this.type = type;
         this.balance = balance;
         this.creationDate = creationDate;
+        this.currency = Currency.getInstance(Locale.CANADA);
     }
 
     public long getId() {
@@ -36,6 +40,10 @@ public class AccountModel {
 
     public Date getCreationDate() {
         return creationDate;
+    }
+
+    public Currency getCurrency() {
+        return currency;
     }
 
     public String toCSVRowString() {

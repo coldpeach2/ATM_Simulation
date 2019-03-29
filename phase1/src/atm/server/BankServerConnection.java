@@ -4,6 +4,7 @@ import atm.model.AccountModel;
 import atm.model.UserModel;
 
 import java.util.List;
+import java.util.TreeMap;
 
 public class BankServerConnection {
     public final UserModel user;
@@ -27,6 +28,14 @@ public class BankServerConnection {
 
     public List<AccountModel> getUserAccounts() {
         return bankServer.getUserAccounts(user.getId());
+    }
+
+    public TreeMap<String, Double> getExchangeRates() {
+        return bankServer.getExchangeRates();
+    }
+
+    public double convertCurrency(double depositAmount, String inputCurrency) {
+        return bankServer.convertCurrency(depositAmount, inputCurrency);
     }
 
 }

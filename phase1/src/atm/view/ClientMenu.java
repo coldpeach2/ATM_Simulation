@@ -6,9 +6,7 @@ import atm.server.BankServerConnection;
 import atm.server.ITServerConnection;
 
 import javax.sound.midi.SysexMessage;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class ClientMenu extends Menu {
 
@@ -44,7 +42,7 @@ public class ClientMenu extends Menu {
         for (AccountModel acc : userAccounts) {
             System.out.println(idx + " - " + acc.getType() + " Account id: " + acc.getId());
             displayAccounts.add(acc);
-            System.out.println("Balance: " + acc.getBalance() + "\n \n");
+            System.out.println("Balance: " + acc.getCurrency() + " " + acc.getBalance() + "\n \n");
             idx++;
         }
 
@@ -297,7 +295,7 @@ public class ClientMenu extends Menu {
     idea for changing currencies
 
     1. present a list of currency options
-    2. store all the currencies of the countries that are available
+    2. store all the currencies of the countries that are available DONE
     3. ask user whether they want to withdraw or deposit a currency amount
     4. ask them for the type of currency
     4. if they want to withdraw, first ask how much they want to withdraw, then convert that amount and see if they can
@@ -305,4 +303,13 @@ public class ClientMenu extends Menu {
 
     all done!
      */
+
+    public void displayExchangeRates() {
+
+        TreeMap<String, Double> rates = serverConnection.getExchangeRates();
+
+        for (Map.Entry<String, Double> entry : rates.entrySet()) {
+            System.out.println(entry.getKey() + ":  " + entry.getValue());
+        }
+    }
 }
