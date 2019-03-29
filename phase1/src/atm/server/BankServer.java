@@ -14,7 +14,7 @@ public class BankServer {
     UserAccountsTable userAccountsTable;
     AccountRequestTable accountRequestTable;
     UserTransactionTable userTransactionTable;
-    RewardsTable rewardsTable;
+
 
     public BankServer() {
         userTable = new UserTable();
@@ -22,7 +22,7 @@ public class BankServer {
         userAccountsTable = new UserAccountsTable();
         accountRequestTable = new AccountRequestTable();
         userTransactionTable = new UserTransactionTable();
-        rewardsTable = new RewardsTable();
+;
         load();
         if (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 1) applySavingsInterests();
         if (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 1) chargeMonthlyFees();
@@ -34,7 +34,7 @@ public class BankServer {
         userAccountsTable.load("useraccounts.csv");
         accountRequestTable.load("accountrequest.csv");
         userTransactionTable.load("transactions.csv");
-        rewardsTable.load("rewards.csv");
+
     }
 
     public void save() {
@@ -43,7 +43,6 @@ public class BankServer {
         userAccountsTable.save("useraccounts.csv");
         accountRequestTable.save("accountrequest.csv");
         userTransactionTable.save("transactions.csv");
-        rewardsTable.save("rewards.csv");
     }
 
     public BankServerConnection tryLogin(String username, String password) {
@@ -132,7 +131,7 @@ public class BankServer {
         return true;
     }
 
-    public void undoLastTransaction(long userId) {
+    public void undoLastTransaction(long userId, int numTransaction) {
         ArrayList<TransactionModel> array = new ArrayList<>(userTransactionTable.transactionsForUserId.get(userId));
         TransactionModel transactionModel = array.get(0);
         userTransactionTable.transactionsForUserId.remove(userId, transactionModel);

@@ -53,24 +53,27 @@ public class AccountModel {
     }
 
     public enum AccountType {
-        Checking(0, true, -100, 15.95, "Checking"),
-        Saving(1, true, 0, 4.95, "Saving"),
-        Credit(2, false, -1000, 10, "Credit"),
-        LineOfCredit(3, true, -10000, 10, "Line of Credit");
+        Checking(0, true, -100, 15.95, "Checking", null),
+        Saving(1, true, 0, 4.95, "Saving", null),
+        Credit(2, false, -1000, 10, "Credit", null),
+        LineOfCredit(3, true, -10000, 10, "Line of Credit", null),
+        Rewards(4, false,0,10, "Rewards",0.0);
 
         private final int code;
         private final boolean canWithdraw;
         private final double minBalance;
         private final String name;
         private final double monthlyFee;
+        private double points;
 
 
-        AccountType(int code, boolean canWithdraw, double minBalance, double monthlyFee, String name) {
+        AccountType(int code, boolean canWithdraw, double minBalance, double monthlyFee, String name, Double points) {
             this.code = code;
             this.canWithdraw = canWithdraw;
             this.minBalance = minBalance;
             this.monthlyFee = monthlyFee;
             this.name = name;
+            this.points = points;
         }
 
         public int getCode() {
@@ -103,6 +106,8 @@ public class AccountModel {
                     return Credit;
                 case 3:
                     return LineOfCredit;
+                case 4:
+                    return Rewards;
                 default:
                     throw new IllegalArgumentException("code does not match an AccountType!");
             }
