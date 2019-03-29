@@ -143,8 +143,7 @@ public class ClientMenu extends Menu {
                 showOptions();
                 break;
             case 3:
-                //Pay Bill
-                //
+                payBill();
                 break;
             case 4:
                 // deposit
@@ -281,15 +280,61 @@ public class ClientMenu extends Menu {
         }
 
         AccountModel.AccountType accType = AccountModel.AccountType.getType(accTypeNum);
-
-        //atm.model.AccountRequestModel.createAccountRequest(numAcc, accType);
+        //requires request account in bankserverconnection.
+        serverConnection.requestAccount(serverConnection.user.getId(), accType);
         System.out.println("Account successfully requested.");
     }
 
     public void payBill(){
-        //not sure where the bill is
+
+        ArrayList<AccountModel> displayCrAcc = new ArrayList<>();
+        ArrayList<AccountModel> displayDbAcc = new ArrayList<>();
+
+        for(int i = 0; i < displayAccounts.size(); i++){
+            if(displayAccounts.get(i).getType() == AccountModel.AccountType.Credit){
+                displayCrAcc.add(displayAccounts.get(i));
+            } else if(displayAccounts.get(i).getType() == AccountModel.AccountType.Checking ||
+                    displayAccounts.get(i).getType() == AccountModel.AccountType.Saving){
+                displayDbAcc.add(displayAccounts.get(i));
+            }
+        }
+
+        if(displayCrAcc.size() == 0){
+            System.out.println("You do not have any credit accounts. Exiting...");
+            return;
+        }
+
+        if (displayDbAcc.size() == 0) {
+            System.out.println("You do not have any debit accounts to pay from. Exiting...");
+            return;
+        }
+
+        System.out.println("Select a credit account to pay your bill.");
+        printArrayOfAccs(displayCrAcc);
+
+        int crAcc = userInput.nextInt();
+
+        System.out.println("Your credit balance is " + displayAccounts.get(crAcc).getBalance() + "\n" +
+                "How much would you like to pay off?");
+        double amount = userInput.nextDouble();
+
+        System.out.println("Select which debit account you'd like to pay from.");
+        printArrayOfAccs(displayDbAcc);
+        int dbAcc = userInput.nextInt();
+        boolean requested = serverConnection.requestTransfer(displayDbAcc.get(dbAcc).getId(),
+                displayCrAcc.get(crAcc).getId(), amount);
+
+        if(requested) {
+            System.out.println("Payment requested.");
+        }
     }
 
+    public void printArrayOfAccs(ArrayList<AccountModel> accs){
+        for(int i = 0; i < accs.size(); i++){
+            System.out.println(i + " - Account id: " + accs.get(i).getId() + " Balance: " +
+                    accs.get(i).getBalance());
+        }
+    }
 
     /*
     idea for changing currencies
