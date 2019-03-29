@@ -14,6 +14,7 @@ public class BankServer {
     UserAccountsTable userAccountsTable;
     AccountRequestTable accountRequestTable;
     UserTransactionTable userTransactionTable;
+    ExchangeRateTable exchangeRateTable;
 
 
     public BankServer() {
@@ -22,6 +23,7 @@ public class BankServer {
         userAccountsTable = new UserAccountsTable();
         accountRequestTable = new AccountRequestTable();
         userTransactionTable = new UserTransactionTable();
+        exchangeRateTable = new ExchangeRateTable();
 ;
         load();
         if (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 1) applySavingsInterests();
@@ -34,6 +36,7 @@ public class BankServer {
         userAccountsTable.load("useraccounts.csv");
         accountRequestTable.load("accountrequest.csv");
         userTransactionTable.load("transactions.csv");
+        exchangeRateTable.load();
 
     }
 
@@ -178,5 +181,16 @@ public class BankServer {
          ID*/0, userId, type);
         accountRequestTable.addAccountRequest(accModel);
         return true;
+    }
+
+    public TreeMap<String, Double> getExchangeRates() {
+        return exchangeRateTable.getAllRates();
+    }
+
+    public double convertCurrency(double depositAmount, String inputCurrency) {
+
+        Double targetRate = exchangeRateTable.getSingleRate(inputCurrency);
+        return depositAmount * targetRate;
+
     }
 }

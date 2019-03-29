@@ -18,7 +18,7 @@ public class ManagerBankServerConnection extends BankServerConnection {
     }
 
     public void undoLastTransaction(long userId) {
-        bankServer.undoLastTransaction(userId);
+        //bankServer.undoLastTransaction(userId);
     }
 
     public boolean createUser(String firstName, String lastName, String userName, String initialPassword) {

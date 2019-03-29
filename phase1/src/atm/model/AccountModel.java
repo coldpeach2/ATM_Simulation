@@ -72,7 +72,7 @@ public class AccountModel {
         private final double minBalance;
         private final String name;
         private final double monthlyFee;
-        private double points;
+        private Double points;
 
 
         AccountType(int code, boolean canWithdraw, double minBalance, double monthlyFee, String name, Double points) {
