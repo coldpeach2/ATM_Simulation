@@ -270,12 +270,12 @@ public class ClientMenu extends Menu {
     public void requestNewAcc(){
 
         System.out.println("Enter a number for the type of account would you like to create.\n0 - Checking " +
-                "1 - Saving 2 - Credit 3 - Line of Credit ");
+                "1 - Saving 2 - Credit 3 - Line of Credit 4 - Rewards");
         int accTypeNum = userInput.nextInt();
 
-        while (accTypeNum > 3){
+        while (accTypeNum > 4){
             System.out.println("Invalid account type. Re-enter.\n0 - Checking 1 - Saving 2 - Credit " +
-                    "3 - Line of Credit ");
+                    "3 - Line of Credit 4 - Rewards");
             accTypeNum = userInput.nextInt();
         }
 
