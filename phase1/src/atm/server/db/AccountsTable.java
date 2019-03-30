@@ -42,6 +42,7 @@ public class AccountsTable {
 
 
     public AccountModel createAccount(AccountModel.AccountType type) {
+        nextAccountId += 1;
         AccountModel newAccountModel = new AccountModel(nextAccountId, type, 0, new Date());
         addAccount(newAccountModel);
         return newAccountModel;
