@@ -92,7 +92,7 @@ public class BankServer {
             throw new IllegalArgumentException(
                     "Must withdraw a valid amount. Please enter a combination of 5, 10, 20 or 50 dollar bills.");
         }
-        giveOutBills();
+        giveOutBills((int) amount);
         accountModel.setBalance(newBalance);
         return true;
     }
