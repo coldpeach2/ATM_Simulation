@@ -136,17 +136,20 @@ public class BankServer {
 
     public void undoLastTransaction(long userId, int numTransaction) {
         ArrayList<TransactionModel> array = new ArrayList<>(userTransactionTable.transactionsForUserId.get(userId));
-        TransactionModel transactionModel = array.get(0);
-        userTransactionTable.transactionsForUserId.remove(userId, transactionModel);
-        if (transactionModel == null)
-            throw new IllegalArgumentException("userId does not have a last transaction in our database!");
-        AccountModel destAccountModel = accountTable.getAccountModelForId(transactionModel.getDestAccountId());
-        AccountModel srcAccountModel = accountTable.getAccountModelForId(transactionModel.getSrcAccountId());
-        double newDestBalance = destAccountModel.getBalance() - transactionModel.getAmount();
-        if (newDestBalance < destAccountModel.getType().getMinBalance())
-            throw new IllegalArgumentException("destAccount does not have enough balance to undo transaction!");
-        destAccountModel.setBalance(newDestBalance);
-        srcAccountModel.setBalance(srcAccountModel.getBalance() + transactionModel.getAmount());
+        for(int i = 1; i < numTransaction + 1; i++) {
+            TransactionModel transactionModel = array.get(array.size() - 1);
+            userTransactionTable.transactionsForUserId.remove(userId, transactionModel);
+            if (transactionModel == null)
+                throw new IllegalArgumentException("userId does not have a last transaction in our database!");
+            AccountModel destAccountModel = accountTable.getAccountModelForId(transactionModel.getDestAccountId());
+            AccountModel srcAccountModel = accountTable.getAccountModelForId(transactionModel.getSrcAccountId());
+            double newDestBalance = destAccountModel.getBalance() - transactionModel.getAmount();
+            if (newDestBalance < destAccountModel.getType().getMinBalance())
+                throw new IllegalArgumentException("destAccount does not have enough balance to undo transaction!");
+            destAccountModel.setBalance(newDestBalance);
+            srcAccountModel.setBalance(srcAccountModel.getBalance() + transactionModel.getAmount());
+            System.out.println(i + "transaction(s) reverted");
+        }
     }
 
     public boolean createUser(String firstName, String lastName, String userName, String initialPassword) {
