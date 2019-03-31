@@ -444,10 +444,10 @@ public class ClientMenu extends Menu {
             }
 
             if (successful)
-                System.out.println("Transfer to user successful. You will be redirected to main menu");
+                System.out.println("Transfer to user successful. You will be redirected to main menu \n");
 
             else
-                System.out.println("Transfer unsuccessful. You will be redirected to main menu. Please try again later");
+                System.out.println("Transfer unsuccessful. You will be redirected to main menu. Please try again later \n");
 
         }
 
@@ -485,10 +485,10 @@ public class ClientMenu extends Menu {
 
             if (successful)
                 System.out.println("Withdraw successful! Please allow time for changes to be reflected in your accounts." +
-                        "You will now be redirected to the main menu");
+                        "You will now be redirected to the main menu \n");
 
             else
-                System.out.println("Withdrawal unsuccessful. You will be redirected to the main menu. Please try again" +
+                System.out.println("Withdrawal unsuccessful. You will be redirected to the main menu. Please try again \n" +
                         "at a later time");
 
         }

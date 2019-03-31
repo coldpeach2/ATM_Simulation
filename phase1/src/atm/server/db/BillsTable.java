@@ -6,7 +6,7 @@ import java.util.TreeMap;
 
 public class BillsTable {
 
-    private static final int DEFAULT_BILLS = 200;
+    private static final int DEFAULT_BILLS = 23; //TODO: TEST AMOUNT - Increase on final pass
     private static final int FIVES = 5;
     private static final int TENS = 10;
     private static final int TWENTIES = 20;
@@ -36,6 +36,12 @@ public class BillsTable {
 
     public boolean hasEnough(double amount) {
         return calculateTotal() >= amount;
+    }
+
+    public boolean hasEnough() {
+        for (Map.Entry<Integer, Integer> e : dollarBills.entrySet()) {
+            if (e.getValue() < 20) { return false; }
+        } return true;
     }
 
     private int calculateTotal() {
