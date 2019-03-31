@@ -6,7 +6,11 @@ import atm.model.AccountRequestModel;
 import atm.model.TransactionModel;
 import atm.model.UserModel;
 
+import java.io.*;
 import java.util.*;
+
+import java.io.FileWriter;
+import java.io.PrintWriter;
 
 public class BankServer {
     UserTable userTable;
@@ -15,6 +19,9 @@ public class BankServer {
     AccountRequestTable accountRequestTable;
     UserTransactionTable userTransactionTable;
     ExchangeRateTable exchangeRateTable;
+    BillsTable billsTable;
+
+    private int request_id_ticker = 0;
 
 
     public BankServer() {
@@ -24,6 +31,7 @@ public class BankServer {
         accountRequestTable = new AccountRequestTable();
         userTransactionTable = new UserTransactionTable();
         exchangeRateTable = new ExchangeRateTable();
+        billsTable = new BillsTable();
 ;
         load();
         if (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 1) applySavingsInterests();
@@ -80,6 +88,15 @@ public class BankServer {
         double newBalance = accountModel.getBalance() - amount;
         if (newBalance < accountModel.getType().getMinBalance())
             throw new IllegalArgumentException("Cannot withdraw more than the allowed amount!");
+
+        if (!billsTable.hasEnough(amount)) {
+            throw new IllegalArgumentException("This ATM has insufficient Funds. Please withdraw a lower amount");
+        }
+        if (!isDivisibleBy5(amount)) {
+            throw new IllegalArgumentException(
+                    "Must withdraw a valid amount. Please enter a combination of 5, 10, 20 or 50 dollar bills.");
+        }
+        giveOutBills((int) amount);
         accountModel.setBalance(newBalance);
         return true;
     }
@@ -93,6 +110,7 @@ public class BankServer {
         AccountModel accountModel = accountTable.getAccountModelForId(accountId);
         if (accountModel == null) throw new IllegalArgumentException("Account does not exist!");
         accountModel.setBalance(accountModel.getBalance() + amount);
+        UserTransactionTable table = new UserTransactionTable();
         return true;
     }
 
@@ -139,7 +157,9 @@ public class BankServer {
         return true;
     }
 
-    public void undoLastTransaction(long userId, int numTransaction) {
+    /*
+
+    public void undoLastTransaction(long userId) {
         ArrayList<TransactionModel> array = new ArrayList<>(userTransactionTable.transactionsForUserId.get(userId));
         for(int i = 1; i < numTransaction + 1; i++) {
             TransactionModel transactionModel = array.get(array.size() - 1);
@@ -156,6 +176,7 @@ public class BankServer {
             System.out.println(i + "transaction(s) reverted");
         }
     }
+    */
 
     public boolean createUser(String firstName, String lastName, String userName, String initialPassword) {
         // 1. Create new checking account.
@@ -184,8 +205,8 @@ public class BankServer {
 
     public boolean requestAccount(long userId, AccountModel.AccountType type){
         //TODO: find a way of keeping track of accoutn request id.
-        AccountRequestModel accModel = new AccountRequestModel(/*I NEED A WAY OF KEEPING TRACK OF
-         ID*/0, userId, type);
+        AccountRequestModel accModel = new AccountRequestModel(request_id_ticker, userId, type);
+        request_id_ticker += 1;
         accountRequestTable.addAccountRequest(accModel);
         return true;
     }
@@ -199,5 +220,60 @@ public class BankServer {
         Double targetRate = exchangeRateTable.getSingleRate(inputCurrency);
         return depositAmount * targetRate;
 
+    }
+
+    private boolean isDivisibleBy5 (double amount) {
+        return amount % 5 == 0;
+    }
+
+    public void giveOutBills(int amount) {
+        int x = amount;
+        for (Map.Entry<Integer, Integer> entry : billsTable.getAllAmounts().entrySet()) {
+            while (x - entry.getKey() >= 0) {
+                //update <x> and reduce denomination amount by one
+                x -= entry.getKey();
+                entry.setValue(entry.getValue() - 1);
+            }
+        }
+        if (!billsTable.hasEnough()) {
+            writeAlerts();
+        }
+    }
+
+    public boolean writeDepositsTxt(long userID, long srcAccID, double amount, String type){
+        UserTransactionTable userTable = new UserTransactionTable();
+        userTable.writeToDeposits(userID, srcAccID, amount, type);
+        return true;
+
+    }
+
+    public void readAlerts() {
+        String filename = "alerts.txt";
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            System.out.println(reader.readLine());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeAlerts() {
+        String filename = "alerts.txt";
+        try{
+            //PrintWriter writer = Util.openFileW(filename);
+            //writer.println("WARNING: ATM running low on bills. Recorded on " + new Date());
+            FileWriter write = new FileWriter(filename, false);
+            PrintWriter print_line = new PrintWriter( write );
+            print_line.print("WARNING: ATM running low on bills. Recorded on " + new Date());
+            print_line.close();
+        }
+        catch(IOException ex){
+            ex.printStackTrace();
+            throw new RuntimeException("Failed to write to file: " + filename + ".");
+        }
+    }
+
+    public void restock() {
+        BillsTable.resetBills();
     }
 }
