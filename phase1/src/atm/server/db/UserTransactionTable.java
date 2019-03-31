@@ -54,4 +54,20 @@ public class UserTransactionTable {
         addTransactionModel(new TransactionModel(nextTransactionId, userId, srcAccId, destAccId, amount));
         nextTransactionId++;
     }
+
+    public double calculatePoints(double amount) {
+        return amount * 0.2;
+    }
+
+    public void writeToDeposits(long userId, long srcaccID, double amount, String type){
+        String fileName = "deposits.txt";
+        try{
+            PrintWriter writer = Util.openFileW(fileName);
+            writer.println(userId + ", " + srcaccID + ", $" + amount + ", " + type);
+        }
+        catch(IOException ex){
+            ex.printStackTrace();
+            throw new RuntimeException("Failed to write to file: " + fileName + ".");
+        }
+    }
 }
