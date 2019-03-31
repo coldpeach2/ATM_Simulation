@@ -147,7 +147,9 @@ public class BankServer {
         return true;
     }
 
-    public void undoLastTransaction(long userId, int numTransaction) {
+    /*
+
+    public void undoLastTransaction(long userId) {
         ArrayList<TransactionModel> array = new ArrayList<>(userTransactionTable.transactionsForUserId.get(userId));
         for(int i = 1; i < numTransaction + 1; i++) {
             TransactionModel transactionModel = array.get(array.size() - 1);
@@ -164,6 +166,7 @@ public class BankServer {
             System.out.println(i + "transaction(s) reverted");
         }
     }
+    */
 
     public boolean createUser(String firstName, String lastName, String userName, String initialPassword) {
         // 1. Create new checking account.
@@ -198,6 +201,8 @@ public class BankServer {
         accountRequestTable.addAccountRequest(accModel);
         return true;
     }
+
+
 
     public TreeMap<String, Double> getExchangeRates() {
         return exchangeRateTable.getAllRates();
