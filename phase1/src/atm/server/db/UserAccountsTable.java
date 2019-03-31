@@ -55,6 +55,10 @@ public class UserAccountsTable {
         return userAccounts.get(userId).contains(accountId);
     }
 
+//    public long getAccountFromUser(long userId) {
+//        return userAccounts.get(userId);
+//    }
+
     public HashSet<Long> getUserAccountIds(long userId) {
         return userAccounts.get(userId);
     }

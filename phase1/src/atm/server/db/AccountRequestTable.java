@@ -10,7 +10,6 @@ import java.util.HashMap;
 
 public class AccountRequestTable {
     HashMap<Long, AccountRequestModel> accountRequestModelById = new HashMap();
-    //LinkedList<AccountRequestModel> accountRequestQueue = new LinkedList<>();
     private long nextAccountId = 0;
 
     public void save(String fileName) {

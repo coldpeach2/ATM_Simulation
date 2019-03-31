@@ -53,11 +53,15 @@ public class AccountModel {
     public static AccountModel fromCSVRowString(String row) throws IOException {
         String[] cells = row.split(","); // We expect 5 strings.
         if (cells.length != 4) throw new IOException("Incorrect number of cells in a row!");
-        Date creationDate = new Date(Long.parseLong(cells[3])); // TODO: PARSE CELLS[3] TO GET DATE OBJECT
+        Date creationDate = new Date(Long.parseLong(cells[3]));
         return new AccountModel(Long.parseLong(cells[0]), // user id "0" -> 0
                 AccountModel.AccountType.getType(Integer.parseInt(cells[1])), // type "1" -> 1 -> AccountType.Savings
                 Double.parseDouble(cells[2]),
                 creationDate);
+    }
+
+    public void addPointsToAccount(double points) {
+        this.type.addPoints(points);
     }
 
     public enum AccountType {
@@ -65,14 +69,15 @@ public class AccountModel {
         Saving(1, true, 0, 4.95, "Saving", null),
         Credit(2, false, -1000, 10, "Credit", null),
         LineOfCredit(3, true, -10000, 10, "Line of Credit", null),
-        Rewards(4, false,0,10, "Rewards",0.0);
+        Rewards(4, false,0,10, "Rewards",0.0),
+        Joint(5,true, 0, 5, "Joint", null);
 
         private final int code;
         private final boolean canWithdraw;
         private final double minBalance;
         private final String name;
         private final double monthlyFee;
-        private Double points;
+        private double points;
 
 
         AccountType(int code, boolean canWithdraw, double minBalance, double monthlyFee, String name, Double points) {
@@ -81,7 +86,6 @@ public class AccountModel {
             this.minBalance = minBalance;
             this.monthlyFee = monthlyFee;
             this.name = name;
-            this.points = points;
         }
 
         public int getCode() {
@@ -104,6 +108,8 @@ public class AccountModel {
             return name;
         }
 
+        public double getPoints() {return points;}
+
         public static AccountType getType(int code) {
             switch (code) {
                 case 0:
@@ -116,9 +122,15 @@ public class AccountModel {
                     return LineOfCredit;
                 case 4:
                     return Rewards;
+                case 5:
+                    return Joint;
                 default:
                     throw new IllegalArgumentException("code does not match an AccountType!");
             }
+        }
+
+        public void addPoints(double amount) {
+            this.points += amount;
         }
     }
 }

@@ -107,6 +107,11 @@ public class BankServer {
         if (newSrcBalance < srcAccountModel.getType().getMinBalance())
             throw new IllegalArgumentException("srcAccount does not have enough balance to transfer money!");
         userTransactionTable.createTransactionModel(srcUserId, srcAccountId, destAccountId, amount);
+//        check if reward account
+        if (accountTable.isRewardAccount(srcAccountId)) {
+            double points = userTransactionTable.calculatePoints(amount);
+            accountTable.getAccountModelForId(srcAccountId).addPointsToAccount(points);
+        }
         srcAccountModel.setBalance(newSrcBalance);
         destAccountModel.setBalance(destAccountModel.getBalance() + amount);
         return true; // If success
@@ -176,7 +181,6 @@ public class BankServer {
         return new ArrayList<>(accountRequestTable.getAllAccountRequests());
     }
 
-    //public void calculatePoints(int points, ){}
 
     public boolean requestAccount(long userId, AccountModel.AccountType type){
         //TODO: find a way of keeping track of accoutn request id.

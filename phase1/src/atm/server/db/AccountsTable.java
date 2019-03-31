@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AccountsTable {
-    HashMap<Long, AccountModel> accountsById = new HashMap<>();
+    public HashMap<Long, AccountModel> accountsById = new HashMap<>();
     private long nextAccountId = 0;
 
     public void save(String fileName) {
@@ -35,7 +35,6 @@ public class AccountsTable {
     }
 
     public void addAccount(AccountModel accountModel) {
-        // TODO: Check if Date == 1st of month, if SO, if accountModel.type == Savings then applySavingsInterest(accountModel)
         if (accountModel.getId() > nextAccountId) nextAccountId = accountModel.getId() + 1;
         this.accountsById.put(accountModel.getId(), accountModel); // balance "-10.40" -> -10.40
     }
@@ -54,4 +53,9 @@ public class AccountsTable {
     public Collection<AccountModel> getAllAccountModels() {
         return accountsById.values();
     }
+
+    public boolean isRewardAccount(long accountId) {
+        return getAccountModelForId(accountId).getType().getCode() == 4;
+    }
+
 }

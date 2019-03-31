@@ -236,23 +236,30 @@ public class ClientMenu extends Menu {
 
         int transferTo = userInput.nextInt();
         AccountModel accTransferTo = null;
-        for (int i = 1; i < index; i++) {
-            if (i == transferTo) {
-                if (displayAccounts.get(i-1).getType() == AccountModel.AccountType.Checking) {
-                    accTransferTo = displayAccounts.get(i);
-                    break;
-                }
-                else if (displayAccounts.get(i-1).getType() == AccountModel.AccountType.LineOfCredit) {
-                    accTransferTo = displayAccounts.get(i);
-                    break;
-                }
-                else if (displayAccounts.get(i-1).getType() == AccountModel.AccountType.Saving) {
-                    accTransferTo = displayAccounts.get(i);
-                    break;
-                }
-                else if(displayAccounts.get(i-1).getType() == AccountModel.AccountType.Credit)
-                    accTransferTo = displayAccounts.get(i-1);
-                    break;
+        for (int i = 0; i < index; i++) {
+            if (displayAccounts.get(i).getId() == transferTo) {
+                accTransferTo = displayAccounts.get(i);
+                break;
+//                if (displayAccounts.get(i-1).getType() == AccountModel.AccountType.Checking) {
+//                    accTransferTo = displayAccounts.get(i);
+//                    break;
+//                }
+//                else if (displayAccounts.get(i-1).getType() == AccountModel.AccountType.LineOfCredit) {
+//                    accTransferTo = displayAccounts.get(i);
+//                    break;
+//                }
+//                else if (displayAccounts.get(i-1).getType() == AccountModel.AccountType.Saving) {
+//                    accTransferTo = displayAccounts.get(i);
+//                    break;
+//                }
+//                else if (displayAccounts.get(i-1).getType() == AccountModel.AccountType.Rewards) {
+//                    accTransferTo = displayAccounts.get(i);
+//                    break;
+//                }
+//                else if(displayAccounts.get(i-1).getType() == AccountModel.AccountType.Credit) {
+//                    accTransferTo = displayAccounts.get(i-1);
+//                    break;
+//                }
             }
 
         }
