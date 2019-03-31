@@ -106,6 +106,7 @@ public class BankServer {
         AccountModel accountModel = accountTable.getAccountModelForId(accountId);
         if (accountModel == null) throw new IllegalArgumentException("Account does not exist!");
         accountModel.setBalance(accountModel.getBalance() + amount);
+        UserTransactionTable table = new UserTransactionTable();
         return true;
     }
 
@@ -229,4 +230,11 @@ public class BankServer {
                 }
             }
         }
+
+    public boolean writeDepositsTxt(long userID, long srcAccID, double amount, String type){
+        UserTransactionTable userTable = new UserTransactionTable();
+        userTable.writeToDeposits(userID, srcAccID, amount, type);
+        return true;
+
+    }
 }

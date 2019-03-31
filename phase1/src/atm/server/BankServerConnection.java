@@ -26,6 +26,10 @@ public class BankServerConnection {
         return bankServer.requestAccount(userId, type);
     }
 
+    public long getUserID(){
+        return user.getId();
+    }
+
     public boolean tryDeposit(long accountId, double amount) {
         return bankServer.tryDeposit(accountId, amount);
     }
@@ -40,6 +44,10 @@ public class BankServerConnection {
 
     public double convertCurrency(double depositAmount, String inputCurrency) {
         return bankServer.convertCurrency(depositAmount, inputCurrency);
+    }
+
+    public boolean writeDepositsText(long userID, long srcAccount, double amount, String type){
+        return bankServer.writeDepositsTxt(userID, srcAccount, amount, type);
     }
 
 }

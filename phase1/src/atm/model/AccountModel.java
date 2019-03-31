@@ -81,7 +81,7 @@ public class AccountModel {
             this.minBalance = minBalance;
             this.monthlyFee = monthlyFee;
             this.name = name;
-            this.points = points;
+
         }
 
         public int getCode() {

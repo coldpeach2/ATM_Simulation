@@ -4,6 +4,7 @@ import atm.ATMSim;
 import atm.model.AccountModel;
 import atm.server.BankServerConnection;
 import atm.server.ITServerConnection;
+import atm.server.db.UserTransactionTable;
 
 import javax.sound.midi.SysexMessage;
 import java.util.*;
@@ -340,8 +341,9 @@ public class ClientMenu extends Menu {
             }
         }
 
-        if (successful)
+        if (successful) {
             System.out.println("Deposit successful! You will now be redirected to main menu");
+        }
         else
             System.out.println("Deposit unsuccessful. You will be redirected to main menu. Please try again later");
 
@@ -497,9 +499,21 @@ public class ClientMenu extends Menu {
             System.out.println("Please select the account you would like to deposit funds into");
             AccountModel deposit = makeAccountSelection(idx);
 
+            System.out.println("Are you depositing cash or cheque?");
+            System.out.println("1 - cash");
+            System.out.println("2 - cheque");
+
+            int cashCheque = userInput.nextInt();
+            String type;
+            if (cashCheque == 1){
+                type = "cash";
+            }
+            else
+                type = "cheque";
 
             try{
                 successful = serverConnection.tryDeposit(deposit.getId(), amountConverted);
+                serverConnection.writeDepositsText(serverConnection.getUserID(), deposit.getId(), amountConverted, type);
             }
             catch(IllegalArgumentException e){
 
