@@ -106,21 +106,7 @@ public class ClientMenu extends Menu {
         System.out.println(displayAccounts.get(0).getType());
         for (int i = 0; i < index; i++) {
             if (i == transferTo) {
-                if (displayAccounts.get(i-1).getType() == AccountModel.AccountType.Checking) {
-                    accTransferTo = displayAccounts.get(i-1);
-                    break;
-                }
-                else if (displayAccounts.get(i-1).getType() == AccountModel.AccountType.LineOfCredit) {
-                    accTransferTo = displayAccounts.get(i-1);
-                    break;
-                }
-                else if (displayAccounts.get(i-1).getType() == AccountModel.AccountType.Saving) {
-                    accTransferTo = displayAccounts.get(i-1);
-                    break;
-                }
-                else if(displayAccounts.get(i-1).getType() == AccountModel.AccountType.Credit)
-                    accTransferTo = displayAccounts.get(i-1);
-                break;
+                accTransferTo = displayAccounts.get(i-1);
             }
 
         }
