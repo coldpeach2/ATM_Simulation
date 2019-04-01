@@ -1,19 +1,19 @@
 package atm.view;
 
-import java.io.*;
+import atm.ATMSim;
+import atm.model.AccountRequestModel;
+import atm.server.ManagerBankServerConnection;
+
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import atm.ATMSim;
-import atm.server.BankServer;
-
-import atm.model.AccountRequestModel;
-import atm.server.ManagerBankServerConnection;
-
 public class ManagerMenu extends Menu {
 
-    /** Displays options for the Bank Manager **/
+    /**
+     * Displays options for the Bank Manager
+     **/
 
     private Scanner userInput = new Scanner(System.in);
     ManagerBankServerConnection serverConnection;
@@ -31,11 +31,10 @@ public class ManagerMenu extends Menu {
         System.out.println("1 - Add New Client");
         System.out.println("2 - Undo Transaction");
         System.out.println("3 - Add An Account for a Client");
-        System.out.println("4 - Manage ATM Funds");
-        System.out.println("5 - Save Data");
-        System.out.println("6 - Reboot ATM");
-        System.out.println("7 - Shutdown ATM");
-        System.out.println("8 - EXIT");
+        System.out.println("4 - Save Data");
+        System.out.println("5 - Reboot ATM");
+        System.out.println("6 - Shutdown ATM");
+        System.out.println("7 - EXIT");
 
         selection = userInput.nextInt();
 
@@ -53,16 +52,13 @@ public class ManagerMenu extends Menu {
                 manageAccountRequests();
                 break;
             case 4:
-                serverConnection.readAlerts();
-                manageFunds();
-            case 5:
                 serverConnection.save();
                 break;
-            case 6:
+            case 5:
                 return ATMSim.STATUS_REBOOT;
-            case 7:
+            case 6:
                 return ATMSim.STATUS_SHUTDOWN;
-            case 8:
+            case 7:
                 return ATMSim.STATUS_EXIT;
             default:
                 System.out.println("ERROR. Please select an option from the list above.");
@@ -119,6 +115,10 @@ public class ManagerMenu extends Menu {
         }
     }
 
+    public InputStreamReader openFile(String fileName) {
+        return new InputStreamReader(this.getClass().getResourceAsStream("/" + fileName));
+    }
+
     private void manageFunds() {
 
         System.out.println("Please select an option: ");
@@ -131,7 +131,7 @@ public class ManagerMenu extends Menu {
         switch (sel) {
             case 1:
                 serverConnection.restock();
-                System.out.println(" \n Successfully restocked ATM. \n");
+                System.out.println(" \n Succesfully restocked ATM. \n");
                 break;
             case 2:
                 System.out.println("\n");
@@ -146,10 +146,6 @@ public class ManagerMenu extends Menu {
             default:
                 manageFunds();
         }
-    }
-
-    public InputStreamReader openFile(String fileName) {
-        return new InputStreamReader(this.getClass().getResourceAsStream("/" + fileName));
     }
 
     private void undo() {

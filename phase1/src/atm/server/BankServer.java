@@ -32,7 +32,7 @@ public class BankServer {
         userTransactionTable = new UserTransactionTable();
         exchangeRateTable = new ExchangeRateTable();
         billsTable = new BillsTable();
-;
+        ;
         load();
         if (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 1) applySavingsInterests();
         if (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 1) chargeMonthlyFees();
@@ -228,7 +228,7 @@ public class BankServer {
         return amount % 5 == 0;
     }
 
-    public void giveOutBills(int amount) {
+    public void giveOutBills(int amount){
         int x = amount;
         for (Map.Entry<Integer, Integer> entry : billsTable.getAllAmounts().entrySet()) {
             while (x - entry.getKey() >= 0) {
@@ -237,7 +237,7 @@ public class BankServer {
                 entry.setValue(entry.getValue() - 1);
             }
         }
-        if (!billsTable.hasEnough()) {
+        if (!billsTable.hasEnough(amount)) {
             writeAlerts();
         }
     }
@@ -246,7 +246,6 @@ public class BankServer {
         UserTransactionTable userTable = new UserTransactionTable();
         userTable.writeToDeposits(userID, srcAccID, amount, type);
         return true;
-
     }
 
     public void readAlerts() {

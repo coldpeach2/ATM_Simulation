@@ -11,7 +11,8 @@ public class ManagerBankServerConnection extends BankServerConnection {
 
     public ManagerBankServerConnection(UserModel user, BankServer bankServer) {
         super(user, bankServer);
-        if (user.getAuthLevel() != UserModel.AuthLevel.BankManager) throw new SecurityException("Unauthorized connection!");
+        if (user.getAuthLevel() != UserModel.AuthLevel.BankManager)
+            throw new SecurityException("Unauthorized connection!");
     }
 
     public boolean grantAccount(long accRequestId) {

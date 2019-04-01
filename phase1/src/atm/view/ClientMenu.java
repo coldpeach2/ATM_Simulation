@@ -7,6 +7,8 @@ import atm.server.ITServerConnection;
 import atm.server.db.UserTransactionTable;
 
 import javax.sound.midi.SysexMessage;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class ClientMenu extends Menu {
@@ -146,7 +148,6 @@ public class ClientMenu extends Menu {
         }
 
         AccountModel.AccountType accType = AccountModel.AccountType.getType(accTypeNum);
-        //requires request account in bankserverconnection.
         serverConnection.requestAccount(serverConnection.user.getId(), accType);
         System.out.println("Account successfully requested.");
     }
@@ -187,11 +188,20 @@ public class ClientMenu extends Menu {
         System.out.println("Select which debit account you'd like to pay from.");
         printArrayOfAccs(displayDbAcc);
         int dbAcc = userInput.nextInt();
-        boolean requested = serverConnection.requestTransfer(displayDbAcc.get(dbAcc).getId(),
-                displayCrAcc.get(crAcc).getId(), amount);
+        boolean requested = serverConnection.requestWithdrawal(displayDbAcc.get(dbAcc).getId(), amount);
+
+        System.out.println("To what payee would you like this bill to be paid to?");
+        String nameOfPayee = userInput.next();
 
         if(requested) {
-            System.out.println("Payment requested.");
+            try {
+                FileWriter outgoing = new FileWriter("outgoing.txt", true);
+                outgoing.write("$ " + amount + " to " + nameOfPayee);
+                outgoing.close();
+            } catch (IOException ex){
+                ex.printStackTrace();
+            }
+            System.out.println("Payment requested. $" + amount + " to " + nameOfPayee);
         }
     }
 
@@ -311,8 +321,21 @@ public class ClientMenu extends Menu {
 
         System.out.println("What amount would you like to deposit?");
         double amountDeposit = userInput.nextDouble();
+
+        System.out.println("Would you like to deposit cash or cheque?");
+        System.out.println("1 - Cash");
+        System.out.println("2 - Cheque");
+        String typeDep;
+        int choice = userInput.nextInt();
+        if (choice ==1)
+            typeDep = "cash";
+        else
+            typeDep = "cheque";
+
+
         try{
             successful = serverConnection.tryDeposit(deposit.getId(), amountDeposit);
+            serverConnection.writeDepositsText(serverConnection.getUserID(), deposit.getId(), amountDeposit, typeDep);
         }
         catch(IllegalArgumentException e){
 

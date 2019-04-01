@@ -1,7 +1,6 @@
 package atm.model;
 
 import java.io.IOException;
-import java.net.PasswordAuthentication;
 
 public class UserModel {
     private final long id;

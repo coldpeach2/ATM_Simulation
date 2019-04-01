@@ -12,8 +12,7 @@ public class BillsTable {
     private static final int TWENTIES = 20;
     private static final int FIFTIES = 50;
 
-    private static Map<Integer, Integer> dollarBills = new TreeMap<Integer, Integer>(Collections.reverseOrder())
-    {{
+    private static Map<Integer, Integer> dollarBills = new TreeMap<Integer, Integer>(Collections.reverseOrder()) {{
         put(FIVES, DEFAULT_BILLS);
         put(TENS, DEFAULT_BILLS);
         put(TWENTIES, DEFAULT_BILLS);
@@ -29,7 +28,7 @@ public class BillsTable {
     }
 
     public static void resetBills() {
-        for (Map.Entry<Integer, Integer> entry: dollarBills.entrySet()) {
+        for (Map.Entry<Integer, Integer> entry : dollarBills.entrySet()) {
             entry.setValue(DEFAULT_BILLS);
         }
     }
