@@ -17,7 +17,7 @@ public class ITHelperMenu extends Menu {
 
     private Scanner userInput = new Scanner(System.in);
     //TODO: is this a good design to pass database into this object? !!!!!!! YES.
-    private ITServerConnection serverConnection;
+    ITServerConnection serverConnection;
 
     public ITHelperMenu(ITServerConnection bankServerConnection) {
         this.serverConnection = bankServerConnection;
@@ -29,9 +29,11 @@ public class ITHelperMenu extends Menu {
 
         int selection;
 
+        // Display a list of this User's accounts
 
 
         System.out.println("Hello " + serverConnection.user.getFirstName() + "! Please select an option: \n ");
+
         System.out.println("1 - Back-up ATM Data");
         System.out.println("2 - Reboot ATM");
         System.out.println("3 - Shutdown ATM");
@@ -41,6 +43,7 @@ public class ITHelperMenu extends Menu {
 
         switch (selection) {
             // TODO: finish writing case statements for the other User options.
+
             case 1:
                 serverConnection.backupData();
                 break;

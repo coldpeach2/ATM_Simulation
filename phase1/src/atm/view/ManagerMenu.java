@@ -131,7 +131,7 @@ public class ManagerMenu extends Menu {
         switch (sel) {
             case 1:
                 serverConnection.restock();
-                System.out.println(" \n Succesfully restocked ATM. \n");
+                System.out.println(" \n Successfully restocked ATM. \n");
                 break;
             case 2:
                 System.out.println("\n");

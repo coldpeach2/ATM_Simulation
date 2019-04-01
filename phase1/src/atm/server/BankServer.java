@@ -211,6 +211,8 @@ public class BankServer {
         return true;
     }
 
+
+
     public TreeMap<String, Double> getExchangeRates() {
         return exchangeRateTable.getAllRates();
     }

@@ -14,13 +14,6 @@ public class ATMSim {
 
     /** Runs after a user has logged in **/
 
-    /** The ATMSim class can run in two modes: Regular User (Bank Client) and Bank Manager mode.
-     *
-     * There are two runATM methods provided.
-     * 1. runATM(database, current_user) ~ ATM is being accessed by Bank Client, which is the current_user.
-     * 2. runATM(database) ~ ATM is being accessed by Bank Manager.
-     */
-
     public static final int STATUS_RUNNING = 0;
     public static final int STATUS_EXIT = 1;
     public static final int STATUS_REBOOT = 2;
