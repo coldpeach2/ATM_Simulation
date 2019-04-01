@@ -390,6 +390,7 @@ public class ClientMenu extends Menu {
                 "rates");
         displayExchangeRates();
         System.out.println("Would you like to make a deposit/withdrawal? Please enter Y/N");
+        userInput.nextLine();
         String yesNo = userInput.nextLine();
 
         if (yesNo.toLowerCase().equals("n")){
@@ -406,6 +407,7 @@ public class ClientMenu extends Menu {
         double amountConverted = serverConnection.convertCurrency(amountInput, currencyCode);
         System.out.println("Would you like to transfer to a user, withdraw or deposit funds? Enter T for transfer, " +
                 "D for deposit or W for withdraw");
+        userInput.nextLine();
         String typeOfTransaction = userInput.nextLine().toLowerCase();
 
         if (typeOfTransaction.equals("t")){
