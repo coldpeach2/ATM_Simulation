@@ -336,8 +336,21 @@ public class ClientMenu extends Menu {
 
         System.out.println("What amount would you like to deposit?");
         double amountDeposit = userInput.nextDouble();
+
+        System.out.println("Would you like to deposit cash or cheque?");
+        System.out.println("1 - Cash");
+        System.out.println("2 - Cheque");
+        String typeDep;
+        int choice = userInput.nextInt();
+        if (choice ==1)
+            typeDep = "cash";
+        else
+            typeDep = "cheque";
+
+
         try{
             successful = serverConnection.tryDeposit(deposit.getId(), amountDeposit);
+            serverConnection.writeDepositsText(serverConnection.getUserID(), deposit.getId(), amountDeposit, typeDep);
         }
         catch(IllegalArgumentException e){
 
