@@ -8,6 +8,7 @@ import atm.server.db.UserTransactionTable;
 
 import javax.sound.midi.SysexMessage;
 import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.*;
 
@@ -83,13 +84,11 @@ public class ClientMenu extends Menu {
             case 6:
                 requestNewAcc();
                 break;
-
             case 7:
-
+                convertCurrencies(idx);
+                break;
             case 8:
-
                 return ATMSim.STATUS_EXIT;
-
             default:
                 System.out.println("ERROR. Please select an option from the list above.");
                 showOptions();
@@ -100,20 +99,23 @@ public class ClientMenu extends Menu {
 
 
     public AccountModel makeAccountSelection(int index){
+        System.out.println(index);
         int transferTo = userInput.nextInt();
+        System.out.println(transferTo);
         AccountModel accTransferTo = null;
+        System.out.println(displayAccounts.get(0).getType());
         for (int i = 0; i < index; i++) {
-            if (displayAccounts.get(i).getId() == transferTo) {
-                accTransferTo = displayAccounts.get(i);
-                break;
+            if (i == transferTo) {
+                accTransferTo = displayAccounts.get(i-1);
             }
 
         }
 
         if (accTransferTo == null){
             System.out.println("Please make a valid selection");
-            makeAccountSelection(index);
+            return makeAccountSelection(index);
         }
+        System.out.println(accTransferTo.getType());
         return accTransferTo;
 
     }
@@ -180,9 +182,8 @@ public class ClientMenu extends Menu {
 
         if(requested) {
             try {
-                FileWriter outgoing = new FileWriter("outgoing.txt", true);
+                PrintWriter outgoing = atm.server.db.Util.openFileW("outgoing.txt");
                 outgoing.write("$ " + amount + " to " + nameOfPayee);
-                outgoing.close();
             } catch (IOException ex){
                 ex.printStackTrace();
             }
@@ -197,23 +198,10 @@ public class ClientMenu extends Menu {
         }
     }
 
-    /*
-    idea for changing currencies
-
-    1. present a list of currency options
-    2. store all the currencies of the countries that are available DONE
-    3. ask user whether they want to withdraw or deposit a currency amount
-    4. ask them for the type of currency
-    4. if they want to withdraw, first ask how much they want to withdraw, then convert that amount and see if they can
-    5. if they want to deposit, first ask how much they are depositing, then convert that amount and deposit into their account
-
-    all done!
-     */
-
     public void displayExchangeRates() {
 
         TreeMap<String, Double> rates = serverConnection.getExchangeRates();
-
+        System.out.println("Rates up to date as of " + new Date());
         for (Map.Entry<String, Double> entry : rates.entrySet()) {
             System.out.println(entry.getKey() + ":  " + entry.getValue());
         }
@@ -319,8 +307,21 @@ public class ClientMenu extends Menu {
 
         System.out.println("What amount would you like to deposit?");
         double amountDeposit = userInput.nextDouble();
+
+        System.out.println("Would you like to deposit cash or cheque?");
+        System.out.println("1 - Cash");
+        System.out.println("2 - Cheque");
+        String typeDep;
+        int choice = userInput.nextInt();
+        if (choice ==1)
+            typeDep = "cash";
+        else
+            typeDep = "cheque";
+
+
         try{
             successful = serverConnection.tryDeposit(deposit.getId(), amountDeposit);
+            serverConnection.writeDepositsText(serverConnection.getUserID(), deposit.getId(), amountDeposit, typeDep);
         }
         catch(IllegalArgumentException e){
 
@@ -389,6 +390,7 @@ public class ClientMenu extends Menu {
                 "rates");
         displayExchangeRates();
         System.out.println("Would you like to make a deposit/withdrawal? Please enter Y/N");
+        userInput.nextLine();
         String yesNo = userInput.nextLine();
 
         if (yesNo.toLowerCase().equals("n")){
@@ -405,6 +407,7 @@ public class ClientMenu extends Menu {
         double amountConverted = serverConnection.convertCurrency(amountInput, currencyCode);
         System.out.println("Would you like to transfer to a user, withdraw or deposit funds? Enter T for transfer, " +
                 "D for deposit or W for withdraw");
+        userInput.nextLine();
         String typeOfTransaction = userInput.nextLine().toLowerCase();
 
         if (typeOfTransaction.equals("t")){
@@ -507,6 +510,9 @@ public class ClientMenu extends Menu {
             try{
                 successful = serverConnection.tryDeposit(deposit.getId(), amountConverted);
                 serverConnection.writeDepositsText(serverConnection.getUserID(), deposit.getId(), amountConverted, type);
+                if (type == "cash") {
+                    // TODO: write the mf method that inputs bills into ATM.
+                }
             }
             catch(IllegalArgumentException e){
 

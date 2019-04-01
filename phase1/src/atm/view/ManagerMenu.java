@@ -31,10 +31,11 @@ public class ManagerMenu extends Menu {
         System.out.println("1 - Add New Client");
         System.out.println("2 - Undo Transaction");
         System.out.println("3 - Add An Account for a Client");
-        System.out.println("4 - Save Data");
-        System.out.println("5 - Reboot ATM");
-        System.out.println("6 - Shutdown ATM");
-        System.out.println("7 - EXIT");
+        System.out.println("4 - Manage ATM Funds");
+        System.out.println("5 - Save Data");
+        System.out.println("6 - Reboot ATM");
+        System.out.println("7 - Shutdown ATM");
+        System.out.println("8 - EXIT");
 
         selection = userInput.nextInt();
 
@@ -52,13 +53,16 @@ public class ManagerMenu extends Menu {
                 manageAccountRequests();
                 break;
             case 4:
+                serverConnection.readAlerts();
+                manageFunds();
+            case 5:
                 serverConnection.save();
                 break;
-            case 5:
-                return ATMSim.STATUS_REBOOT;
             case 6:
-                return ATMSim.STATUS_SHUTDOWN;
+                return ATMSim.STATUS_REBOOT;
             case 7:
+                return ATMSim.STATUS_SHUTDOWN;
+            case 8:
                 return ATMSim.STATUS_EXIT;
             default:
                 System.out.println("ERROR. Please select an option from the list above.");
@@ -149,7 +153,15 @@ public class ManagerMenu extends Menu {
     }
 
     private void undo() {
-        //TODO: Needs to be completed.
+        System.out.println("Please enter the userID of the user you would like to undo a transaction for");
+        long iD = userInput.nextLong();
+        System.out.println("Please enter the transaction you would like to undo. Enter 0 for most recent and 1.. for" +
+                "older transactions");
+        int numTransaction = userInput.nextInt();
+
+        serverConnection.undoLastTransaction(iD, numTransaction);
+
+
     }
 
 }

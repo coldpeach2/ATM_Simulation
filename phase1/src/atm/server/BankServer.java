@@ -109,7 +109,9 @@ public class BankServer {
         if (amount <= 0) throw new IllegalArgumentException("Must deposit more than $0");
         AccountModel accountModel = accountTable.getAccountModelForId(accountId);
         if (accountModel == null) throw new IllegalArgumentException("Account does not exist!");
-        accountModel.setBalance(accountModel.getBalance() + amount);
+        if (accountModel.getType() == AccountModel.AccountType.Credit) {
+            accountModel.setBalance(accountModel.getBalance() - amount);
+        } else { accountModel.setBalance(accountModel.getBalance() + amount); }
         UserTransactionTable table = new UserTransactionTable();
         return true;
     }
@@ -121,6 +123,8 @@ public class BankServer {
         if (destAccountModel == null)
             throw new IllegalArgumentException("destAccountId does not exist in our database!");
         AccountModel srcAccountModel = accountTable.getAccountModelForId(srcAccountId);
+        if (!srcAccountModel.getType().canWithdraw())
+            throw new IllegalArgumentException("Credit accounts can't be withdrawn from!");
         double newSrcBalance = srcAccountModel.getBalance() - amount;
         if (newSrcBalance < srcAccountModel.getType().getMinBalance())
             throw new IllegalArgumentException("srcAccount does not have enough balance to transfer money!");
@@ -131,7 +135,11 @@ public class BankServer {
             accountTable.getAccountModelForId(srcAccountId).addPointsToAccount(points);
         }
         srcAccountModel.setBalance(newSrcBalance);
-        destAccountModel.setBalance(destAccountModel.getBalance() + amount);
+        if (destAccountModel.getType() == AccountModel.AccountType.Credit) {
+            destAccountModel.setBalance(destAccountModel.getBalance() + -amount);
+        } else {
+            destAccountModel.setBalance(destAccountModel.getBalance() + amount);
+        }
         return true; // If success
     }
 
@@ -157,9 +165,9 @@ public class BankServer {
         return true;
     }
 
-    /*
 
-    public void undoLastTransaction(long userId) {
+
+    public void undoLastTransaction(long userId, int numTransaction) {
         ArrayList<TransactionModel> array = new ArrayList<>(userTransactionTable.transactionsForUserId.get(userId));
         for(int i = 1; i < numTransaction + 1; i++) {
             TransactionModel transactionModel = array.get(array.size() - 1);
@@ -176,7 +184,7 @@ public class BankServer {
             System.out.println(i + "transaction(s) reverted");
         }
     }
-    */
+
 
     public boolean createUser(String firstName, String lastName, String userName, String initialPassword) {
         // 1. Create new checking account.
@@ -204,7 +212,7 @@ public class BankServer {
 
 
     public boolean requestAccount(long userId, AccountModel.AccountType type){
-        //TODO: find a way of keeping track of accoutn request id.
+
         AccountRequestModel accModel = new AccountRequestModel(request_id_ticker, userId, type);
         request_id_ticker += 1;
         accountRequestTable.addAccountRequest(accModel);
