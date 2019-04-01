@@ -165,9 +165,9 @@ public class BankServer {
         return true;
     }
 
-    /*
 
-    public void undoLastTransaction(long userId) {
+
+    public void undoLastTransaction(long userId, int numTransaction) {
         ArrayList<TransactionModel> array = new ArrayList<>(userTransactionTable.transactionsForUserId.get(userId));
         for(int i = 1; i < numTransaction + 1; i++) {
             TransactionModel transactionModel = array.get(array.size() - 1);
@@ -184,7 +184,7 @@ public class BankServer {
             System.out.println(i + "transaction(s) reverted");
         }
     }
-    */
+
 
     public boolean createUser(String firstName, String lastName, String userName, String initialPassword) {
         // 1. Create new checking account.
@@ -212,7 +212,7 @@ public class BankServer {
 
 
     public boolean requestAccount(long userId, AccountModel.AccountType type){
-        //TODO: find a way of keeping track of accoutn request id.
+
         AccountRequestModel accModel = new AccountRequestModel(request_id_ticker, userId, type);
         request_id_ticker += 1;
         accountRequestTable.addAccountRequest(accModel);

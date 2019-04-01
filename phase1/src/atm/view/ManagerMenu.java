@@ -149,7 +149,15 @@ public class ManagerMenu extends Menu {
     }
 
     private void undo() {
-        //TODO: Needs to be completed.
+        System.out.println("Please enter the userID of the user you would like to undo a transaction for");
+        long iD = userInput.nextLong();
+        System.out.println("Please enter the transaction you would like to undo. Enter 0 for most recent and 1.. for" +
+                "older transactions");
+        int numTransaction = userInput.nextInt();
+
+        serverConnection.undoLastTransaction(iD, numTransaction);
+
+
     }
 
 }
