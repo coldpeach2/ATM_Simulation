@@ -100,27 +100,11 @@ public class ClientMenu extends Menu {
 
 
     public AccountModel makeAccountSelection(int index){
-        System.out.println(index);
         int transferTo = userInput.nextInt();
-        System.out.println(transferTo);
         AccountModel accTransferTo = null;
-        System.out.println(displayAccounts.get(0).getType());
         for (int i = 0; i < index; i++) {
-            if (i == transferTo) {
-                if (displayAccounts.get(i-1).getType() == AccountModel.AccountType.Checking) {
-                    accTransferTo = displayAccounts.get(i-1);
-                    break;
-                }
-                else if (displayAccounts.get(i-1).getType() == AccountModel.AccountType.LineOfCredit) {
-                    accTransferTo = displayAccounts.get(i-1);
-                    break;
-                }
-                else if (displayAccounts.get(i-1).getType() == AccountModel.AccountType.Saving) {
-                    accTransferTo = displayAccounts.get(i-1);
-                    break;
-                }
-                else if(displayAccounts.get(i-1).getType() == AccountModel.AccountType.Credit)
-                    accTransferTo = displayAccounts.get(i-1);
+            if (displayAccounts.get(i).getId() == transferTo) {
+                accTransferTo = displayAccounts.get(i);
                 break;
             }
 
@@ -128,9 +112,8 @@ public class ClientMenu extends Menu {
 
         if (accTransferTo == null){
             System.out.println("Please make a valid selection");
-            return makeAccountSelection(index);
+            makeAccountSelection(index);
         }
-        System.out.println(accTransferTo.getType());
         return accTransferTo;
 
     }
