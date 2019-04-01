@@ -510,6 +510,9 @@ public class ClientMenu extends Menu {
             try{
                 successful = serverConnection.tryDeposit(deposit.getId(), amountConverted);
                 serverConnection.writeDepositsText(serverConnection.getUserID(), deposit.getId(), amountConverted, type);
+                if (type == "cash") {
+                    // TODO: write the mf method that inputs bills into ATM.
+                }
             }
             catch(IllegalArgumentException e){
 

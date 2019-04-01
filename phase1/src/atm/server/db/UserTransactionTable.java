@@ -2,6 +2,7 @@ package atm.server.db;
 
 import atm.model.TransactionModel;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -62,8 +63,10 @@ public class UserTransactionTable {
     public void writeToDeposits(long userId, long srcaccID, double amount, String type) {
         String fileName = "deposits.txt";
         try {
-            PrintWriter writer = Util.openFileW(fileName);
-            writer.println(userId + ", " + srcaccID + ", $" + amount + ", " + type);
+            FileWriter write = new FileWriter(fileName, true);
+            PrintWriter print_line = new PrintWriter( write );
+            print_line.println(userId + ", " + srcaccID + ", $" + amount + ", " + type);
+            print_line.close();
         } catch (IOException ex) {
             ex.printStackTrace();
             throw new RuntimeException("Failed to write to file: " + fileName + ".");
