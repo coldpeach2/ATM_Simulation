@@ -1,10 +1,10 @@
 package atm.server.db;
 
-import atm.model.AccountModel;
-
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 public class UserAccountsTable {
     HashMap<Long, HashSet<Long>> userAccounts = new HashMap<>();
@@ -55,9 +55,6 @@ public class UserAccountsTable {
         return userAccounts.get(userId).contains(accountId);
     }
 
-//    public long getAccountFromUser(long userId) {
-//        return userAccounts.get(userId);
-//    }
 
     public HashSet<Long> getUserAccountIds(long userId) {
         return userAccounts.get(userId);

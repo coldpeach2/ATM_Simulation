@@ -5,12 +5,14 @@ import atm.model.TransactionModel;
 import atm.model.UserModel;
 
 import java.util.List;
+import java.util.Map;
 
 public class ManagerBankServerConnection extends BankServerConnection {
 
     public ManagerBankServerConnection(UserModel user, BankServer bankServer) {
         super(user, bankServer);
-        if (user.getAuthLevel() != UserModel.AuthLevel.BankManager) throw new SecurityException("Unauthorized connection!");
+        if (user.getAuthLevel() != UserModel.AuthLevel.BankManager)
+            throw new SecurityException("Unauthorized connection!");
     }
 
     public boolean grantAccount(long accRequestId) {
@@ -35,5 +37,17 @@ public class ManagerBankServerConnection extends BankServerConnection {
 
     public void save() {
         bankServer.save();
+    }
+
+    public void readAlerts() {
+        bankServer.readAlerts();
+    }
+
+    public Map<Integer, Integer> getBills() {
+        return bankServer.billsTable.getAllAmounts();
+    }
+
+    public void restock() {
+        bankServer.restock();
     }
 }

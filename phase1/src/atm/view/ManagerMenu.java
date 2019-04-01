@@ -1,18 +1,19 @@
 package atm.view;
 
-import java.io.*;
-import java.util.List;
-import java.util.Scanner;
-
 import atm.ATMSim;
-import atm.server.BankServer;
-
 import atm.model.AccountRequestModel;
 import atm.server.ManagerBankServerConnection;
 
+import java.io.InputStreamReader;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
 public class ManagerMenu extends Menu {
 
-    /** Displays options for the Bank Manager **/
+    /**
+     * Displays options for the Bank Manager
+     **/
 
     private Scanner userInput = new Scanner(System.in);
     ManagerBankServerConnection serverConnection;
@@ -116,6 +117,35 @@ public class ManagerMenu extends Menu {
 
     public InputStreamReader openFile(String fileName) {
         return new InputStreamReader(this.getClass().getResourceAsStream("/" + fileName));
+    }
+
+    private void manageFunds() {
+
+        System.out.println("Please select an option: ");
+        System.out.println("1 - Restock all");
+        System.out.println("2 - See ATM Funds");
+        System.out.println("3 - Exit");
+
+        int sel = userInput.nextInt();
+
+        switch (sel) {
+            case 1:
+                serverConnection.restock();
+                System.out.println(" \n Succesfully restocked ATM. \n");
+                break;
+            case 2:
+                System.out.println("\n");
+                Map<Integer, Integer> bills = serverConnection.getBills();
+                for (Map.Entry<Integer, Integer> e : bills.entrySet()) {
+                    System.out.println("CAD " + e.getKey() + " bills: " + e.getValue());
+                }
+                System.out.println("\n");
+                manageFunds();
+            case 3:
+                break;
+            default:
+                manageFunds();
+        }
     }
 
     private void undo() {

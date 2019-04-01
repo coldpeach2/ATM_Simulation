@@ -6,7 +6,11 @@ import atm.model.AccountRequestModel;
 import atm.model.TransactionModel;
 import atm.model.UserModel;
 
+import java.io.*;
 import java.util.*;
+
+import java.io.FileWriter;
+import java.io.PrintWriter;
 
 public class BankServer {
     UserTable userTable;
@@ -28,7 +32,7 @@ public class BankServer {
         userTransactionTable = new UserTransactionTable();
         exchangeRateTable = new ExchangeRateTable();
         billsTable = new BillsTable();
-;
+        ;
         load();
         if (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 1) applySavingsInterests();
         if (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 1) chargeMonthlyFees();
@@ -226,19 +230,51 @@ public class BankServer {
 
     public void giveOutBills(int amount){
         int x = amount;
-            for (Map.Entry<Integer, Integer> entry : billsTable.getAllAmounts().entrySet()) {
-                while (x - entry.getKey() >= 0) {
-                    //update <x> and reduce denomination amount by one
-                    x -= entry.getKey();
-                    entry.setValue(entry.getValue() - 1);
-                }
+        for (Map.Entry<Integer, Integer> entry : billsTable.getAllAmounts().entrySet()) {
+            while (x - entry.getKey() >= 0) {
+                //update <x> and reduce denomination amount by one
+                x -= entry.getKey();
+                entry.setValue(entry.getValue() - 1);
             }
         }
+        if (!billsTable.hasEnough(amount)) {
+            writeAlerts();
+        }
+    }
 
     public boolean writeDepositsTxt(long userID, long srcAccID, double amount, String type){
         UserTransactionTable userTable = new UserTransactionTable();
         userTable.writeToDeposits(userID, srcAccID, amount, type);
         return true;
+    }
 
+    public void readAlerts() {
+        String filename = "alerts.txt";
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            System.out.println(reader.readLine());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeAlerts() {
+        String filename = "alerts.txt";
+        try{
+            //PrintWriter writer = Util.openFileW(filename);
+            //writer.println("WARNING: ATM running low on bills. Recorded on " + new Date());
+            FileWriter write = new FileWriter(filename, false);
+            PrintWriter print_line = new PrintWriter( write );
+            print_line.print("WARNING: ATM running low on bills. Recorded on " + new Date());
+            print_line.close();
+        }
+        catch(IOException ex){
+            ex.printStackTrace();
+            throw new RuntimeException("Failed to write to file: " + filename + ".");
+        }
+    }
+
+    public void restock() {
+        BillsTable.resetBills();
     }
 }

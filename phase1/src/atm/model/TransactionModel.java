@@ -1,7 +1,6 @@
 package atm.model;
 
 import java.io.IOException;
-import java.util.Date;
 
 public class TransactionModel {
     // public static final long ATM_ACCOUNT_ID = -1;

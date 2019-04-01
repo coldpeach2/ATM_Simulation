@@ -1,7 +1,7 @@
 package atm;
 
-import atm.server.BankServer;
 import atm.model.UserModel;
+import atm.server.BankServer;
 import atm.server.BankServerConnection;
 
 import java.util.Date;

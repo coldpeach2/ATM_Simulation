@@ -3,10 +3,7 @@ package atm.view;
 import atm.ATMSim;
 import atm.model.AccountModel;
 import atm.server.BankServerConnection;
-import atm.server.ITServerConnection;
-import atm.server.db.UserTransactionTable;
 
-import javax.sound.midi.SysexMessage;
 import java.util.*;
 
 public class ClientMenu extends Menu {
@@ -24,7 +21,6 @@ public class ClientMenu extends Menu {
     }
 
     private ArrayList<AccountModel> displayAccounts;
-
 
 
     public int showOptions() {
@@ -96,8 +92,7 @@ public class ClientMenu extends Menu {
     }
 
 
-
-    public AccountModel makeAccountSelection(int index){
+    public AccountModel makeAccountSelection(int index) {
         System.out.println(index);
         int transferTo = userInput.nextInt();
         System.out.println(transferTo);
@@ -105,26 +100,23 @@ public class ClientMenu extends Menu {
         System.out.println(displayAccounts.get(0).getType());
         for (int i = 0; i < index; i++) {
             if (i == transferTo) {
-                if (displayAccounts.get(i-1).getType() == AccountModel.AccountType.Checking) {
-                    accTransferTo = displayAccounts.get(i-1);
+                if (displayAccounts.get(i - 1).getType() == AccountModel.AccountType.Checking) {
+                    accTransferTo = displayAccounts.get(i - 1);
                     break;
-                }
-                else if (displayAccounts.get(i-1).getType() == AccountModel.AccountType.LineOfCredit) {
-                    accTransferTo = displayAccounts.get(i-1);
+                } else if (displayAccounts.get(i - 1).getType() == AccountModel.AccountType.LineOfCredit) {
+                    accTransferTo = displayAccounts.get(i - 1);
                     break;
-                }
-                else if (displayAccounts.get(i-1).getType() == AccountModel.AccountType.Saving) {
-                    accTransferTo = displayAccounts.get(i-1);
+                } else if (displayAccounts.get(i - 1).getType() == AccountModel.AccountType.Saving) {
+                    accTransferTo = displayAccounts.get(i - 1);
                     break;
-                }
-                else if(displayAccounts.get(i-1).getType() == AccountModel.AccountType.Credit)
-                    accTransferTo = displayAccounts.get(i-1);
+                } else if (displayAccounts.get(i - 1).getType() == AccountModel.AccountType.Credit)
+                    accTransferTo = displayAccounts.get(i - 1);
                 break;
             }
 
         }
 
-        if (accTransferTo == null){
+        if (accTransferTo == null) {
             System.out.println("Please make a valid selection");
             return makeAccountSelection(index);
         }
@@ -134,14 +126,13 @@ public class ClientMenu extends Menu {
     }
 
 
-
-    public void requestNewAcc(){
+    public void requestNewAcc() {
 
         System.out.println("Enter a number for the type of account would you like to create.\n0 - Checking " +
                 "1 - Saving 2 - Credit 3 - Line of Credit 4 - Rewards");
         int accTypeNum = userInput.nextInt();
 
-        while (accTypeNum > 4){
+        while (accTypeNum > 4) {
             System.out.println("Invalid account type. Re-enter.\n0 - Checking 1 - Saving 2 - Credit " +
                     "3 - Line of Credit 4 - Rewards");
             accTypeNum = userInput.nextInt();
@@ -153,21 +144,21 @@ public class ClientMenu extends Menu {
         System.out.println("Account successfully requested.");
     }
 
-    public void payBill(){
+    public void payBill() {
 
         ArrayList<AccountModel> displayCrAcc = new ArrayList<>();
         ArrayList<AccountModel> displayDbAcc = new ArrayList<>();
 
-        for(int i = 0; i < displayAccounts.size(); i++){
-            if(displayAccounts.get(i).getType() == AccountModel.AccountType.Credit){
+        for (int i = 0; i < displayAccounts.size(); i++) {
+            if (displayAccounts.get(i).getType() == AccountModel.AccountType.Credit) {
                 displayCrAcc.add(displayAccounts.get(i));
-            } else if(displayAccounts.get(i).getType() == AccountModel.AccountType.Checking ||
-                    displayAccounts.get(i).getType() == AccountModel.AccountType.Saving){
+            } else if (displayAccounts.get(i).getType() == AccountModel.AccountType.Checking ||
+                    displayAccounts.get(i).getType() == AccountModel.AccountType.Saving) {
                 displayDbAcc.add(displayAccounts.get(i));
             }
         }
 
-        if(displayCrAcc.size() == 0){
+        if (displayCrAcc.size() == 0) {
             System.out.println("You do not have any credit accounts. Exiting...");
             return;
         }
@@ -192,13 +183,13 @@ public class ClientMenu extends Menu {
         boolean requested = serverConnection.requestTransfer(displayDbAcc.get(dbAcc).getId(),
                 displayCrAcc.get(crAcc).getId(), amount);
 
-        if(requested) {
+        if (requested) {
             System.out.println("Payment requested.");
         }
     }
 
-    public void printArrayOfAccs(ArrayList<AccountModel> accs){
-        for(int i = 0; i < accs.size(); i++){
+    public void printArrayOfAccs(ArrayList<AccountModel> accs) {
+        for (int i = 0; i < accs.size(); i++) {
             System.out.println(i + " - Account id: " + accs.get(i).getId() + " Balance: " +
                     accs.get(i).getBalance());
         }
@@ -227,7 +218,7 @@ public class ClientMenu extends Menu {
     }
 
 
-    public void transferBetweenAccounts(int idx){
+    public void transferBetweenAccounts(int idx) {
 
         //
 
@@ -250,16 +241,13 @@ public class ClientMenu extends Menu {
         try {
 
             successful = serverConnection.requestTransfer(withdrawFrom.getId(), transferTo.getId(), amount);
-        }
-
-        catch(SecurityException sE){
+        } catch (SecurityException sE) {
 
             System.out.println("This account does not belong to you, you will be redirected to the main menu.");
 
             return;
 
-        }
-        catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
 
             System.out.println("Error encountered. Please try again. You will be redirected ot the main menu.");
             return;
@@ -274,7 +262,7 @@ public class ClientMenu extends Menu {
 
     }
 
-    public void transferToUser(int idx){
+    public void transferToUser(int idx) {
 
         //
         System.out.println("Transfer To User:");
@@ -293,15 +281,12 @@ public class ClientMenu extends Menu {
         double amountToTransfer = userInput.nextDouble();
         try {
             successful = serverConnection.requestTransfer(transferFrom.getId(), destAcc, amountToTransfer);
-        }
-
-        catch(SecurityException sE){
+        } catch (SecurityException sE) {
 
             System.out.println("This account does not belong to you, you will be redirected to the main menu.");
             return;
 
-        }
-        catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
 
             System.out.println("Error encountered. Please try again. You will be redirected ot the main menu.");
             return;
@@ -317,7 +302,7 @@ public class ClientMenu extends Menu {
 
     }
 
-    public void deposit(int idx){
+    public void deposit(int idx) {
 
         // deposit
         boolean successful = false;
@@ -326,16 +311,14 @@ public class ClientMenu extends Menu {
 
         System.out.println("What amount would you like to deposit?");
         double amountDeposit = userInput.nextDouble();
-        try{
+        try {
             successful = serverConnection.tryDeposit(deposit.getId(), amountDeposit);
-        }
-        catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
 
-            if (amountDeposit <= 0){
+            if (amountDeposit <= 0) {
                 System.out.println("Amount must be greater than $0, You will be redirected to main menu");
                 return;
-            }
-            else{
+            } else {
                 System.out.println("Account does not exist! You will be redirected to main menu");
                 return;
             }
@@ -343,13 +326,12 @@ public class ClientMenu extends Menu {
 
         if (successful) {
             System.out.println("Deposit successful! You will now be redirected to main menu");
-        }
-        else
+        } else
             System.out.println("Deposit unsuccessful. You will be redirected to main menu. Please try again later");
 
     }
 
-    public void withdraw (int idx){
+    public void withdraw(int idx) {
         boolean successful = false;
 
         System.out.println("Please select the account you would like to withdraw funds from");
@@ -360,23 +342,18 @@ public class ClientMenu extends Menu {
 
         double amountWithdraw = userInput.nextDouble();
 
-        try{
+        try {
             successful = serverConnection.requestWithdrawal(withdraw.getId(), amountWithdraw);
-        }
+        } catch (IllegalArgumentException e) {
 
-        catch(IllegalArgumentException e){
-
-            if (!withdraw.getType().canWithdraw()){
+            if (!withdraw.getType().canWithdraw()) {
                 System.out.println("Credit accounts can't be withdrawn from! You will be redirected to the main menu");
-            }
-            else if (withdraw.getBalance() - amountWithdraw < withdraw.getType().getMinBalance()){
+            } else if (withdraw.getBalance() - amountWithdraw < withdraw.getType().getMinBalance()) {
                 System.out.println("Cannot withdraw more than the allowed amount! You will be redirected to the main menu");
-            }
-            else if (amountWithdraw <= 0){
+            } else if (amountWithdraw <= 0) {
                 System.out.println("You must withdraw more than $0. You will be redirected to the main menu");
 
-            }
-            else
+            } else
                 System.out.println("Account does not exist. Please try again. You will be redirected to the main menu");
 
             return;
@@ -391,14 +368,14 @@ public class ClientMenu extends Menu {
                     "at a later time");
     }
 
-    public void convertCurrencies(int idx){
+    public void convertCurrencies(int idx) {
         System.out.println("Hello! Below is a list of all the available currencies and their respective exchange" +
                 "rates");
         displayExchangeRates();
         System.out.println("Would you like to make a deposit/withdrawal? Please enter Y/N");
         String yesNo = userInput.nextLine();
 
-        if (yesNo.toLowerCase().equals("n")){
+        if (yesNo.toLowerCase().equals("n")) {
             System.out.println("Okay. Returning to main menu...");
             return;
         }
@@ -414,7 +391,7 @@ public class ClientMenu extends Menu {
                 "D for deposit or W for withdraw");
         String typeOfTransaction = userInput.nextLine().toLowerCase();
 
-        if (typeOfTransaction.equals("t")){
+        if (typeOfTransaction.equals("t")) {
 
             boolean successful = false;
 
@@ -428,15 +405,12 @@ public class ClientMenu extends Menu {
 
             try {
                 successful = serverConnection.requestTransfer(transferFrom.getId(), destAcc, amountConverted);
-            }
-
-            catch(SecurityException sE){
+            } catch (SecurityException sE) {
                 System.out.println("ERROR!");
                 System.out.println("This account does not belong to you, you will be redirected to the main menu.");
                 return;
 
-            }
-            catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
 
                 System.out.println("Error encountered. Please try again. You will be redirected ot the main menu.");
                 return;
@@ -449,9 +423,7 @@ public class ClientMenu extends Menu {
             else
                 System.out.println("Transfer unsuccessful. You will be redirected to main menu. Please try again later");
 
-        }
-
-        else if (typeOfTransaction.equals("w")){
+        } else if (typeOfTransaction.equals("w")) {
             boolean successful = false;
 
             System.out.println("Please select the account you would like to withdraw funds from");
@@ -459,25 +431,20 @@ public class ClientMenu extends Menu {
             AccountModel withdraw = makeAccountSelection(idx);
 
 
-            try{
+            try {
                 successful = serverConnection.requestWithdrawal(withdraw.getId(), amountConverted);
-            }
+            } catch (IllegalArgumentException e) {
 
-            catch(IllegalArgumentException e){
-
-                if (!withdraw.getType().canWithdraw()){
+                if (!withdraw.getType().canWithdraw()) {
                     System.out.println("ERROR");
                     System.out.println("Credit accounts can't be withdrawn from! You will be redirected to the main menu");
-                }
-                else if (withdraw.getBalance() - amountConverted < withdraw.getType().getMinBalance()){
+                } else if (withdraw.getBalance() - amountConverted < withdraw.getType().getMinBalance()) {
                     System.out.println("ERROR");
                     System.out.println("Cannot withdraw more than the allowed amount! You will be redirected to the main menu");
-                }
-                else if (amountConverted<= 0){
+                } else if (amountConverted <= 0) {
                     System.out.println("You must withdraw more than $0. You will be redirected to the main menu");
 
-                }
-                else
+                } else
                     System.out.println("Account does not exist. Please try again. You will be redirected to the main menu");
 
                 return;
@@ -491,9 +458,7 @@ public class ClientMenu extends Menu {
                 System.out.println("Withdrawal unsuccessful. You will be redirected to the main menu. Please try again" +
                         "at a later time");
 
-        }
-
-        else if(typeOfTransaction.equals("d")){
+        } else if (typeOfTransaction.equals("d")) {
             // deposit
             boolean successful = false;
             System.out.println("Please select the account you would like to deposit funds into");
@@ -505,24 +470,21 @@ public class ClientMenu extends Menu {
 
             int cashCheque = userInput.nextInt();
             String type;
-            if (cashCheque == 1){
+            if (cashCheque == 1) {
                 type = "cash";
-            }
-            else
+            } else
                 type = "cheque";
 
-            try{
+            try {
                 successful = serverConnection.tryDeposit(deposit.getId(), amountConverted);
                 serverConnection.writeDepositsText(serverConnection.getUserID(), deposit.getId(), amountConverted, type);
-            }
-            catch(IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
 
-                if (amountConverted <= 0){
+                if (amountConverted <= 0) {
                     System.out.println("ERROR");
                     System.out.println("Amount must be greater than $0, You will be redirected to main menu");
                     return;
-                }
-                else{
+                } else {
                     System.out.println("ERROR");
                     System.out.println("Account does not exist! You will be redirected to main menu");
                     return;

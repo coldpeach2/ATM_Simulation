@@ -1,15 +1,12 @@
 package atm.server.db;
 
 import atm.model.AccountModel;
-import atm.model.AccountRequestModel;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 public class AccountsTable {
     public HashMap<Long, AccountModel> accountsById = new HashMap<>();

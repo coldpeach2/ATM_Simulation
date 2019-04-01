@@ -2,7 +2,6 @@ package atm.view;
 
 import atm.ATMSim;
 import atm.model.AccountModel;
-import atm.server.BankServerConnection;
 import atm.server.ITServerConnection;
 
 import java.util.ArrayList;
@@ -177,7 +176,6 @@ public class ITHelperMenu extends Menu {
         }
         return ATMSim.STATUS_RUNNING;
     }
-
 
 
 }

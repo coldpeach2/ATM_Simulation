@@ -1,6 +1,5 @@
 package atm.server.db;
 
-import atm.model.AccountModel;
 import atm.model.UserModel;
 
 import java.io.IOException;

@@ -10,7 +10,7 @@ public class BankServerConnection {
     public final UserModel user;
     protected BankServer bankServer;
 
-    public BankServerConnection(UserModel user, BankServer bankServer){
+    public BankServerConnection(UserModel user, BankServer bankServer) {
         this.user = user;
         this.bankServer = bankServer;
     }
@@ -18,15 +18,16 @@ public class BankServerConnection {
     public boolean requestTransfer(long srcAccountId, long destAccountId, double amount) {
         return bankServer.requestTransfer(user.getId(), srcAccountId, destAccountId, amount);
     }
+
     public boolean requestWithdrawal(long accountId, double amount) {
         return bankServer.requestWithdrawal(accountId, amount);
     }
 
-    public boolean requestAccount(long userId, AccountModel.AccountType type){
+    public boolean requestAccount(long userId, AccountModel.AccountType type) {
         return bankServer.requestAccount(userId, type);
     }
 
-    public long getUserID(){
+    public long getUserID() {
         return user.getId();
     }
 
@@ -46,7 +47,7 @@ public class BankServerConnection {
         return bankServer.convertCurrency(depositAmount, inputCurrency);
     }
 
-    public boolean writeDepositsText(long userID, long srcAccount, double amount, String type){
+    public boolean writeDepositsText(long userID, long srcAccount, double amount, String type) {
         return bankServer.writeDepositsTxt(userID, srcAccount, amount, type);
     }
 
