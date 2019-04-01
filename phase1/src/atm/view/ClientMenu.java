@@ -8,6 +8,7 @@ import atm.server.db.UserTransactionTable;
 
 import javax.sound.midi.SysexMessage;
 import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.*;
 
@@ -195,9 +196,8 @@ public class ClientMenu extends Menu {
 
         if(requested) {
             try {
-                FileWriter outgoing = new FileWriter("outgoing.txt", true);
+                PrintWriter outgoing = atm.server.db.Util.openFileW("outgoing.txt");
                 outgoing.write("$ " + amount + " to " + nameOfPayee);
-                outgoing.close();
             } catch (IOException ex){
                 ex.printStackTrace();
             }
