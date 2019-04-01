@@ -2,6 +2,7 @@ package atm.view;
 
 import java.io.*;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import atm.ATMSim;
@@ -30,10 +31,11 @@ public class ManagerMenu extends Menu {
         System.out.println("1 - Add New Client");
         System.out.println("2 - Undo Transaction");
         System.out.println("3 - Add An Account for a Client");
-        System.out.println("4 - Save Data");
-        System.out.println("5 - Reboot ATM");
-        System.out.println("6 - Shutdown ATM");
-        System.out.println("7 - EXIT");
+        System.out.println("4 - Manage ATM Funds");
+        System.out.println("5 - Save Data");
+        System.out.println("6 - Reboot ATM");
+        System.out.println("7 - Shutdown ATM");
+        System.out.println("8 - EXIT");
 
         selection = userInput.nextInt();
 
@@ -51,13 +53,16 @@ public class ManagerMenu extends Menu {
                 manageAccountRequests();
                 break;
             case 4:
+                serverConnection.readAlerts();
+                manageFunds();
+            case 5:
                 serverConnection.save();
                 break;
-            case 5:
-                return ATMSim.STATUS_REBOOT;
             case 6:
-                return ATMSim.STATUS_SHUTDOWN;
+                return ATMSim.STATUS_REBOOT;
             case 7:
+                return ATMSim.STATUS_SHUTDOWN;
+            case 8:
                 return ATMSim.STATUS_EXIT;
             default:
                 System.out.println("ERROR. Please select an option from the list above.");
@@ -111,6 +116,35 @@ public class ManagerMenu extends Menu {
                 if (serverConnection.grantAccount(accountRequestModel.getId()))
                     System.out.println("Granted user " + accountRequestModel.getRequesterUserId() + " access to a new " + accountRequestModel.getRequestedAccountType() + " account.");
             }
+        }
+    }
+
+    private void manageFunds() {
+
+        System.out.println("Please select an option: ");
+        System.out.println("1 - Restock all");
+        System.out.println("2 - See ATM Funds");
+        System.out.println("3 - Exit");
+
+        int sel = userInput.nextInt();
+
+        switch (sel) {
+            case 1:
+                serverConnection.restock();
+                System.out.println(" \n Successfully restocked ATM. \n");
+                break;
+            case 2:
+                System.out.println("\n");
+                Map<Integer, Integer> bills = serverConnection.getBills();
+                for (Map.Entry<Integer, Integer> e : bills.entrySet()) {
+                    System.out.println("CAD " + e.getKey() + " bills: " + e.getValue());
+                }
+                System.out.println("\n");
+                manageFunds();
+            case 3:
+                break;
+            default:
+                manageFunds();
         }
     }
 

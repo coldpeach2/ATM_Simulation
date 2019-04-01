@@ -38,6 +38,12 @@ public class BillsTable {
         return calculateTotal() >= amount;
     }
 
+    public boolean hasEnough() {
+        for (Map.Entry<Integer, Integer> e : dollarBills.entrySet()) {
+            if (e.getValue() < 20) { return false; }
+        } return true;
+    }
+
     private int calculateTotal() {
         int total = 0;
         for (Map.Entry<Integer, Integer> entry : dollarBills.entrySet()) {
