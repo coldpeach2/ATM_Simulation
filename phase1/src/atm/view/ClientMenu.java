@@ -6,6 +6,8 @@ import atm.server.BankServerConnection;
 import atm.server.ITServerConnection;
 
 import javax.sound.midi.SysexMessage;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class ClientMenu extends Menu {
@@ -287,7 +289,6 @@ public class ClientMenu extends Menu {
         }
 
         AccountModel.AccountType accType = AccountModel.AccountType.getType(accTypeNum);
-        //requires request account in bankserverconnection.
         serverConnection.requestAccount(serverConnection.user.getId(), accType);
         System.out.println("Account successfully requested.");
     }
@@ -328,11 +329,20 @@ public class ClientMenu extends Menu {
         System.out.println("Select which debit account you'd like to pay from.");
         printArrayOfAccs(displayDbAcc);
         int dbAcc = userInput.nextInt();
-        boolean requested = serverConnection.requestTransfer(displayDbAcc.get(dbAcc).getId(),
-                displayCrAcc.get(crAcc).getId(), amount);
+        boolean requested = serverConnection.requestWithdrawal(displayDbAcc.get(dbAcc).getId(), amount);
+
+        System.out.println("To what payee would you like this bill to be paid to?");
+        String nameOfPayee = userInput.next();
 
         if(requested) {
-            System.out.println("Payment requested.");
+            try {
+                FileWriter outgoing = new FileWriter("outgoing.txt", true);
+                outgoing.write("$ " + amount + " to " + nameOfPayee);
+                outgoing.close();
+            } catch (IOException ex){
+                ex.printStackTrace();
+            }
+            System.out.println("Payment requested. $" + amount + " to " + nameOfPayee);
         }
     }
 
