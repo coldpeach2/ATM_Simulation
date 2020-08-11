@@ -16,14 +16,14 @@ The project makes use of the JSoup web-scraping library. Please find the associa
 
 This program uses a command-line user interface.
 First login with one of the following sample accounts:
-    1. Bank Manager - username: areejn password: test
-    2. User/Client - username biancap password: test2
-    3. IT Helper -
+    1. Bank Manager - username: areejn, password: test
+    2. User/Client - username: biancap, password: test2
+    3. IT Helper - username: terryk, password: terry
 
 After logging in, you will be greeted with a menu and a list of possible actions.
-Whenever user-input is required, you will be prompted.
+Whenever user-input is required, you will be prompted. Menu options are different depending on the type of account registred.
 
-~ BANK MANAGER
+~ BANK MANAGER is granted the following options:
 
 Menu Options:
 
@@ -36,7 +36,7 @@ Menu Options:
 'Shutdown ATM': Shuts down the ATM without restarting.
 'EXIT': Returns user to menu screen
 
-~ USER
+~ USER has the following options:
 
 Menu Options:
 
@@ -48,9 +48,12 @@ Menu Options:
 'Request a New Account':
 'EXIT':
 
-~ IT HELPER
+~ IT HELPER 
 
 Menu Options:
+
+'Back up Data'
+
 
 === PROJECT STRUCTURE ===
 
